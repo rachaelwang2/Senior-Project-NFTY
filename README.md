@@ -4,6 +4,8 @@
 
 ## Team Members
 
+![alt text](http://url/to/img.png)
+
 ## Skills Matrix
 
 
