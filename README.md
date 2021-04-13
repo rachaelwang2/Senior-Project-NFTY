@@ -4,7 +4,7 @@
 
 ## Team Members
 
-    <div class="section">
+    <div class="section" markdown="1">
       <b>Course Assistants:</b>
       <div>
         <div class="cas">
