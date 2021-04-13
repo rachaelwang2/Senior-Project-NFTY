@@ -15,3 +15,5 @@
 * Julien Brinson: jbrinson@stanford.edu 
 * Sara Kolb: sarakolb@stanford.edu 
 * Azhia Harris: azhiah@stanford.edu
+
+Weekly Team Meetings: Tuesdays at 4 PM PST
