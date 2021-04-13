@@ -4,16 +4,16 @@
 
 ## Team Members
 
-![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
-* Rachael Wang: 
-![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
-* Ivan Villa-Renteria: 
-![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
-* Julien Brinson: 
-![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
-* Sara Kolb: 
-![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
-* Azhia Harris: 
+<img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200"/>
+* Rachael Wang
+<img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200"/>
+* Ivan Villa-Renteria
+<img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200"/>
+* Julien Brinson
+<img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200"/>
+* Sara Kolb
+<img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200"/>
+* Azhia Harris
 
 
 
