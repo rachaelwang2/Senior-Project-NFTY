@@ -10,8 +10,8 @@
 
 ## Contact Info
 
-Rachael Wang: rachaelwang2@stanford.edu
-Ivan Villa-Renteria: ivillar@stanford.edu 
-Julien Brinson: jbrinson@stanford.edu 
-Sara Kolb: sarakolb@stanford.edu 
-Azhia Harris: azhiah@stanford.edu
+* Rachael Wang: rachaelwang2@stanford.edu
+* Ivan Villa-Renteria: ivillar@stanford.edu 
+* Julien Brinson: jbrinson@stanford.edu 
+* Sara Kolb: sarakolb@stanford.edu 
+* Azhia Harris: azhiah@stanford.edu
