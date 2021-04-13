@@ -9,11 +9,11 @@
   <table>
     <tr>
       <td>
-        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/><a href="">Amelie Byun</a><br/><a href=""></a>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/><a href="">Amelie Byun</a><br/><a href=""></a>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/><a href="">Amelie Byun</a><br/><a href=""></a>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/><a href="">Amelie Byun</a><br/><a href=""></a>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/><a href="">Amelie Byun</a><br/><a href=""></a>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="photos/amelie.jpg" alt="amelie"></div><div><br/>Course Coordinator<br/></div></div>
 
    </td>
    </tr>
