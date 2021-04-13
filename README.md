@@ -9,11 +9,8 @@
   <table>
     <tr>
       <td>
-        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200" align="justify" title="Rachael Wang"></div><div><br>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Julien%20Brinson.jpg" alt="Julien Brinson" title= "Julien Brinson" width="200" align="justify"></div><div><br>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"></div><div><br/>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"></div><div><br/>Course Coordinator<br/></div></div>
-        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"></div><div><br/>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200" align="justify" title="Rachael Wang"></div><div><br>Course Coordinator<br/></div></div> <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Julien%20Brinson.jpg" alt="Julien Brinson" title= "Julien Brinson" width="200" align="justify"></div><div><br>Course Coordinator<br/></div></div> <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"></div><div><br/>Course Coordinator<br/></div></div>
+        <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"></div><div><br/>Course Coordinator<br/></div></div> <div class="photos"><div><img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"></div><div><br/>Course Coordinator<br/></div></div>
 
    </td>
    </tr>
