@@ -5,6 +5,17 @@
 ## Team Members
 
 ![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
+* Rachael Wang: 
+![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
+* Ivan Villa-Renteria: 
+![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
+* Julien Brinson: 
+![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
+* Sara Kolb: 
+![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
+* Azhia Harris: 
+
+
 
 ## Skills Matrix
 
