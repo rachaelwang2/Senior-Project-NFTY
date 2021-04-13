@@ -4,7 +4,7 @@
 
 ## Team Members
 
-![alt text](http://url/to/Rachael Wang.png)
+![alt text](https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg)
 
 ## Skills Matrix
 
