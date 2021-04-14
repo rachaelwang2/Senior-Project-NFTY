@@ -1,4 +1,4 @@
-# Team 12: nifty
+# Team 12: nfty
 
 ## Project Proposal 
 
