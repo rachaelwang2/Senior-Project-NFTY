@@ -5,6 +5,10 @@
 ## Project Proposal 
 Nfty is a camera-based app that allows users to edit their photos using generative adversarial networks automatically and then turn their pictures into NFTs (non-fungible tokens). NFTs use the ethereum blockchain to confer unique ownership to digital pieces of art. These NFTs can be bought and sold on marketplaces and creators can enable a feature to gain a percentage every time an NFT of their art is sold or changes hands. Nfty empowers creators to instantaneously create NFTs from their photos and videos and upload them to marketplaces.  
 
+<p align="center">
+<img src="https://github.com/StanfordCS194/Team12/blob/main/figma%20mockup.png">
+</p>
+
 ## Team Members
 
 <p align="center">
