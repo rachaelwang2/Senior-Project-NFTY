@@ -9,8 +9,14 @@ Nfty has two main functions: photo-editing using GANs and NFT creation. Generati
 
 A non-fungible token (NFT) is a unit of data stored on a digital ledger (a blockchain) that certifies any digital file to be unique. An NFT functions like a cryptographic token except they are not mutually interchangeable (i.e. not fungible). It is similar to autographed artwork.  NFTs are created when blockchains string records of cryptographic hash onto previous records therefore creating a chain of identifiable data blocks. This transaction ensures the authentication of each digital file by providing a digital signature that is used to track NFT ownership. Current NFT Marketplaces for creators include OpenSea, Rarible, SuperRare, Foundation and AtomicMarket. 
 
+### Figma Mockup Light:
 <p align="center">
 <img src="https://github.com/StanfordCS194/Team12/blob/main/figma%20mockup.png">
+</p>
+### Figma Mockup Dark:
+<p align="center">
+<img src="https://github.com/StanfordCS194/Team12/blob/main/figma%20mockup%20dark.png
+">
 </p>
 
 ## Team Members
