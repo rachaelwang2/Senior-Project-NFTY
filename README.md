@@ -9,7 +9,8 @@ Nfty is a camera-based app that allows users to edit their photos using generati
 
 <p align="center">
 <img src="https://github.com/StanfordCS194/Team12/blob/main/Rachael%20Wang.jpg" alt="Rachael Wang" width="200" align="justify" title="Rachael Wang"> <img src="https://github.com/StanfordCS194/Team12/blob/main/Julien%20Brinson.jpg" alt="Julien Brinson" title= "Julien Brinson" width="200" align="justify"> <img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify">
-  
+</p>
+<p align="center">
 <img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify"> <img src="https://github.com/StanfordCS194/Team12/blob/main/Sara%20Kolb.JPG" alt="Sara Kolb" width="200" align="justify">
 </p>
 
