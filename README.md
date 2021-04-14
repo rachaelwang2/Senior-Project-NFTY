@@ -1,4 +1,4 @@
-<img src="https://github.com/StanfordCS194/Team12/blob/main/nfty%20logo.png" width="200" align=center> 
+<p style="text-align:center;"><img src="https://github.com/StanfordCS194/Team12/blob/main/nfty%20logo.png" width="200"></p>
 
 # Team 12: nfty
 
