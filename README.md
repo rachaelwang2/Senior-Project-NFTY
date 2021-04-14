@@ -1,3 +1,5 @@
+<img src="https://github.com/StanfordCS194/Team12/blob/main/nfty%logo.jpg" width="200" align="center" > 
+
 # Team 12: nfty
 
 ## Project Proposal 
