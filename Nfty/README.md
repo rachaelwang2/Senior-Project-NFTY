@@ -1,5 +1,3 @@
-# [TypeScript Example](https://www.typescriptlang.org/)
-
 <p>
   <!-- iOS -->
   <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
@@ -9,26 +7,29 @@
   <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
 </p>
 
-```sh
-npx create-react-native-app -t with-typescript
-```
 
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
 
 ## 🚀 How to use
 
-#### Creating a new project
+#### Setup
 
-- Install the CLI: `npm i -g expo-cli`
-- Create a project: `expo init --template expo-template-blank-typescript`
-- `cd` into the project
+- Install node js if you don't have it already. To check, in terminal do `node -v`
+- Then using `npm` from node, install Yarn: `npm install -g yarn` 
+- Install dependencies for the project: `yarn install`
+- Download metamask crypto wallet for chrome *and* on your phone. (Right now, the web application requires a phone wallet.) 
+ 
+#### To Run
 
-### Adding TypeScript to existing projects
+- `yarn run web # ios, android` 
+- Note: ios and android simulators can't connect to a metamask wallet, because metamask isn't on your simulator phone. 
 
-- Create a blank TypeScript config: `touch tsconfig.json`
-- Run `expo start` to automatically configure TypeScript
-- Rename files to TypeScript, `.tsx` for React components and `.ts` for plain typescript files
+#### To edit
+- Active code for the app lives `frontend/App.tsx` 
+- TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
+
 
 ## 📝 Notes
 
-- [Expo TypeScript guide](https://docs.expo.io/versions/latest/guides/typescript/)
+- [Download Node JS](https://nodejs.org/en/download/)
+- [Metamask](https://docs.expo.io/versions/latest/guides/typescript/)
+- Generated from [create-react-native-dapp](https://github.com/cawfree/create-react-native-dapp)
