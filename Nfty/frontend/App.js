@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   white: { backgroundColor: 'white' },
 });
 
-const shouldDeployContract = async (web3, abi, data, from: string) => {
+const shouldDeployContract = async (web3, abi, data, from) => {
   const deployment = new web3.eth.Contract(abi).deploy({ data });
   const gas = await deployment.estimateGas();
   const {
@@ -26,7 +26,7 @@ const shouldDeployContract = async (web3, abi, data, from: string) => {
 
 function App(): JSX.Element {
   const connector = useWalletConnect();
-  const [message, setMessage] = React.useState<string>('Loading...');
+  const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
     () => new Web3(new Web3.providers.HttpProvider(`http://${localhost}:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
