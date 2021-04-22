@@ -16,11 +16,13 @@
 - Install node js if you don't have it already. To check, in terminal do `node -v`
 - Then using `npm` from node, install Yarn: `npm install -g yarn` 
 - Install dependencies for the project: `yarn install`
+- Create an environment document from the example: `cp .env.example .env`
 - Download metamask crypto wallet for chrome *and* on your phone. (Right now, the web application requires a phone wallet.) 
  
 #### To Run
 
 - `yarn run web # ios, android` 
+- Issues: If you get an module not found error for '../artificats/contracts' then run `npx hardhat compile` 
 - Note: ios and android simulators can't connect to a metamask wallet, because metamask isn't on your simulator phone. 
 
 #### To edit
