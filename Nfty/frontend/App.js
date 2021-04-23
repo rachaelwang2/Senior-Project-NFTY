@@ -1,4 +1,4 @@
-import { HARDHAT_PORT, HARDHAT_PRIVATE_KEY } from '@env';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useWalletConnect, withWalletConnect } from '@walletconnect/react-native-dapp';
 import React from 'react';
@@ -28,7 +28,7 @@ function App(): JSX.Element {
   const connector = useWalletConnect();
   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
-    () => new Web3(new Web3.providers.HttpProvider(`http://${localhost}:${HARDHAT_PORT}`)),
+    () => new Web3(new Web3.providers.HttpProvider(`http://${HOST_ADDRESS}:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
   );
   React.useEffect(() => {
