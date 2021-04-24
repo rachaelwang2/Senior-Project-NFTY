@@ -6,7 +6,7 @@ import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import localhost from 'react-native-localhost';
 import Web3 from 'web3';
 
-import { expo } from '../app.json';
+import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ const shouldDeployContract = async (web3, abi, data, from) => {
   return new web3.eth.Contract(abi, contractAddress);
 };
 
-function Connect(): JSX.Element {
+function WalletConnectScreen(): JSX.Element {
   const connector = useWalletConnect();
   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
@@ -88,7 +88,7 @@ function Connect(): JSX.Element {
 
 const { scheme } = expo;
 
-export default withWalletConnect(Connect, {
+export default withWalletConnect(WalletConnectScreen, {
   redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
   storageOptions: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

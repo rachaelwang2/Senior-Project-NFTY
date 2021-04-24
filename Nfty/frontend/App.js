@@ -9,6 +9,7 @@ import WelcomeScreen from './views/screens/Welcome';
 import LoginScreen from './views/screens/Login';
 import SignUpScreen from './views/screens/SignUp';
 import DrawerNavigationRoutes from './views/screens/DrawerNavigationRoutes';
+import WalletConnectScreen from './views/screens/WalletConnect';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,12 @@ const App = () => {
         <Stack.Screen
           name="Auth"
           component={Auth}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="WalletConnectScreen"
+          component={WalletConnectScreen}
+          // Hiding header for Welcome Screen
           options={{headerShown: false}}
         />
         {/* Navigation Drawer as a landing page */}

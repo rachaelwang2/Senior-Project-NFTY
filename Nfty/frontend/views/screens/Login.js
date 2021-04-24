@@ -12,7 +12,7 @@ class LoginScreen extends Component {
             <View style= {globalStyle.container}>
                 <div>
 				<Text style = {localStyle.logoText}> Login</Text>	
-				<Button onPress = {()=> this.props.navigation.replace('Auth')} title = "Log In"/>
+				<Button onPress = {()=> this.props.navigation.replace('WalletConnectScreen')} title = "Log In"/>
 				</div>
 			</View>
         )
