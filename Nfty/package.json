@@ -1,6 +1,9 @@
 {
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.13.4",
+    "@react-navigation/drawer": "^5.12.5",
+    "@react-navigation/native": "^5.9.4",
+    "@react-navigation/stack": "^5.14.4",
     "@walletconnect/react-native-dapp": "1.4.1",
     "base-64": "1.0.0",
     "buffer": "6.0.3",
@@ -19,7 +22,7 @@
     "react-native-get-random-values": "1.5.0",
     "react-native-localhost": "1.0.0",
     "react-native-reanimated": "~1.13.0",
-    "react-native-screens": "~2.15.0",
+    "react-native-screens": "^2.15.2",
     "react-native-stream": "0.1.9",
     "react-native-svg": "12.1.0",
     "react-native-unimodules": "~0.12.0",
