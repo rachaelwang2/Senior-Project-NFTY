@@ -26,6 +26,8 @@ class LoginScreen extends Component {
             //   </View>
             // </KeyboardAvoidingView>
 
+            // TO DO: add login functionality and save to storage, add facebook and instagram login
+
             <View style={globalStyle.mainBody}>
             <ScrollView
               keyboardShouldPersistTaps="handled"

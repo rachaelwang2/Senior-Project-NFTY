@@ -6,30 +6,56 @@ import {globalStyle} from "./global-style";
 class WelcomeScreen extends Component {
 	constructor(props){
 		super(props);
+		this.state = {
+			animating: true,
+		}
 	}
-    render() {
-        return (
-            <View style={{alignItems: 'center'}}>
-                <div>
-				<Text style = {localStyle.logoText}> Welcome to Nfty</Text>	
-				{/* <Button containerStyle={globalStyle.buttonTextStyle} style={globalStyle.buttonTextStyle} onPress = {()=> this.props.navigation.navigate('Auth')} title = "Log In"/> */}
-				<TouchableOpacity
-                    style={globalStyle.buttonStyle}
-                    activeOpacity={0.5}
-                    onPress = {()=> this.props.navigation.navigate('Auth')}
-                    >
-                    <Text style={globalStyle.buttonTextStyle}>Login</Text>
-                  </TouchableOpacity>
-				</div>
+
+	componentDidMount() {
+		// could get rid of timeout and automatically redirect
+		setTimeout(() => {
+			this.setState({animating: false})
+			//Check if user_id is set or not
+			//If not then send for Authentication
+			//else send to Home Screen
+			AsyncStorage.getItem('user_id').then((value) =>
+			  this.props.navigation.replace(
+				value === null ? 'Auth' : 'DrawerNavigationRoutes'
+			  ),
+			);
+		  }, 500);
+	}
+
+
+	render() {
+		return (
+			<View style={localStyle.container}>
+			  <Image
+				source={require('../img/nfty_logo.png')}
+				style={{width: '90%', resizeMode: 'contain', margin: 30}}
+			  />
+			  <ActivityIndicator
+				animating={this.state.animating}
+				color="#FFFFFF"
+				size="large"
+				style={localStyle.activityIndicator}
+			  />
 			</View>
-        )
-    }
+		  );
+	  }
 }
 
 const localStyle = StyleSheet.create({
-	logoText: {
-		fontSize: 20
+	container: {
+	  flex: 1,
+	  alignItems: 'center',
+	  justifyContent: 'center',
+	  backgroundColor: '#000000',
 	},
-});
+	activityIndicator: {
+	  alignItems: 'center',
+	  height: 80,
+	},
+  });
 
 export default WelcomeScreen;

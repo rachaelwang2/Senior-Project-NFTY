@@ -52,10 +52,10 @@ export const AppStyles = {
   };
 
 export const globalStyle = {
-	container: {
-		flex: 1,
-		alignItems: "center"
-	},
+container: {
+	flex: 1,
+	alignItems: "center"
+},
 containerView: {
   flex: 1,
 },
