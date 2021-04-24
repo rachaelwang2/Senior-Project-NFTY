@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@freakycoder/react-native-helpers": "^1.0.1",
+    "@freakycoder/react-native-material-textfield": "^1.0.0",
     "@react-native-async-storage/async-storage": "1.13.4",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
@@ -21,8 +23,11 @@
     "react-native-gesture-handler": "~1.8.0",
     "react-native-get-random-values": "1.5.0",
     "react-native-localhost": "1.0.0",
+    "react-native-login-screen": "^2.1.4",
+    "react-native-material-textfield": "^0.16.1",
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "^2.15.2",
+    "react-native-spinkit": "^1.5.1",
     "react-native-stream": "0.1.9",
     "react-native-svg": "12.1.0",
     "react-native-unimodules": "~0.12.0",

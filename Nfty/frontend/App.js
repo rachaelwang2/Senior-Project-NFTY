@@ -5,11 +5,11 @@ import localhost from 'react-native-localhost';
 import { expo } from '../app.json';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import WelcomeScreen from './views/screens/Welcome';
-import LoginScreen from './views/screens/Login';
-import SignUpScreen from './views/screens/SignUp';
+import WelcomeScreen from './views/screens/WelcomeScreen';
+import LoginScreen from './views/screens/LoginScreen';
+import SignUpScreen from './views/screens/SignUpScreen';
 import DrawerNavigationRoutes from './views/screens/DrawerNavigationRoutes';
-import WalletConnectScreen from './views/screens/WalletConnect';
+import WalletConnectScreen from './views/screens/WalletConnectScreen';
 
 const Stack = createStackNavigator();
 
