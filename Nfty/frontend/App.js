@@ -26,15 +26,24 @@ const Auth = () => {
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        options={{headerShown: false}}
+        options={{
+          title: 'Login', //Set Header Title
+          headerStyle: {
+            backgroundColor: '#000000', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}
       />
       <Stack.Screen
         name="SignUpScreen"
         component={SignUpScreen}
         options={{
-          title: 'SignUp', //Set Header Title
+          title: 'Sign Up', //Set Header Title
           headerStyle: {
-            backgroundColor: '#307ecc', //Set Header color
+            backgroundColor: '#000000', //Set Header color
           },
           headerTintColor: '#fff', //Set Header text color
           headerTitleStyle: {

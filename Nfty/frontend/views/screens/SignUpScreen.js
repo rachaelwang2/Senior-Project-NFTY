@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, View, StyleSheet, Image, Text, Button} from 'react-native';
+import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {globalStyle} from "./global-style";
 
@@ -9,10 +9,15 @@ class SignUpScreen extends Component {
 	}
     render() {
         return (
-            <View style= {globalStyle.container}>
+            <View style={{alignItems: 'center'}}>
                 <div>
-				<Text style = {localStyle.logoText}> Sign Up</Text>	
-				<Button onPress = {()=> this.props.navigation.replace('Auth')} title = "Log In"/>
+				<TouchableOpacity
+                    style={globalStyle.buttonStyle}
+                    activeOpacity={0.5}
+                    onPress = {()=> this.props.navigation.navigate('WelcomeScreen')}
+                    >
+                    <Text style={globalStyle.buttonTextStyle}>Home</Text>
+                  </TouchableOpacity>
 				</div>
 			</View>
         )
