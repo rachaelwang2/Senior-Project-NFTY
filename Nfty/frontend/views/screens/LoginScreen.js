@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import {ActivityIndicator, View, StyleSheet, Image, Text, TextInput, Button, Alert, 
-    TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity} from 'react-native';
+  Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {globalStyle} from "./global-style";
+import Loader from '../components/Loader';
+import {globalStyle, AppStyles} from "./global-style";
 
 class LoginScreen extends Component {
 	constructor(props){
 		super(props);
+    this.state = {
+      email: "",
+      password: "", 
+      loading: false, 
+      errortext: ""
+    };
+    this.onPressLogin = this.onPressLogin.bind(this);
 	}
+
+  onPressLogin = () => {
+    this.setState({ errortext: '' })
+    if (!this.state.email) {
+      alert('Please fill Email');
+      return;
+    }
+    const { email, password } = this.state;
+    if (!this.state.password) {
+      alert('Please fill Password');
+      return;
+    }
+    // check if user id is in firestore collection, if so put in async storage
+
+  };
+
     render() {
         return (
             // <KeyboardAvoidingView style={globalStyle.containerView} behavior="padding">
@@ -26,9 +50,14 @@ class LoginScreen extends Component {
             //   </View>
             // </KeyboardAvoidingView>
 
-            // TO DO: add login functionality and save to storage, add facebook and instagram login
-
             <View style={globalStyle.mainBody}>
+            {this.state.loading  &&
+              <ActivityIndicator
+              animating={this.state.loading}
+              color="#000000"
+              size="large"
+              style={styles.activityIndicator}
+            /> }
             <ScrollView
               keyboardShouldPersistTaps="handled"
               contentContainerStyle={{
@@ -52,10 +81,8 @@ class LoginScreen extends Component {
                   <View style={globalStyle.SectionStyle}>
                     <TextInput
                       style={globalStyle.inputStyle}
-                      // onChangeText={(UserEmail) =>
-                      //   setUserEmail(UserEmail)
-                      // }
-                      placeholder="Enter Email" //dummy@abc.com
+                      onChangeText={text => this.setState({ email: text })}
+                      placeholder="Enter Email" 
                       placeholderTextColor="#8b9cb5"
                       autoCapitalize="none"
                       keyboardType="email-address"
@@ -71,10 +98,8 @@ class LoginScreen extends Component {
                   <View style={globalStyle.SectionStyle}>
                     <TextInput
                       style={globalStyle.inputStyle}
-                      // onChangeText={(UserPassword) =>
-                      //   setUserPassword(UserPassword)
-                      // }
-                      placeholder="Enter Password" //12345
+                      onChangeText={text => this.setState({ password: text })}
+                      placeholder="Enter Password"
                       placeholderTextColor="#8b9cb5"
                       keyboardType="default"
                       // ref={passwordInputRef}
@@ -85,16 +110,15 @@ class LoginScreen extends Component {
                       returnKeyType="next"
                     />
                   </View>
-                  {/* {errortext != '' ? (
+                  {this.state.errortext != '' ? (
                     <Text style={globalStyle.errorTextStyle}>
-                      {errortext}
+                      {this.state.errortext}
                     </Text>
-                  ) : null} */}
+                  ) : null}
                   <TouchableOpacity
                     style={globalStyle.buttonStyle}
                     activeOpacity={0.5}
-                    // onPress={handleSubmitPress}
-                    >
+                    onPress={() => this.onPressLogin()}>
                     <Text style={globalStyle.buttonTextStyle}>LOGIN</Text>
                   </TouchableOpacity>
                   <Text
@@ -110,10 +134,38 @@ class LoginScreen extends Component {
     }
 }
 
-const localStyle = StyleSheet.create({
-	logoText: {
-		fontSize: 20
-	},
+const styles = StyleSheet.create({
+  activityIndicatorWrapper: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  activityIndicator: {
+    alignItems: 'center',
+    height: 80,
+  },
+  facebookButtonStyle: {
+    backgroundColor: AppStyles.color.facebook,
+    borderWidth: 0,
+    color: '#000000',
+    borderColor: '#7DE24E',
+    height: 40,
+    alignItems: 'center',
+    borderRadius: 30,
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 20,
+    marginBottom: 25,
+  },
+  facebookButtonTextStyle: {
+    color: AppStyles.color.white,
+    paddingVertical: 10,
+    fontSize: 16,
+  },
 });
 
 export default LoginScreen;
