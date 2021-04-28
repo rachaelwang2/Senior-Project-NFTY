@@ -29,18 +29,18 @@ function App(): JSX.Element {
   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
     () => new Web3(new Web3.providers.HttpProvider(`http://${HOST_ADDRESS}:${HARDHAT_PORT}`)),
-    [HARDHAT_PORT]
+    [HOST_ADDRESS, HARDHAT_PORT]
   );
   React.useEffect(() => {
     (async () => {
-      const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+      const { address } =  await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
       const contract = await shouldDeployContract(
         web3,
         Hello.abi,
         Hello.bytecode,
         address
       );
-      setMessage(await contract.methods.sayHello('React Native').call());
+      setMessage(await contract.methods.sayHello('Native').call());
     })();
   }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
   const connectWallet = React.useCallback(() => {
@@ -67,12 +67,12 @@ function App(): JSX.Element {
   return (
     <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
       <Text testID="tid-message">{message}</Text>
-      {!connector.connected && (
+      {!connector?.connected && (
         <TouchableOpacity onPress={connectWallet}>
           <Text>Connect a Wallet</Text>
         </TouchableOpacity>
       )}
-      {!!connector.connected && (
+      {!!connector?.connected && (
         <>
           <TouchableOpacity onPress={signTransaction}>
             <Text>Sign a Transaction</Text>
