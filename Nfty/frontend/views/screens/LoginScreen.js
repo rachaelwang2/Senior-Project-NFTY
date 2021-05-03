@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import {ActivityIndicator, View, StyleSheet, Image, Text, TextInput, Button, Alert, 
   Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity} from 'react-native';
+import { connect } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Loader from '../components/Loader';
 import {globalStyle, AppStyles} from "./global-style";
+import {
+  testFunction
+} from "../../redux/ActionCreators";
+
+const mapDispatchToProps = (dispatch) => ({
+  testFunction: () => dispatch(testFunction())
+});
 
 class LoginScreen extends Component {
 	constructor(props){
@@ -18,6 +25,8 @@ class LoginScreen extends Component {
 	}
 
   onPressLogin = () => {
+    console.log("login pressed")
+    this.props.testFunction();
     this.setState({ errortext: '' })
     if (!this.state.email) {
       alert('Please fill Email');
@@ -168,4 +177,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+// export default LoginScreen;
+export default connect(null, mapDispatchToProps)(LoginScreen);
