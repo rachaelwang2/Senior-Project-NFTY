@@ -5,12 +5,18 @@ import { connect } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {globalStyle, AppStyles} from "./global-style";
 import {
-  testFunction
-} from "../../redux/ActionCreators";
+  loginUser
+} from "../../redux/actions/ActionCreators";
 
 const mapDispatchToProps = (dispatch) => ({
-  testFunction: () => dispatch(testFunction())
+  loginUser: (email, password) => dispatch(loginUser(email, password))
 });
+
+const mapStateToProps = (state) => {
+	return {
+	  auth: state.auth,
+	};
+};
 
 class LoginScreen extends Component {
 	constructor(props){
@@ -24,9 +30,15 @@ class LoginScreen extends Component {
     this.onPressLogin = this.onPressLogin.bind(this);
 	}
 
+  componentDidUpdate(prevProps) {
+		if (this.props.auth.logged_in !== prevProps.auth.logged_in) {
+      if(this.props.auth.logged_in) {
+        this.props.navigation.replace('HomeScreen')
+      }
+		}
+	}
+
   onPressLogin = () => {
-    console.log("login pressed")
-    this.props.testFunction();
     this.setState({ errortext: '' })
     if (!this.state.email) {
       alert('Please fill Email');
@@ -37,7 +49,8 @@ class LoginScreen extends Component {
       alert('Please fill Password');
       return;
     }
-    // check if user id is in firestore collection, if so put in async storage
+    this.props.loginUser(this.state.email, this.state.password)
+    // if user does not exist alert user to try again
 
   };
 
@@ -177,5 +190,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default LoginScreen;
-export default connect(null, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

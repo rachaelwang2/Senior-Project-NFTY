@@ -7,9 +7,17 @@ import {createStackNavigator} from '@react-navigation/stack';
 import WelcomeScreen from './WelcomeScreen';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
+import HomeScreen from './HomeScreen';
 import {connect} from "react-redux"
 import DrawerNavigationRoutes from './DrawerNavigationRoutes';
 import WalletConnectScreen from './WalletConnectScreen';
+import {
+	attemptLogin
+} from "../../redux/actions/ActionCreators";
+
+const mapDispatchToProps = (dispatch) => ({
+	attemptLogin: () => dispatch(attemptLogin())
+});
 
 const Stack = createStackNavigator();
 
@@ -54,7 +62,9 @@ class Navigator extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.attemptLogin()
+  } 
 
   render() {
     return (
@@ -77,6 +87,12 @@ class Navigator extends React.Component {
             // Hiding header for Welcome Screen
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            // Hiding header for Welcome Screen
+            options={{headerShown: false}}
+          />
           {/* Navigation Drawer as a landing page */}
           {/* <Stack.Screen
             name="DrawerNavigationRoutes"
@@ -87,9 +103,6 @@ class Navigator extends React.Component {
         </Stack.Navigator>
     );
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => ({

@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {globalStyle} from "./global-style";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+	return {
+	  auth: state.auth,
+	};
+};
 
 class WelcomeScreen extends Component {
 	constructor(props){
@@ -13,16 +19,23 @@ class WelcomeScreen extends Component {
 
 	componentDidMount() {
 		// could get rid of timeout and automatically redirect
+		// if sign in function not called in index could use loading state while function runs 
+		// replace async storage call with redux state check 
 		setTimeout(() => {
 			this.setState({animating: false})
 			//Check if user_id is set or not
 			//If not then send for Authentication
 			//else send to Home Screen
-			AsyncStorage.getItem('user_id').then((value) =>
-			  this.props.navigation.replace(
-				value === null ? 'Auth' : 'DrawerNavigationRoutes'
-			  ),
-			);
+
+			this.props.navigation.replace(
+			this.props.auth.logged_in === false ? 'Auth' : 'HomeScreen'
+			)
+			
+			// AsyncStorage.getItem('user_id').then((value) =>
+			//   this.props.navigation.replace(
+			// 	value === null ? 'Auth' : 'DrawerNavigationRoutes'
+			//   ),
+			// );
 		  }, 500);
 	}
 
@@ -58,4 +71,5 @@ const localStyle = StyleSheet.create({
 	},
   });
 
-export default WelcomeScreen;
+// export default WelcomeScreen;
+export default connect(mapStateToProps, null)(WelcomeScreen);

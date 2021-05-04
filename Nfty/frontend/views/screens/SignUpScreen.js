@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import {ActivityIndicator, View, ScrollView, StyleSheet, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import InstagramLogin from 'react-native-instagram-login';
 import {globalStyle} from "./global-style";
+import { connect } from "react-redux";
+import {
+	signupUser
+} from "../../redux/actions/ActionCreators";
+  
+  const mapDispatchToProps = (dispatch) => ({
+	signupUser: (email, password, fullname) => dispatch(signupUser(email, password, fullname))
+  });
 
-{/* <InstagramLogin
-	ref={ref => (this.instagramLogin = ref)}
-	clientId='931cca1d0c154de3aafd83300ff8b288'
-	redirectUrl='https://google.com'
-	scopes={['public_content+follower_list']}
-	onLoginSuccess={(token) => this.setState({ token })}
-	onLoginFailure={(data) => this.setState({ failure: data })}
-	/> */}
+  const mapStateToProps = (state) => {
+	return {
+	  auth: state.auth,
+	};
+  };
+  
 
 class SignUpScreen extends Component {
 	constructor(props){
@@ -27,6 +31,14 @@ class SignUpScreen extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.auth.signup !== prevProps.auth.signup) {
+			if (this.props.auth.signup) {
+				this.setState({ registrationSuccess: true })
+			}
+		}
+	}
+
 	handleSubmit = () => {
 		this.setState({ errortext: '' })
 		if (!this.state.userEmail) {
@@ -37,18 +49,12 @@ class SignUpScreen extends Component {
 		  alert('Please fill Name');
 		  return;
 		}
-		if (!this.state.userPassword) {
+		if (!this.state.password) {
 		  alert('Please fill Password');
 		  return;
 		}
-		setLoading(true);
-		var dataToSend = {
-		  name: this.state.userName,
-		  email: this.state.userEmail,
-		  password: this.state.password,
-		};
-		// send to firebase
-	
+		//this.setState({ loading: true })
+		this.props.signupUser(this.state.userEmail, this.state.password, this.state.userName)
 	};
 
     render() {
@@ -159,7 +165,7 @@ class SignUpScreen extends Component {
 					<Text
                     style={globalStyle.registerTextStyle}
                     onPress={() => this.props.navigation.navigate('LoginScreen')}>
-                    Have an account? Login
+                    Have an account ? Login
                   </Text>
 					</KeyboardAvoidingView>
 				</ScrollView>
@@ -181,4 +187,4 @@ const styles = StyleSheet.create({
 	  },
   });
 
-export default SignUpScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);
