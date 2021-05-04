@@ -9,7 +9,7 @@ export const testFunction = () => (dispatch) => {
 	console.log("action creator called")
 }
 
-// test user objects are consistent 
+// test user objects are consistent
 
 export const attemptLogin = () => (dispatch) => {
 	// auth.onAuthStateChanged(function (user) {
@@ -96,12 +96,13 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 	// 	alert("Please fill out the required fields.");
 	// 	return;
 	// }
+	// auth.setPersistence(fireauth.Auth.Persistence.LOCAL).then(() => {
 	// auth()
 	// .createUserWithEmailAndPassword(email, password)
 	// .then(response => {
 	// 	const data = {
 	// 		email: email,
-	//      fullname: fullname,	
+	//      fullname: fullname,
 	// 	};
 	// 	user_uid = response.user._user.uid;
 	// 	firestore()
@@ -124,6 +125,7 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 	// 	console.log(error)
 	// 	alert("Error signing up user. Please try again.");
 	// });
+// });
 }
 
 export const receiveLogin = (user) => {
