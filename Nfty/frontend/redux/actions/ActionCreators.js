@@ -1,8 +1,9 @@
 import * as ActionTypes from "../types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { firestore, fireauth, auth, firebasestore } from "../firebase/firebase";
+// import { firestore, fireauth, auth, firebasestore, storage } from "../firebase/firebase";
 // import firebase from '@react-native-firebase/app';
 // import auth from '@react-native-firebase/auth';
+// import storage from '@react-native-firebase/storage';
 // import firestore from '@react-native-firebase/firestore'
 
 export const testFunction = () => (dispatch) => {
@@ -15,6 +16,24 @@ export const attemptLogin = () => (dispatch) => {
 	// auth.onAuthStateChanged(function (user) {
 	// 	if (user) {
 	// 	  //console.log("user is already cached", user);
+		// const id = user._user.uid;
+		// firestore()
+		// .collection("users")
+		// .doc(id)
+		// .get()
+		// .then(function(doc) {
+		// var dict = {
+		// 	id: id,
+		// 	email: email,
+		// 	fullname: doc.displayName
+		// };
+		// if (doc.exists) {
+		// 	dispatch(receiveLogin(dict));
+		// }
+		// })
+		// .catch(function(error) {
+		// console.log(error)
+		// });
 	// 	  dispatch(receiveLogin(user));
 	// 	} else {
 	// 		const email = await AsyncStorage.getItem("@loggedInUserID:key");
@@ -37,7 +56,6 @@ export const attemptLogin = () => (dispatch) => {
 	// 				  var dict = {
 	// 					id: id,
 	// 					email: email,
-	// 					profileURL: doc.photoURL,
 	// 					fullname: doc.displayName
 	// 				  };
 	// 				  if (doc.exists) {
@@ -102,7 +120,7 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 	// .then(response => {
 	// 	const data = {
 	// 		email: email,
-	//      fullname: fullname,
+	//      displayName: fullname,
 	// 	};
 	// 	user_uid = response.user._user.uid;
 	// 	firestore()
@@ -127,6 +145,49 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 	// });
 // });
 }
+
+export const uploadImage = (path, fileName) => (dispatch) => {
+	// auth.onAuthStateChanged(function (user) {
+	// 	if (user) {
+	// 		const id = user._user.uid;
+	// 		let reference = storage().ref(`images/${filename}`);        
+	// 		let task = reference.putFile(path);     
+	// 		task.on('state_changed', snapshot => {
+	// 			let progress = Math.round(
+	// 				(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+	//              // can send progress to redux for frontend rendering 
+	// 			  );
+	// 		  },
+	// 		  error => {
+	// 			console.log(error);
+	// 		  },
+	// 		  () => {
+	// 			storage
+	// 			  .ref("images")
+	// 			  .child(fileName)
+	// 			  .getDownloadURL()
+	// 			  .then(url => {
+	// 				// store in firestore database
+	// 				const data = {
+	// 					imageUrl: url,
+	// 				};
+	// 				firestore()
+	// 				.collection("images")
+	// 				.doc(id)
+	// 				.collection("uploads")
+	// 				.doc(filename)
+	// 				.set(data);
+	// 			  });
+	// 		  }
+	// 		);
+		
+	// 		// task.then(() => {                                 
+	// 		//     console.log('Image uploaded to Firebase storage');
+	// 		// }).catch((e) => console.log('uploading image error => ', e));
+	// 	}
+	// });
+}
+
 
 export const receiveLogin = (user) => {
 	return {
