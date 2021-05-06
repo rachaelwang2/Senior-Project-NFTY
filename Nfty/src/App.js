@@ -5,9 +5,9 @@ import React from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import localhost from 'react-native-localhost';
 import Web3 from 'web3';
-
 import { expo } from '../app.json';
 import Hello from '../artifacts/contracts/Hello.sol/Hello.json';
+import { firestore } from "./firebase/config";
 
 const styles = StyleSheet.create({
   center: { alignItems: 'center', justifyContent: 'center' },
@@ -46,6 +46,22 @@ function App(): JSX.Element {
   const connectWallet = React.useCallback(() => {
     return connector.connect();
   }, [connector]);
+
+  const callFirebase = React.useCallback(() => {
+    console.log("testing firebase")
+    firestore
+        .collection("test")
+        .doc("test1")
+        .set(
+          {
+            data: "adjusted again",
+          }
+        )
+        .catch(function (error) {
+          console.error("Error posting message: ", error);
+        });
+  });
+
   const signTransaction = React.useCallback(async () => {
     try {
        await connector.signTransaction({
@@ -68,9 +84,14 @@ function App(): JSX.Element {
     <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
       <Text testID="tid-message">{message}</Text>
       {!connector.connected && (
+        <div>
         <TouchableOpacity onPress={connectWallet}>
           <Text>Connect a Wallet</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={callFirebase}>
+        <Text>Test Firebase config</Text>
+      </TouchableOpacity>
+      </div>
       )}
       {!!connector.connected && (
         <>
