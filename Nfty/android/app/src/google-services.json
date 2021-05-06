@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "591307275225",
+    "project_id": "nfty-dc26a",
+    "storage_bucket": "nfty-dc26a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591307275225:android:8d91c4591caa5edf3c77c8",
+        "android_client_info": {
+          "package_name": "com.nftyandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591307275225-4rftcredm14miucj0ic8flprb2e3iaaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmP4ycxnExgmPRF2Y2N7S5Csz6UvSCvx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591307275225-4rftcredm14miucj0ic8flprb2e3iaaq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "591307275225-ngjq95i16nsu6e2no963p2s6pibvj941.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nftyios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
