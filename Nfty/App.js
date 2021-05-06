@@ -1,124 +1,93 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useWalletConnect, withWalletConnect } from '@walletconnect/react-native-dapp';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import { expo } from './app.json';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Web3 from 'web3';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+import { expo } from './app.json';
+import Hello from './artifacts/contracts/Hello.sol/Hello.json';
+
+
+const shouldDeployContract = async (web3, abi, data, from) => {
+  const deployment = new web3.eth.Contract(abi).deploy({ data });
+  const gas = await deployment.estimateGas();
+  const {
+    options: { address: contractAddress },
+  } = await deployment.send({ from, gas });
+  return new web3.eth.Contract(abi, contractAddress);
 };
 
-const App: () => Node = () => {
+function App(): JSX.Element {
   const connector = useWalletConnect();
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [message, setMessage] = React.useState('Loading...');
+  const web3 = React.useMemo(
+    () => new Web3(new Web3.providers.HttpProvider(`http://${HOST_ADDRESS}:${HARDHAT_PORT}`)),
+    [HOST_ADDRESS, HARDHAT_PORT]
+  );
+  React.useEffect(() => {
+    (async () => {
+      const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+      const contract = await shouldDeployContract(
+        web3,
+        Hello.abi,
+        Hello.bytecode,
+        address
+      );
+      setMessage(await contract.methods.sayHello('React Native').call());
+    })();
+  }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
   const connectWallet = React.useCallback(() => {
     return connector.connect();
   }, [connector]);
-
-
+  const signTransaction = React.useCallback(async () => {
+    try {
+       await connector.signTransaction({
+        data: '0x',
+        from: '0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3',
+        gas: '0x9c40',
+        gasPrice: '0x02540be400',
+        nonce: '0x0114',
+        to: '0x89D24A7b4cCB1b6fAA2625Fe562bDd9A23260359',
+        value: '0x00',
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [connector]);
+  const killSession = React.useCallback(() => {
+    return connector.killSession();
+  }, [connector]);
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <TouchableOpacity onPress={connectWallet}>
-            <Text>Connect a Wallet</Text>
+    <View style={styles.container}>
+      {!connector.connected && (
+        <TouchableOpacity onPress={connectWallet}>
+          <Text>Connect a Wallet</Text>
+        </TouchableOpacity>
+      )}
+      {!!connector.connected && (
+        <>
+          <TouchableOpacity onPress={signTransaction}>
+            <Text>Sign a Transaction</Text>
           </TouchableOpacity>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          <TouchableOpacity onPress={killSession}>
+            <Text>Kill Session</Text>
+          </TouchableOpacity>
+        </>
+      )}
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
