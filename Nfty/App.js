@@ -5,7 +5,8 @@
  * @format
  * @flow strict-local
  */
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useWalletConnect, withWalletConnect } from '@walletconnect/react-native-dapp';
 import React from 'react';
 import type {Node} from 'react';
 import {
@@ -16,6 +17,7 @@ import {
   Text,
   useColorScheme,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -25,6 +27,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import { expo } from './app.json';
+import Web3 from 'web3';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -53,11 +58,16 @@ const Section = ({children, title}): Node => {
 };
 
 const App: () => Node = () => {
+  const connector = useWalletConnect();
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const connectWallet = React.useCallback(() => {
+    return connector.connect();
+  }, [connector]);
+
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -70,6 +80,9 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <TouchableOpacity onPress={connectWallet}>
+            <Text>Connect a Wallet</Text>
+          </TouchableOpacity>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
@@ -109,4 +122,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+const { scheme } = expo;
+
+export default withWalletConnect(App, {
+  redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
+  storageOptions: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    asyncStorage: AsyncStorage,
+  },
+});
+
