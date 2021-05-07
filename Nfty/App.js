@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Web3 from 'web3';
+import localhost from 'react-native-localhost';
 
 import { expo } from './app.json';
 import Hello from './artifacts/contracts/Hello.sol/Hello.json';

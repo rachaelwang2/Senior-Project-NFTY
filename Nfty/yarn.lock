@@ -5896,15 +5896,7 @@ ethereumjs-abi@0.6.5:
     bn.js "^4.10.0"
     ethereumjs-util "^4.3.0"
 
-ethereumjs-abi@0.6.8, ethereumjs-abi@^0.6.8:
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz#71bc152db099f70e62f108b7cdfca1b362c6fcae"
-  integrity sha512-Tx0r/iXI6r+lRsdvkFDlut0N08jWMnKRZ6Gkq+Nmw75lZe4e6o3EkSnkaBP5NF6+m5PTGAr9JP43N3LyeoglsA==
-  dependencies:
-    bn.js "^4.11.8"
-    ethereumjs-util "^6.0.0"
-
-"ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
+ethereumjs-abi@0.6.8, ethereumjs-abi@^0.6.8, "ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
   version "0.6.8"
   resolved "git+https://github.com/ethereumjs/ethereumjs-abi.git#1a27c59c15ab1e95ee8e5c4ed6ad814c49cc439e"
   dependencies:
@@ -10623,6 +10615,14 @@ react-native-get-random-values@^1.7.0:
   integrity sha512-zDhmpWUekGRFb9I+MQkxllHcqXN9HBSsgPwBQfrZ1KZYpzDspWLZ6/yLMMZrtq4pVqNR7C7N96L3SuLpXv1nhQ==
   dependencies:
     fast-base64-decode "^1.0.0"
+
+react-native-localhost@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-localhost/-/react-native-localhost-1.0.0.tgz#f185c79a9fc1be2a0670cd12511d5a383059c22e"
+  integrity sha512-HwGYNMzR9zUAbjiQi4vtrXKlRlhyRJ3aNLtVrxHLSZwyU2KgAlAVD9k5LiaS616GDuUtTnFKu+9oHqz0WhR3Bg==
+  dependencies:
+    app-root-path "^3.0.0"
+    ip "^1.1.5"
 
 react-native-qrcode-svg@6.0.6:
   version "6.0.6"
