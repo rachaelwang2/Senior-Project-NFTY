@@ -7,6 +7,7 @@ import {globalStyle, AppStyles} from "./global-style";
 import {
   loginUser
 } from "../../redux/actions/ActionCreators";
+import {firestore} from "../../firebase/config"
 
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (email, password) => dispatch(loginUser(email, password))
@@ -28,6 +29,7 @@ class LoginScreen extends Component {
       errortext: ""
     };
     this.onPressLogin = this.onPressLogin.bind(this);
+    this.callFirebase = this.callFirebase.bind(this);
 	}
 
   componentDidUpdate(prevProps) {
@@ -51,7 +53,21 @@ class LoginScreen extends Component {
     }
     this.props.loginUser(this.state.email, this.state.password)
     // if user does not exist alert user to try again
+  };
 
+  callFirebase = () => {
+    console.log("testing firebase")
+    firestore
+        .collection("test")
+        .doc("test1")
+        .set(
+          {
+            data: "adjusted again",
+          }
+        )
+        .catch(function (error) {
+          console.error("Error posting message: ", error);
+        });
   };
 
     render() {

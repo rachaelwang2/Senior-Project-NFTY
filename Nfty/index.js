@@ -36,3 +36,4 @@ const { default: App } = require('./frontend/App');
 // the environment is set up appropriately
 registerRootComponent(App);
 /* dapp-end */
+

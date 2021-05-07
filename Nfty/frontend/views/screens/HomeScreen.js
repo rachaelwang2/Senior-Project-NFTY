@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+	return {
+	  auth: state.auth,
+	};
+};
 
 class HomeScreen extends Component {
 	constructor(props){
@@ -11,7 +18,6 @@ class HomeScreen extends Component {
 
 	componentDidMount() {
 	}
-
 
 	render() {
 		return (
@@ -33,6 +39,9 @@ class HomeScreen extends Component {
 				margin: 30,
 			}}
 			/>
+			{this.props.auth.logged_in  &&
+			<div>{this.props.auth.user.displayName}</div>
+               }
 			Home Page
 			</View>
 		  );
@@ -47,4 +56,4 @@ const localStyle = StyleSheet.create({
 	},
   });
 
-export default HomeScreen;
+  export default connect(mapStateToProps, null)(HomeScreen);

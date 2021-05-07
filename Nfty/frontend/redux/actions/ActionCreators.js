@@ -1,6 +1,6 @@
 import * as ActionTypes from "../types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { firestore, fireauth, auth, firebasestore, storage } from "../firebase/firebase";
+import { firestore, fireauth, auth, firebasestore, storage } from "../../firebase/config"
 // import firebase from '@react-native-firebase/app';
 // import auth from '@react-native-firebase/auth';
 // import storage from '@react-native-firebase/storage';
@@ -13,143 +13,142 @@ export const testFunction = () => (dispatch) => {
 // test user objects are consistent
 
 export const attemptLogin = () => (dispatch) => {
-	// auth.onAuthStateChanged(function (user) {
-	// 	if (user) {
-	// 	  //console.log("user is already cached", user);
-		// const id = user._user.uid;
-		// firestore()
-		// .collection("users")
-		// .doc(id)
-		// .get()
-		// .then(function(doc) {
-		// var dict = {
-		// 	id: id,
-		// 	email: email,
-		// 	fullname: doc.displayName
-		// };
-		// if (doc.exists) {
-		// 	dispatch(receiveLogin(dict));
+	auth.onAuthStateChanged(function (user) {
+		if (user) {
+		console.log("user is already cached", user);
+		const id = user.uid;
+		firestore
+		.collection("users")
+		.doc(id)
+		.get()
+		.then(function(user) {
+		if (user.exists) {
+			dispatch(receiveLogin(user.data()));
+		}
+		})
+		.catch(function(error) {
+		console.log(error)
+		});
+		  //dispatch(receiveLogin(user));
+		} 
+		// else {
+		// 	const email = await AsyncStorage.getItem("@loggedInUserID:key");
+		// 	const password = await AsyncStorage.getItem("@loggedInUserID:password");
+		// 	const id = await AsyncStorage.getItem("@loggedInUserID:id");
+		// 	if (
+		// 	  id != null &&
+		// 	  id.length > 0 &&
+		// 	  password != null &&
+		// 	  password.length > 0 &&
+		// 	  email != null &&
+		// 	  email.length > 0
+		// 	) {
+		// 	  auth
+		// 		.signInWithEmailAndPassword(email, password)
+		// 		.then(user => {
+		// 		  firestore
+		// 			.collection("users")
+		// 			.doc(id)
+		// 			.get()
+		// 			.then(function(user) {
+		// 			  if (user.exists) {
+		// 				dispatch(receiveLogin(user.data()));
+		// 			  }
+		// 			})
+		// 			.catch(function(error) {
+		// 			  console.log(error)
+		// 			});
+		// 		})
+		// 		.catch(error => {
+		// 		  console.log(error)
+		// 		});
+		// 	  return;
+		// 	}
 		// }
-		// })
-		// .catch(function(error) {
-		// console.log(error)
-		// });
-	// 	  dispatch(receiveLogin(user));
-	// 	} else {
-	// 		const email = await AsyncStorage.getItem("@loggedInUserID:key");
-	// 		const password = await AsyncStorage.getItem("@loggedInUserID:password");
-	// 		const id = await AsyncStorage.getItem("@loggedInUserID:id");
-	// 		if (
-	// 		  id != null &&
-	// 		  id.length > 0 &&
-	// 		  password != null &&
-	// 		  password.length > 0
-	// 		) {
-	// 		  auth()
-	// 			.signInWithEmailAndPassword(email, password)
-	// 			.then(user => {
-	// 			  firestore()
-	// 				.collection("users")
-	// 				.doc(id)
-	// 				.get()
-	// 				.then(function(doc) {
-	// 				  var dict = {
-	// 					id: id,
-	// 					email: email,
-	// 					fullname: doc.displayName
-	// 				  };
-	// 				  if (doc.exists) {
-	// 					dispatch(receiveLogin(dict));
-	// 				  }
-	// 				})
-	// 				.catch(function(error) {
-	// 				  console.log(error)
-	// 				});
-	// 			})
-	// 			.catch(error => {
-	// 			  console.log(error)
-	// 			});
-	// 		  return;
-	// 		}
-	// 	}
-	//   });
+	  });
 }
 
 export const loginUser = (email, password) => (dispatch) => {
-    // if (email.length <= 0 || password.length <= 0) {
-    //   alert("Please fill out the required fields.");
-    //   return;
-    // }
-    // auth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then(response => {
-    //     user_uid = response.user._user.uid;
-    //     firestore()
-    //       .collection("users")
-    //       .doc(user_uid)
-    //       .get()
-    //       .then(function(user) {
-    //         if (user.exists) {
-    //           AsyncStorage.setItem("@loggedInUserID:id", user_uid);
-    //           AsyncStorage.setItem("@loggedInUserID:key", email);
-    //           AsyncStorage.setItem("@loggedInUserID:password", password);
-    //           dispatch(receiveLogin(user));
-    //         } else {
-    //           alert("User does not exist. Please try again.");
-	// 		  dispatch(loginError("User does not exist. Please try again."));
-    //         }
-    //       })
-    //       .catch(function(error) {
-    //         console.log(error)
-    //       });
-    //   })
-    //  .catch(error => {
-	// 	console.log(error)
-	// 	dispatch(loginError(error.message));
-    //   });
+    if (email.length <= 0 || password.length <= 0) {
+      alert("Please fill out the required fields.");
+      return;
+    }
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(response => {
+		console.log(response)
+        const user_uid = response.user.uid;
+        firestore
+          .collection("users")
+          .doc(user_uid)
+          .get()
+          .then(function(user) {
+            if (user.exists) {
+			// console.log(auth.currentUser)
+			// console.log(user.data())
+              AsyncStorage.setItem("@loggedInUserID:id", user_uid);
+              AsyncStorage.setItem("@loggedInUserID:key", email);
+              AsyncStorage.setItem("@loggedInUserID:password", password);
+			  console.log("User successfully logged in")
+              dispatch(receiveLogin(user.data()));
+            } else {
+              alert("User does not exist. Please try again.");
+			  dispatch(loginError("User does not exist. Please try again."));
+            }
+          })
+          .catch(function(error) {
+            console.log(error)
+          });
+      })
+     .catch(error => {
+		console.log(error)
+		alert(`${error.message} Please try again.`);
+		dispatch(loginError("User does not exist. Please try again."));
+      });
 }
 
 export const signupUser = (email, password, fullname) => (dispatch) => {
-	// if (email.length <= 0 || password.length <= 0) {
-	// 	alert("Please fill out the required fields.");
-	// 	return;
-	// }
-	// auth.setPersistence(fireauth.Auth.Persistence.LOCAL).then(() => {
-	// auth()
-	// .createUserWithEmailAndPassword(email, password)
-	// .then(response => {
-	// 	const data = {
-	// 		email: email,
-	//      displayName: fullname,
-	// 	};
-	// 	user_uid = response.user._user.uid;
-	// 	firestore()
-	// 		.collection("users")
-	// 		.doc(user_uid)
-	// 		.set(data);
-	// 	firestore()
-	// 		.collection("users")
-	// 		.doc(user_uid)
-	// 		.get()
-	// 		.then(function(user) {
-	// 			dispatch(signupSuccess());
-	// 		})
-	// 		.catch(function(error) {
-	// 			console.log(error)
-	// 			alert("Error signing up user. Please try again.");
-	// 		});
-	// })
-	// .catch(error => {
-	// 	console.log(error)
-	// 	alert("Error signing up user. Please try again.");
-	// });
-// });
+	if (email.length <= 0 || password.length <= 0) {
+		alert("Please fill out the required fields.");
+		return;
+	}
+	auth.setPersistence(fireauth.Auth.Persistence.LOCAL).then(() => {
+	auth
+	.createUserWithEmailAndPassword(email, password)
+	.then(response => {
+		const data = {
+			email: email,
+	     	displayName: fullname,
+		};
+		console.log(response);
+		const user_uid = response.user.uid;
+		firestore
+			.collection("users")
+			.doc(user_uid)
+			.set(data);
+		firestore
+			.collection("users")
+			.doc(user_uid)
+			.get()
+			.then(function(user) {
+				dispatch(signupSuccess());
+			})
+			.catch(function(error) {
+				console.log(error)
+				alert("Error signing up user. Please try again.");
+			});
+	})
+	.catch(error => {
+		console.log(error)
+		alert(`Error signing up user. ${error.message} Please try again.`);
+	});
+});
 }
 
 export const uploadImage = (path, fileName) => (dispatch) => {
 	// auth.onAuthStateChanged(function (user) {
 	// 	if (user) {
-	// 		const id = user._user.uid;
+	// 		const id = user.uid;
 	// 		let reference = storage().ref(`images/${filename}`);        
 	// 		let task = reference.putFile(path);     
 	// 		task.on('state_changed', snapshot => {
@@ -171,7 +170,7 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 	// 				const data = {
 	// 					imageUrl: url,
 	// 				};
-	// 				firestore()
+	// 				firestore
 	// 				.collection("images")
 	// 				.doc(id)
 	// 				.collection("uploads")
