@@ -3,7 +3,7 @@
   "scripts": {
     "android": "node_modules/.bin/ts-node scripts/android",
     "ios": "node_modules/.bin/ts-node scripts/ios",
-    "web": "expo start --web",
+    "web": "node_modules/.bin/ts-node scripts/web",
     "postinstall": "node_modules/.bin/ts-node scripts/postinstall",
     "start": "react-native start"
   },
