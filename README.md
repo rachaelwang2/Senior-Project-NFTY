@@ -11,12 +11,12 @@ A non-fungible token (NFT) is a unit of data stored on a digital ledger (a block
 
 ### Figma Mockup Light:
 <p align="center">
-<img src="https://github.com/StanfordCS194/Team12/blob/main/figma%20mockup.png">
+<img src="https://github.com/StanfordCS194/Team12/blob/main/designs/figma%20mockup.png">
 </p>
 
 ### Figma Mockup Dark:
 <p align="center">
-<img src="https://github.com/StanfordCS194/Team12/blob/main/figma%20mockup%20dark.png">
+<img src="https://github.com/StanfordCS194/Team12/blob/main/designs/figma%20mockup%20dark.png">
 </p>
 
 ## Team Members
