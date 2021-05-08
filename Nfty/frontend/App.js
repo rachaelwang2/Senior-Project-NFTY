@@ -6,9 +6,9 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Web3 from 'web3';
 import localhost from 'react-native-localhost';
-
-import { expo } from './app.json';
-import Hello from './artifacts/contracts/Hello.sol/Hello.json';
+import { expo } from '../app.json';
+import Hello from '../artifacts/contracts/Hello.sol/Hello.json';
+import { firestore } from "./firebase/config";
 
 
 const shouldDeployContract = async (web3, abi, data, from) => {
@@ -42,6 +42,22 @@ function App(): JSX.Element {
   const connectWallet = React.useCallback(() => {
     return connector.connect();
   }, [connector]);
+
+  const callFirebase = React.useCallback(() => {
+    console.log("testing firebase")
+    firestore
+        .collection("test")
+        .doc("test1")
+        .set(
+          {
+            data: "adjusted again",
+          }
+        )
+        .catch(function (error) {
+          console.error("Error posting message: ", error);
+        });
+  });
+
   const signTransaction = React.useCallback(async () => {
     try {
        await connector.signTransaction({
@@ -63,9 +79,14 @@ function App(): JSX.Element {
   return (
     <View style={styles.container}>
       {!connector.connected && (
+        <div>
         <TouchableOpacity onPress={connectWallet}>
           <Text>Connect a Wallet</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={callFirebase}>
+        <Text>Test Firebase config</Text>
+      </TouchableOpacity>
+      </div>
       )}
       {!!connector.connected && (
         <>

@@ -22,7 +22,7 @@ process.version = 'v9.40';
 
 const { registerRootComponent } = require('expo');
 
-const { default:App } = require('./App');
+const { default: App } = require('./frontend/App');
  
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in the Expo client or in a native build,
