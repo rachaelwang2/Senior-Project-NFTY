@@ -3,7 +3,7 @@
     "expo": "~41.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native": "~0.63.4",
     "react-native-screens": "~3.0.0",
     "react-native-web": "~0.13.12",
     "expo-splash-screen": "~0.10.2",
@@ -70,6 +70,7 @@
     "postinstall": "node_modules/.bin/ts-node scripts/postinstall",
     "test": "npx hardhat test && jest"
   },
-  "private": true
-
+  "private": true,
+  "name": "nfty-app",
+  "version": "1.0.0"
 }
