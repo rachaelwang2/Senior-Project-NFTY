@@ -1,7 +1,8 @@
-import { IMAGE_UPLOAD } from '../types'
+import { IMAGE_UPLOAD, IMAGES_FETCHED } from '../types'
 
 const INITIAL_STATE = {
-    img: null
+    img: null,
+    images: [],
   };
   
   export default (state = INITIAL_STATE, action) => {
@@ -9,7 +10,13 @@ const INITIAL_STATE = {
       case IMAGE_UPLOAD:
         return {
             ...state,
-            img: action.payload
+            img: action.payload.imageUrl,
+            images: [...state.images, action.payload]
+        };
+      case IMAGES_FETCHED:
+        return {
+            ...state,
+            images: action.payload
         };
       default:
         return { ...state };

@@ -3,11 +3,12 @@ import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpaci
 import { connect } from "react-redux";
 import {globalStyle, AppStyles} from "./global-style";
 import {
-	uploadImage
+	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
 
 const mapDispatchToProps = (dispatch) => ({
-	uploadImage: (path, filename) => dispatch(uploadImage(path, filename))
+	uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
+	getUploadedImages: () => dispatch(getUploadedImages())
   });
 
   const mapStateToProps = (state) => {
@@ -23,6 +24,7 @@ class HomeScreen extends Component {
 		this.state = {
 			animating: true,
 			image: null,
+			image_name: undefined,
 			uploaded_img: null,
 		}
 		this.callUpload = this.callUpload.bind(this);
@@ -32,11 +34,20 @@ class HomeScreen extends Component {
 	handleChange = e => {
 		if (e.target.files[0]) {
 		  const img = e.target.files[0];
-		  this.setState(() => ({ image: img }));
+		  let name = img.name
+		  const filename = name.substring(0, img.name.indexOf('.'));
+		  this.setState(() => ({ image: img, image_name: filename }));
 		}
 	};
 
 	componentDidMount() {
+		if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
+			this.props.getUploadedImages()
+		}
+		this.props.profile.images.forEach((img) => {
+			console.log(img)
+			console.log(img.imageUrl)
+		});
 	}
 
 	componentDidUpdate(prevProps) {
@@ -48,8 +59,10 @@ class HomeScreen extends Component {
 	}
 
 	callUpload = () => {
-		let filename = "nfty app logo"
-		this.props.uploadImage(this.state.image, filename)
+		if (!this.state.image) {
+			alert("Select an image for upload.")
+		}
+		this.props.uploadImage(this.state.image, this.state.image_name)
 	}
 
 	render() {
@@ -75,14 +88,14 @@ class HomeScreen extends Component {
 			{this.props.auth.logged_in  &&
 			<div>{this.props.auth.user.displayName}</div>
                }
-			{this.state.uploaded_img  &&
+			{this.props.profile.images.map((image) =>
 				<img
-				src={this.state.uploaded_img}
+				src={image.imageUrl}
 				alt="Uploaded Image"
 				height="100"
 				width="100"
 			/>
-			}
+			)}
 			Home Page
 			<input type="file" onChange={this.handleChange} />
 			<TouchableOpacity

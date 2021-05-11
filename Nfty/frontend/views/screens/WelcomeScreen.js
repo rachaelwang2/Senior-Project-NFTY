@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { connect } from "react-redux";
+import {
+	getUploadedImages
+  } from "../../redux/actions/ActionCreators";
+
+const mapDispatchToProps = (dispatch) => ({
+	getUploadedImages: () => dispatch(getUploadedImages())
+  });
 
 const mapStateToProps = (state) => {
 	return {
@@ -18,6 +25,7 @@ class WelcomeScreen extends Component {
 	}
 
 	componentDidMount() {
+		this.props.getUploadedImages()
 		// could get rid of timeout and automatically redirect
 		// if sign in function not called in index could use loading state while function runs 
 		// replace async storage call with redux state check 
@@ -72,4 +80,4 @@ const localStyle = StyleSheet.create({
   });
 
 // export default WelcomeScreen;
-export default connect(mapStateToProps, null)(WelcomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);

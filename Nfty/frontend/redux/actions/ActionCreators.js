@@ -169,6 +169,7 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 					// store in firestore database
 					const data = {
 						imageUrl: url,
+						// could add date field 
 					};
 					firestore
 					.collection("images")
@@ -177,7 +178,7 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 					.doc(fileName)
 					.set(data);
 
-					dispatch(imageUploaded(url));
+					dispatch(imageUploaded(data));
 					console.log("photo uploaded to storage url stored in database")
 				  });
 			  }
@@ -189,6 +190,25 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 		}
 	});
 }
+
+export const getUploadedImages = () => (dispatch) => {
+	auth.onAuthStateChanged(function (user) {
+	  if (!user) return;
+	  const id = user.uid;
+	  firestore
+		.collection("images")
+		.doc(id)
+		.collection("uploads")
+		// .orderBy("date")
+		.get()
+		.then((snapshot) => {
+		  const data = snapshot.docs.map((doc) => doc.data());
+		  console.log(data)
+		  dispatch(setImages(data));
+		  return data;
+		});
+	});
+  };
 
 
 export const receiveLogin = (user) => {
@@ -223,4 +243,11 @@ export const imageUploaded = (img) => {
 	  type: ActionTypes.IMAGE_UPLOAD,
 	  payload: img,
 	};
-  };
+};
+
+export const setImages = (images) => {
+	return {
+	  type: ActionTypes.IMAGES_FETCHED,
+	  payload: images,
+	};
+};
