@@ -36,7 +36,7 @@ class WelcomeScreen extends Component {
 			//else send to Home Screen
 
 			this.props.navigation.replace(
-			this.props.auth.logged_in === false ? 'Auth' : 'HomeScreen'
+			this.props.auth.logged_in === false ? 'Auth' : 'WalletConnectScreen'
 			)
 			
 			// AsyncStorage.getItem('user_id').then((value) =>
@@ -44,7 +44,7 @@ class WelcomeScreen extends Component {
 			// 	value === null ? 'Auth' : 'DrawerNavigationRoutes'
 			//   ),
 			// );
-		  }, 500);
+		  }, 600);
 	}
 
 

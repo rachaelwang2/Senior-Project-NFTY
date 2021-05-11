@@ -35,7 +35,7 @@ class LoginScreen extends Component {
   componentDidUpdate(prevProps) {
 		if (this.props.auth.logged_in !== prevProps.auth.logged_in) {
       if(this.props.auth.logged_in) {
-        this.props.navigation.replace('HomeScreen')
+        this.props.navigation.replace('WalletConnectScreen')
       }
 		}
 	}
