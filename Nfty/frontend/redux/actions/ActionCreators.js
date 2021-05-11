@@ -146,45 +146,48 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 }
 
 export const uploadImage = (path, fileName) => (dispatch) => {
-	// auth.onAuthStateChanged(function (user) {
-	// 	if (user) {
-	// 		const id = user.uid;
-	// 		let reference = storage().ref(`images/${filename}`);        
-	// 		let task = reference.putFile(path);     
-	// 		task.on('state_changed', snapshot => {
-	// 			let progress = Math.round(
-	// 				(snapshot.bytesTransferred / snapshot.totalBytes) * 100
-	//              // can send progress to redux for frontend rendering 
-	// 			  );
-	// 		  },
-	// 		  error => {
-	// 			console.log(error);
-	// 		  },
-	// 		  () => {
-	// 			storage
-	// 			  .ref("images")
-	// 			  .child(fileName)
-	// 			  .getDownloadURL()
-	// 			  .then(url => {
-	// 				// store in firestore database
-	// 				const data = {
-	// 					imageUrl: url,
-	// 				};
-	// 				firestore
-	// 				.collection("images")
-	// 				.doc(id)
-	// 				.collection("uploads")
-	// 				.doc(filename)
-	// 				.set(data);
-	// 			  });
-	// 		  }
-	// 		);
+	auth.onAuthStateChanged(function (user) {
+		if (user) {
+			const id = user.uid;
+			let reference = storage.ref(`images/${fileName}`);        
+			let task = storage.ref(`images/${fileName}`).put(path);     
+			task.on('state_changed', snapshot => {
+				let progress = Math.round(
+					(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+	             // can send progress to redux for frontend rendering 
+				  );
+			  },
+			  error => {
+				console.log(error);
+			  },
+			  () => {
+				storage
+				  .ref("images")
+				  .child(fileName)
+				  .getDownloadURL()
+				  .then(url => {
+					// store in firestore database
+					const data = {
+						imageUrl: url,
+					};
+					firestore
+					.collection("images")
+					.doc(id)
+					.collection("uploads")
+					.doc(fileName)
+					.set(data);
+
+					dispatch(imageUploaded(url));
+					console.log("photo uploaded to storage url stored in database")
+				  });
+			  }
+			);
 		
-	// 		// task.then(() => {                                 
-	// 		//     console.log('Image uploaded to Firebase storage');
-	// 		// }).catch((e) => console.log('uploading image error => ', e));
-	// 	}
-	// });
+			// task.then(() => {                                 
+			//     console.log('Image uploaded to Firebase storage');
+			// }).catch((e) => console.log('uploading image error => ', e));
+		}
+	});
 }
 
 
@@ -214,3 +217,10 @@ export const signupError = (message) => {
 		payload: message,
 	};
 };
+
+export const imageUploaded = (img) => {
+	return {
+	  type: ActionTypes.IMAGE_UPLOAD,
+	  payload: img,
+	};
+  };

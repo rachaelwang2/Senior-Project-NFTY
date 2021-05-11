@@ -7,7 +7,7 @@ import localhost from 'react-native-localhost';
 import Web3 from 'web3';
 
 import { expo } from '../../../app.json';
-import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
+// import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 
 const styles = StyleSheet.create({
   center: { alignItems: 'center', justifyContent: 'center' },
