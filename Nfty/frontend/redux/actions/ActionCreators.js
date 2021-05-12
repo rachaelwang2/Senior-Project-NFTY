@@ -107,6 +107,16 @@ export const loginUser = (email, password) => (dispatch) => {
       });
 }
 
+export const signOutUser = () => (dispatch) => {
+	auth.signOut().then(()=> {
+		//sign-out successful. 
+		console.log("User signed out");
+	}).catch((error)=>{
+		//an error happened.
+		console.log(error); 
+	});	
+}
+
 export const signupUser = (email, password, fullname) => (dispatch) => {
 	if (email.length <= 0 || password.length <= 0) {
 		alert("Please fill out the required fields.");

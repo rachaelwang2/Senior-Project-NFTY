@@ -6,6 +6,10 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage'
 import "firebase/analytics";
+// import myauth from '@react-native-firebase/auth';
+// import myfirestore from '@react-native-firebase/firestore';
+// import mystorage  from '@react-native-firebase/storage';
+// import '@react-native-firebase/analytics';
 import "firebase/functions";
 // firebase.analytics();
 

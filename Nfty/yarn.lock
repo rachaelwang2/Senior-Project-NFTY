@@ -2900,6 +2900,34 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-firebase/analytics@^11.4.1":
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-11.4.1.tgz#89ff1ef40e6c01aa8587c4b21a141ed6a8ed3ad6"
+  integrity sha512-4dmjn//W5/LEvKTJxJMqOjiinXPPGoelBvZFGCNh65AjSOpgiRMMU03TKnDPkRBrJHJFGlEju9UUVQ8857FrGQ==
+
+"@react-native-firebase/app@^11.4.1":
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.4.1.tgz#42d5b8ff0b8e17398e2d1b65ca698b9990a76bcf"
+  integrity sha512-RzG3kGzKwO/Ets3S4XxAoki4GhzaHRVrnUDyr7U1zOL46xqOMGD7MKTmpYBa9qzh5GOz3aQwlRvu1yRhPHNGKA==
+  dependencies:
+    opencollective-postinstall "^2.0.1"
+    superstruct "^0.6.2"
+
+"@react-native-firebase/auth@^11.4.1":
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-11.4.1.tgz#2e9baa1cea5efb9963188d70fedc753701d472a4"
+  integrity sha512-PlPYx12oUx7Y6M1W9aZITsDPrhA85klgwvJT0xxwihuUmdL2EGpmwhI7cOgiWGO3e0hmMI9HuiDnDmcxw8J6cA==
+
+"@react-native-firebase/firestore@^11.4.1":
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-11.4.1.tgz#7ed87577cc9eef0f24a8367003186711ce6ec058"
+  integrity sha512-bptsAFRR5RbnsHnpRbJP8JVS1YugPtHOPS83ufESIInJvd7lVrWo3w6NJZmVbjIs696WVtN534J2zRRenACqxw==
+
+"@react-native-firebase/storage@^11.4.1":
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-11.4.1.tgz#ae38602b59473564f11b6358d6e6b00bbc1dd757"
+  integrity sha512-unQ66/z7txJhIodR72xzYj9hc0oJM+XozS1NVqTRnbDpBUfUaTJXpXUJPjGdePzLP/zmtSAN1iLnSnFxYDy9rA==
+
 "@react-navigation/core@^5.15.3":
   version "5.15.3"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.15.3.tgz#dce7090bf3ea0d302993d742c706825e495b812e"
@@ -2942,13 +2970,6 @@
   dependencies:
     color "^3.1.3"
     react-native-iphone-x-helper "^1.3.0"
-"@react-native-firebase/app@^11.4.1":
-  version "11.4.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.4.1.tgz#42d5b8ff0b8e17398e2d1b65ca698b9990a76bcf"
-  integrity sha512-RzG3kGzKwO/Ets3S4XxAoki4GhzaHRVrnUDyr7U1zOL46xqOMGD7MKTmpYBa9qzh5GOz3aQwlRvu1yRhPHNGKA==
-  dependencies:
-    opencollective-postinstall "^2.0.1"
-    superstruct "^0.6.2"
 
 "@resolver-engine/core@^0.3.3":
   version "0.3.3"

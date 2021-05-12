@@ -10,6 +10,8 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import expo.modules.splashscreen.singletons.SplashScreen;
 import expo.modules.splashscreen.SplashScreenImageResizeMode;
 
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+
 public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {

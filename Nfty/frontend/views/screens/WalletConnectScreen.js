@@ -9,6 +9,8 @@ import Web3 from 'web3';
 import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 
+import { signOutUser } from "../../redux/actions/ActionCreators";
+
 const styles = StyleSheet.create({
   center: { alignItems: 'center', justifyContent: 'center' },
   // eslint-disable-next-line react-native/no-color-literals
@@ -64,6 +66,10 @@ function WalletConnectScreen(): JSX.Element {
   const killSession = React.useCallback(() => {
     return connector.killSession();
   }, [connector]);
+
+
+  const signOut =  signOutUser(); 
+  
   return (
     <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
       <Text testID="tid-message">{message}</Text>
@@ -82,6 +88,10 @@ function WalletConnectScreen(): JSX.Element {
           </TouchableOpacity>
         </>
       )}
+
+	<TouchableOpacity onPress={signOut}>
+	  <Text>Sign Out</Text>
+	</TouchableOpacity>
     </View>
   );
 }

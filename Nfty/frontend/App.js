@@ -18,15 +18,15 @@ class App extends Component {
   }
 }
 
-//export default App;
+export default App;
 
-const { scheme } = expo;
+// const { scheme } = expo;
 
-export default withWalletConnect(App, {
-  redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
-  storageOptions: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    asyncStorage: AsyncStorage,
-  },
-});
+// export default withWalletConnect(App, {
+//   redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
+//   storageOptions: {
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-ignore
+//     asyncStorage: AsyncStorage,
+//   },
+// });
