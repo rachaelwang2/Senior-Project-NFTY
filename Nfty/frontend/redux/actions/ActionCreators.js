@@ -131,6 +131,7 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 			.doc(user_uid)
 			.get()
 			.then(function(user) {
+				console.log("user successfully signed up")
 				dispatch(signupSuccess());
 			})
 			.catch(function(error) {
