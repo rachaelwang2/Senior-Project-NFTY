@@ -15,7 +15,7 @@
 
 - Install node js if you don't have it already. To check, in terminal do `node -v`
 - Then using `npm` from node, install Yarn: `npm install -g yarn` 
-- Install dependencies for the project: `yarn install`
+- Install dependencies for the project: `yarn install` and `npm install`
 - Create an environment document from the example: `cp .env.example .env`
 - Download metamask crypto wallet for chrome *and* on your phone. (Right now, the web application requires a phone wallet.) 
  
