@@ -7,7 +7,7 @@ require("dotenv/config");
 const { HARDHAT_PORT } = process.env;
 
 module.exports = {
-  solidity: "0.7.3",
+  solidity: "^0.7.0",
   networks: {
     localhost: { url: `http://127.0.0.1:${HARDHAT_PORT}` },
     hardhat: {

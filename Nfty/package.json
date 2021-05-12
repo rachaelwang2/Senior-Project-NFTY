@@ -2,6 +2,7 @@
   "dependencies": {
     "@freakycoder/react-native-helpers": "^1.0.1",
     "@freakycoder/react-native-material-textfield": "^1.0.0",
+    "@openzeppelin/contracts": "^4.1.0",
     "@react-native-async-storage/async-storage": "1.13.4",
     "@react-native-firebase/analytics": "^11.4.1",
     "@react-native-firebase/app": "^11.4.1",
