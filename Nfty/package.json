@@ -6,6 +6,7 @@
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
+    "@react-native-firebase/app": "^11.4.1",
     "@walletconnect/react-native-dapp": "1.4.1",
     "base-64": "1.0.0",
     "buffer": "6.0.3",
