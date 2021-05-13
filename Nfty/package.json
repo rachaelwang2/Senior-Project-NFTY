@@ -7,10 +7,11 @@
     "@react-native-firebase/app": "^11.4.1",
     "@react-native-firebase/auth": "^11.4.1",
     "@react-native-firebase/firestore": "^11.4.1",
+    "@react-native-firebase/functions": "^11.5.0",
     "@react-native-firebase/storage": "^11.4.1",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
-    "@react-navigation/stack": "^5.14.4",
+    "@react-navigation/stack": "^5.14.5",
     "@walletconnect/react-native-dapp": "1.4.1",
     "base-64": "1.0.0",
     "buffer": "6.0.3",
@@ -33,6 +34,7 @@
     "react-native-login-screen": "^2.1.4",
     "react-native-material-textfield": "^0.16.1",
     "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^2.15.2",
     "react-native-spinkit": "^1.5.1",
     "react-native-stream": "0.1.9",
@@ -120,7 +122,7 @@
   "jest": {
     "preset": "react-native",
     "testMatch": [
-      "**/__tests__/frontend/**/*.[jt]s?(x)"
+      "**/__tests__/src/**/*.[jt]s?(x)"
     ]
   },
   "config": {
