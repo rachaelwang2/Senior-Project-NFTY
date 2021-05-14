@@ -8,7 +8,7 @@ import Web3 from 'web3';
 
 import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
-import NFTSimple from '../../../artifacts/contracts/NFTSimple.sol/NFTSimple.json';
+import NFTSimple from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
 import { signOutUser, uploadImage, getUploadedImages } from "../../redux/actions/ActionCreators";
 import { auth } from "../../firebase/config"
@@ -156,7 +156,7 @@ function WalletConnectScreen(props): JSX.Element {
 	<TouchableOpacity onPress={signOut}>
 	  <Text>Sign Out</Text>
 	</TouchableOpacity>
-  <input type="file" onChange={handleChange} />
+  {uploadButton}
   <TouchableOpacity onPress={upload}>
     <Text>Create NFT</Text>
   </TouchableOpacity>
@@ -167,7 +167,13 @@ function WalletConnectScreen(props): JSX.Element {
 
 const { scheme } = expo;
 
-
+function uploadButton(){
+  if(Platform.OS === 'web') {
+    return <input type="file" onChange={handleChange} />;
+  } else {
+    return {};
+  }
+}
  
 
 class Wallet extends Component{
