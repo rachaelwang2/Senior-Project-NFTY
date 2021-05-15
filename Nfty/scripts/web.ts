@@ -11,4 +11,4 @@ chokidar.watch('contracts').on('all', () => {
 });
 
 child_process.execSync('npx kill-port 8545', opts);
-child_process.execSync('npx hardhat node --hostname 0.0.0.0 & expo web', opts);
+child_process.execSync('expo web & npx hardhat node --hostname 0.0.0.0 &', opts);
