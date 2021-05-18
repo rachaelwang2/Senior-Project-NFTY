@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "ios": {
+      "bundleIdentifier": "com.nfty"
+    },
+    "android": {
+      "package": "com.nfty"
+    },
+    "scheme": "nfty",
+    "icon": "assets/image/app-icon.png",
+    "splash": {
+      "image": "assets/image/app-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#222222"
+    }
+  }
+}
