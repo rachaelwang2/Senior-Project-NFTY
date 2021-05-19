@@ -160,7 +160,10 @@ function WalletConnectScreen(props): JSX.Element {
   <TouchableOpacity onPress={upload}>
     <Text>Create NFT</Text>
   </TouchableOpacity>
-      
+  {/* <TouchableOpacity
+    onPress={() => this.props.navigation.navigate('ProfileScreen')}>
+    <Text>Go to Profile</Text>
+  </TouchableOpacity> */}
     </View>
   );
 }

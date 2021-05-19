@@ -36,7 +36,7 @@ class WelcomeScreen extends Component {
 			//else send to Home Screen
 
 			this.props.navigation.replace(
-			this.props.auth.logged_in === false ? 'Auth' : 'WalletConnectScreen'
+			this.props.auth.logged_in === false ? 'Auth' : 'ProfileScreen'
 			)
 			
 			// AsyncStorage.getItem('user_id').then((value) =>

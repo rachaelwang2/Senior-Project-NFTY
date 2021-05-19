@@ -4,13 +4,13 @@ import { Svg } from 'react-native-svg'
 
 export default function photo_upload () {
   return (
-    <View style={photo_upload.FigmatoReact}>
-      <Text style={photo_upload.Title}>
+    <View style={uploader.FigmatoReact}>
+      <Text style={uploader.Title}>
         Figma to React
       </Text>
       <Inputfield />
       <Button />
-      <View style={photo_upload.TabMenu}>
+      <View style={uploader.TabMenu}>
         <TabButton />
         <TabButton />
         <TabButton />
@@ -20,7 +20,7 @@ export default function photo_upload () {
   )
 }
 
-const photo_upload = StyleSheet.create({
+const uploader = StyleSheet.create({
   FigmatoReact: {
     backgroundColor: '#f9f9f9',
   },
