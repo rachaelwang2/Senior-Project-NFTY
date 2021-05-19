@@ -26,7 +26,11 @@
 - Note: ios and android simulators can't connect to a metamask wallet, because metamask isn't on your simulator phone. 
 
 #### To edit
-- Active code for the app lives `frontend/App.tsx` 
+- Active code for the app lives in `src/`
+- UI/frontend code lives in `src/views/screens`
+- Firebase files live in `src/firebase` (see `.native.js` vs `.js` below) 
+- Common functions live in `src/redux/actions` 
+- `.native.js` vs `.js`: Files with the same name but the extension `.native.js` will only apply for the mobile versions of the app. 
 - TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
 
 #### Frequent Errors 
