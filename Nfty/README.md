@@ -29,10 +29,6 @@
 - Active code for the app lives `frontend/App.tsx` 
 - TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
 
-#### Frequent Errors 
-- "Starts with undefined errors": Sometimes your machine might have trouble importing the environment variables on the Wallet Connect Screen. To resolve this error, replace the `HARDHAT_PRIVATE_KEY` with string "0x0c07142406119b6f26beec65c1332d9304ccce1ee0e7829c9802dced0185fe6d" on Wallet Connect Screen. 
-- "Can't find Hello/NFT/etc.sol": In the Nfty folder, run npx hardhat compile. 
-- Wallet Connect Screen always says "...Loading": The script `yarn web/android/ios` is supposed to run two processes simultaneously, but sometimes your machine will block one until you kill it. In your terminal, you should see a series of 10 Hashcodes and the output from building the app for web/android/ios. If both of those things won't work in one terminal, you have to open two terminals. In one run `npx hardhat node --hostname 0.0.0.0` and in the other run `expo web` or `react-native run-android / run-ios`.   
 
 ## 📝 Notes
 
