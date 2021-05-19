@@ -5,6 +5,17 @@ import {globalStyle, AppStyles} from "./global-style";
 import {uploadImage, getUploadedImages} from "../../redux/actions/ActionCreators";
 import { Svg } from 'react-native-svg'
 
+const mapDispatchToProps = (dispatch) => ({
+	uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
+	getUploadedImages: () => dispatch(getUploadedImages())
+  });
+
+const mapStateToProps = (state) => {
+	return {
+	  auth: state.auth,
+	  profile: state.profile
+	};
+};
 
 class ProfileScreen extends Component {
   constructor(props){
@@ -14,6 +25,16 @@ class ProfileScreen extends Component {
     this.Inputfield = this.Inputfield.bind(this)
     this.TabButton = this.TabButton.bind(this)
     this.Code = this.Code.bind(this)
+	}
+
+  componentDidMount() {
+		if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
+			this.props.getUploadedImages()
+		}
+		this.props.profile.images.forEach((img) => {
+			console.log(img)
+			console.log(img.imageUrl)
+		});
 	}
 
   Inputfield () {
@@ -68,6 +89,17 @@ class ProfileScreen extends Component {
         <Text style={Profile.Title}>
           Profile Page
         </Text>
+        {this.props.auth.logged_in  &&
+			  <div>{this.props.auth.user.displayName}</div>
+        }
+			{this.props.profile.images.map((image) =>
+				<img
+				src={image.imageUrl}
+				alt="Uploaded Image"
+				height="100"
+				width="100"
+			  />
+			)}
         {this.Inputfield()}
         <Button />
         <View style={Profile.TabMenu}>
@@ -216,9 +248,7 @@ class ProfileScreen extends Component {
 
   })
 
-export default ProfileScreen;
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
 
 // export default function App() {
 //   return (
