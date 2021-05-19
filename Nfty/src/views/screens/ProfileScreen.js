@@ -5,17 +5,6 @@ import {globalStyle, AppStyles} from "./global-style";
 import {uploadImage, getUploadedImages} from "../../redux/actions/ActionCreators";
 import { Svg } from 'react-native-svg'
 
-const mapDispatchToProps = (dispatch) => ({
-	uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
-	getUploadedImages: () => dispatch(getUploadedImages())
-  });
-
-const mapStateToProps = (state) => {
-	return {
-	  auth: state.auth,
-	  profile: state.profile
-	};
-};
 
 class ProfileScreen extends Component {
   constructor(props){
