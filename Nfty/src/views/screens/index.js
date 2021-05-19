@@ -8,12 +8,13 @@ import WelcomeScreen from './WelcomeScreen';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import HomeScreen from './HomeScreen';
-import {connect} from "react-redux"
+import PersonalProfile from './PersonalProfile';
+import PhotoUpload from './PhotoUpload';
+import {connect} from 'react-redux';
 import DrawerNavigationRoutes from './DrawerNavigationRoutes';
 import WalletConnectScreen from './WalletConnectScreen';
-import {
-	attemptLogin
-} from "../../redux/actions/ActionCreators";
+import {attemptLogin} from '../../redux/actions/ActionCreators';
+import photo_upload from './PhotoUpload';
 
 const mapDispatchToProps = (dispatch) => ({
 	attemptLogin: () => dispatch(attemptLogin())
@@ -69,6 +70,16 @@ class Navigator extends React.Component {
   render() {
     return (
         <Stack.Navigator initialRouteName="WelcomeScreen">
+          <Stack.Screen 
+            name = "PersonalProfile"
+            component = {PersonalProfile}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen 
+            name = "PhotoUpload"
+            component = {photo_upload}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name="WelcomeScreen"
             component={WelcomeScreen}
