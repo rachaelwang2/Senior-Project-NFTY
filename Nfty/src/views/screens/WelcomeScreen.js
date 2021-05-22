@@ -34,7 +34,6 @@ class WelcomeScreen extends Component {
 			//Check if user_id is set or not
 			//If not then send for Authentication
 			//else send to Home Screen
-
 			this.props.navigation.replace(
 			this.props.auth.logged_in === false ? 'Auth' : 'WalletConnectScreen'
 			)
@@ -44,7 +43,7 @@ class WelcomeScreen extends Component {
 			// 	value === null ? 'Auth' : 'DrawerNavigationRoutes'
 			//   ),
 			// );
-		  }, 600);
+		  }, 800);
 	}
 
 
