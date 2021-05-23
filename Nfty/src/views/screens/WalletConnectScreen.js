@@ -209,11 +209,12 @@ function Wallet(props) {
     <Text>Create NFT</Text>
   </TouchableOpacity>
   <TouchableOpacity
-    onPress={() => {
-      props.props.navigation.navigate('ProfileScreen')
-    }
-    }>
+    onPress={() => props.props.navigation.navigate('ProfileScreen')}>
     <Text>Go to Profile</Text>
+  </TouchableOpacity>
+  <TouchableOpacity
+    onPress={() => props.props.navigation.navigate('HomeScreen')}>
+    <Text>Web Photo Upload</Text>
   </TouchableOpacity>
     </View>
   );

@@ -61,6 +61,7 @@ class HomeScreen extends Component {
 	callUpload = () => {
 		if (!this.state.image) {
 			alert("Select an image for upload.")
+			return
 		}
 		this.props.uploadImage(this.state.image, this.state.image_name)
 	}
@@ -75,6 +76,7 @@ class HomeScreen extends Component {
 			justifyContent: 'center',
 			alignItems: 'center',
 			}}>
+				<Text style={[globalStyle.title]}>Submit a Work</Text>
 			<Image
 			source={require('../img/nfty_logo.png')}
 			style={{
@@ -88,6 +90,14 @@ class HomeScreen extends Component {
 			{this.props.auth.logged_in  &&
 			<div>{this.props.auth.user.displayName}</div>
                }
+			<input type="file" onChange={this.handleChange} />
+			<TouchableOpacity
+				style={globalStyle.buttonStyle}
+				activeOpacity={0.5}
+				onPress={() => this.callUpload()}>
+				<Text style={localStyle.buttonTextStyle}>Upload Image</Text>
+			</TouchableOpacity>
+			<Text style={[globalStyle.subtitle]}>Uploaded Images:</Text>
 			{this.props.profile.images.map((image) =>
 				<img
 				src={image.imageUrl}
@@ -96,14 +106,6 @@ class HomeScreen extends Component {
 				width="100"
 			/>
 			)}
-			Home Page
-			<input type="file" onChange={this.handleChange} />
-			<TouchableOpacity
-                    style={globalStyle.buttonStyle}
-                    activeOpacity={0.5}
-                    onPress={() => this.callUpload()}>
-                    <Text style={globalStyle.buttonTextStyle}>Upload Image</Text>
-                  </TouchableOpacity>
 			</View>
 		  );
 	  }
@@ -115,6 +117,13 @@ const localStyle = StyleSheet.create({
 	  alignItems: 'center',
 	  justifyContent: 'center',
 	},
+	buttonTextStyle: {
+		color: '#FFFFFF',
+		paddingVertical: 8,
+		marginLeft: 35,
+		marginRight: 35,
+		fontSize: 16,
+	  },
   });
 
   export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

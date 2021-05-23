@@ -102,7 +102,13 @@ class Navigator extends React.Component {
             name="HomeScreen"
             component={HomeScreen}
             // Hiding header for Welcome Screen
-            options={{headerShown: false}}
+            options={{
+              title: 'Submit a Work', //Set Header Title
+              headerStyle: {
+                backgroundColor: '#000000', //Set Header color
+              },
+              headerTintColor: '#ffffff',
+            }}
           />
           {/* Navigation Drawer as a landing page */}
           {/* <Stack.Screen
