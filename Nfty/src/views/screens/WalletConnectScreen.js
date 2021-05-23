@@ -1,6 +1,6 @@
 import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useWalletConnect, withWalletConnect } from '@walletconnect/react-native-dapp';
+import {WalletConnectProvider, withWalletConnect, useWalletConnect} from '@walletconnect/react-native-dapp';
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import localhost from 'react-native-localhost';
@@ -41,7 +41,107 @@ const shouldDeployContract = async (web3, abi, data, from) => {
   return new web3.eth.Contract(abi, contractAddress);
 };
 
-function WalletConnectScreen(props): JSX.Element {
+class Wallet extends Component{
+  constructor(props){
+    super(props);
+    // const conn = useWalletConnect();
+    const w3 = new Web3(new Web3.providers.HttpProvider(`http://${HOST_ADDRESS}:${HARDHAT_PORT}`));
+    this.state = {
+      animating: true,
+      image: null,
+      image_name: undefined,
+      uploaded_img: null,
+      message: 'Loading...', 
+      web3: w3
+    };
+    this.callUpload = this.callUpload.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange = e => {
+    if (e.target.files[0]) {
+      const img = e.target.files[0];
+      let name = img.name
+      const filename = name.substring(0, img.name.indexOf('.'));
+      this.setState(() => ({ image: img, image_name: filename }));
+    }
+  };
+
+  componentDidMount(){
+    if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
+      this.props.getUploadedImages()
+    }
+    this.props.profile.images.forEach((img) => {
+      console.log(img)
+      console.log(img.imageUrl)
+    });
+
+    React.useEffect(() => {
+      (async () => {
+        const { address } = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+        const contract = await shouldDeployContract(
+          this.state.web3,
+          Hello.abi,
+          Hello.bytecode,
+          address
+        );
+        setMessage(await contract.methods.sayHello('React Native').call());
+      })();
+    }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
+
+
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.profile.img !== prevProps.profile.img) {
+      if(this.props.profile.img ) {
+        this.setState({uploaded_img: this.props.profile.img})
+      }
+    }
+  }
+
+  callUpload = () => {
+    if (!this.state.image) {
+      alert("Select an image for upload.")
+    }
+    this.props.uploadImage(this.state.image, this.state.image_name)
+  }
+  
+  render() {
+    // const connectWallet = connector.connect();
+     
+    // const signTransaction = async () => {
+    //   try {
+    //      await connector.signTransaction({
+    //       data: '0x',
+    //       from: '0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3',
+    //       gas: '0x9c40',
+    //       gasPrice: '0x02540be400',
+    //       nonce: '0x0114',
+    //       to: '0x89D24A7b4cCB1b6fAA2625Fe562bDd9A23260359',
+    //       value: '0x00',
+    //     });
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
+    // };
+    // const killSession = connector.killSession(); 
+
+
+    return (
+     <WalletConnectProvider
+     redirectUrl={Platform.OS === 'web' ? window.location.origin : `${scheme}://`}
+     storageOptions = {{
+       AsyncStorage
+     }}>
+     <>
+       {<WalletConnectScreen />}
+      </>
+      </WalletConnectProvider>
+    );
+  }
+}
+
+function WalletConnectScreen() {
   var state = {
       animating: true,
       image: null,
@@ -129,6 +229,7 @@ function WalletConnectScreen(props): JSX.Element {
 
   return (
     //<View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
+    
     <View
       style={{
       flex: 1,
@@ -176,63 +277,14 @@ function uploadButton(){
 }
  
 
-class Wallet extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      animating: true,
-      image: null,
-      image_name: undefined,
-      uploaded_img: null,
-    }
-    this.callUpload = this.callUpload.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange = e => {
-    if (e.target.files[0]) {
-      const img = e.target.files[0];
-      let name = img.name
-      const filename = name.substring(0, img.name.indexOf('.'));
-      this.setState(() => ({ image: img, image_name: filename }));
-    }
-  };
 
-  componentDidMount() {
-    if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
-      this.props.getUploadedImages()
-    }
-    this.props.profile.images.forEach((img) => {
-      console.log(img)
-      console.log(img.imageUrl)
-    });
-  }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.profile.img !== prevProps.profile.img) {
-      if(this.props.profile.img ) {
-        this.setState({uploaded_img: this.props.profile.img})
-      }
-    }
-  }
-
-  callUpload = () => {
-    if (!this.state.image) {
-      alert("Select an image for upload.")
-    }
-    this.props.uploadImage(this.state.image, this.state.image_name)
-  }
-  render() {
-    return (
-      <WalletConnectScreen animating='true' image='null' image_name='undefined' uploaded_img='null' profile={this.props.profile}/>
-      );
-  }
-}
-
-export default withWalletConnect(WalletConnectScreen, {
-  redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
-  storageOptions: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    asyncStorage: AsyncStorage,
-  },
-});
+export default Wallet; 
+// export default withWalletConnect(Wallet, {
+//   redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
+//   storageOptions: {
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-ignore
+//     asyncStorage: AsyncStorage,
+//   },
+// });
