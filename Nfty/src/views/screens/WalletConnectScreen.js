@@ -64,6 +64,7 @@ class WalletConnectScreen extends Component{
   };
 
   componentDidMount(){
+    console.log(this.props)
     // if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
     //   this.props.getUploadedImages()
     // }
@@ -90,18 +91,12 @@ class WalletConnectScreen extends Component{
   
   render() {
     return (
-       <Wallet />
+       <Wallet props={this.props}/>
     );
   }
 }
 
 function Wallet(props) {
-  var state = {
-      animating: true,
-      image: null,
-      image_name: undefined,
-      uploaded_img: null,
-  }
   const connector = useWalletConnect();
   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
@@ -213,10 +208,13 @@ function Wallet(props) {
   <TouchableOpacity onPress={upload}>
     <Text>Create NFT</Text>
   </TouchableOpacity>
-  {/* <TouchableOpacity
-    onPress={() => this.props.navigation.navigate('ProfileScreen')}>
+  <TouchableOpacity
+    onPress={() => {
+      props.props.navigation.navigate('ProfileScreen')
+    }
+    }>
     <Text>Go to Profile</Text>
-  </TouchableOpacity> */}
+  </TouchableOpacity>
     </View>
   );
 }
