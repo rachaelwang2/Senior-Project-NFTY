@@ -34,9 +34,8 @@ class WelcomeScreen extends Component {
 			//Check if user_id is set or not
 			//If not then send for Authentication
 			//else send to Home Screen
-
 			this.props.navigation.replace(
-			this.props.auth.logged_in === false ? 'Auth' : 'ProfileScreen'
+			this.props.auth.logged_in === false ? 'Auth' : 'WalletConnectScreen'
 			)
 			
 			// AsyncStorage.getItem('user_id').then((value) =>
@@ -44,7 +43,7 @@ class WelcomeScreen extends Component {
 			// 	value === null ? 'Auth' : 'DrawerNavigationRoutes'
 			//   ),
 			// );
-		  }, 600);
+		  }, 800);
 	}
 
 
