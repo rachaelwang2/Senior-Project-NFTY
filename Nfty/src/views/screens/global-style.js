@@ -18,7 +18,7 @@ export const AppStyles = {
 	color: {
 	  main: "#5ea23a",
 	  text: "#696969",
-	  title: "#464646",
+	  title: "black",
 	  subtitle: "#545454",
 	  categoryTitle: "#161616",
 	  tint: "#ff5a66",
@@ -36,6 +36,7 @@ export const AppStyles = {
 	},
 	fontSize: {
 	  title: 30,
+    subtitle: 20,
 	  content: 20,
 	  normal: 16
 	},
@@ -112,7 +113,14 @@ loginContainer: {
   title: {
     fontSize: AppStyles.fontSize.title,
     fontWeight: "bold",
-    color: AppStyles.color.tint,
+    color: AppStyles.color.title,
+    marginTop: 20,
+    marginBottom: 20
+  },
+  subtitle: {
+    fontSize: AppStyles.fontSize.subtitle,
+    fontWeight: "bold",
+    color: AppStyles.color.title,
     marginTop: 20,
     marginBottom: 20
   },
