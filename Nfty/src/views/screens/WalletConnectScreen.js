@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import localhost from 'react-native-localhost';
 import Web3 from 'web3';
+import { connect } from "react-redux";
 
 import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
@@ -91,9 +92,31 @@ class WalletConnectScreen extends Component{
   
   render() {
     return (
-       <Wallet props={this.props}/>
+       <View
+      style={{
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+      justifyContent: 'center',
+      alignItems: 'center',
+      }}>
+         <Wallet props={this.props}/>
+         <>
+           {Platform.OS === 'web' && (
+            <>
+              <input type="file" onChange={this.handleChange} />
+            </>
+            )}
+         </>
+         <TouchableOpacity onPress={this.callUpload}>
+          <Text>Create NFT</Text>
+         </TouchableOpacity>
+       </View> 
     );
   }
+}
+
+function uploadButton(){
+  return <input type="file" onChange={handleChange} />;
 }
 
 function Wallet(props) {
@@ -177,13 +200,7 @@ function Wallet(props) {
   };
 
   return (    
-    <View
-      style={{
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-      justifyContent: 'center',
-      alignItems: 'center',
-      }}>
+    <>
       <Text testID="tid-message">{message}</Text>
       {!connector.connected && (
         <TouchableOpacity onPress={connectWallet}>
@@ -204,10 +221,8 @@ function Wallet(props) {
 	<TouchableOpacity onPress={signOut}>
 	  <Text>Sign Out</Text>
 	</TouchableOpacity>
-  {uploadButton}
-  <TouchableOpacity onPress={upload}>
-    <Text>Create NFT</Text>
-  </TouchableOpacity>
+  
+  
   <TouchableOpacity
     onPress={() => {
       props.props.navigation.navigate('ProfileScreen')
@@ -215,25 +230,19 @@ function Wallet(props) {
     }>
     <Text>Go to Profile</Text>
   </TouchableOpacity>
-    </View>
+   </>
   );
 }
 
 const { scheme } = expo;
 
-function uploadButton(){
-  if(Platform.OS === 'web') {
-    return <input type="file" onChange={handleChange} />;
-  } else {
-    return {};
-  }
-}
+
  
 
 
 
  
-export default withWalletConnect(WalletConnectScreen, {
+export default withWalletConnect(connect(mapStateToProps, mapDispatchToProps)(WalletConnectScreen), {
   redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
   storageOptions: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
