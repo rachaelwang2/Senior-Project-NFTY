@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ActivityIndicator, SafeAreaView, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
 // import { connect } from "react-redux";
 // import {globalStyle, AppStyles} from "./global-style";
+import { connect } from "react-redux";
 import {uploadImage, getUploadedImages} from "../../redux/actions/ActionCreators";
 // import { Svg } from 'react-native-svg'
 
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
 	};
 };
 
-export default class App extends Component {
+class ProfileScreen extends Component {
   constructor(props){
 		super(props);
 		this.state = {
@@ -26,18 +27,7 @@ export default class App extends Component {
 			image_name: undefined,
 			uploaded_img: null,
 		}
-		this.callUpload = this.callUpload.bind(this);
-		this.handleChange = this.handleChange.bind(this);
 	}
-
-	handleChange = e => {
-		if (e.target.files[0]) {
-		  const img = e.target.files[0];
-		  let name = img.name
-		  const filename = name.substring(0, img.name.indexOf('.'));
-		  this.setState(() => ({ image: img, image_name: filename }));
-		}
-	};
 
 	componentDidMount() {
 		if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
@@ -56,15 +46,6 @@ export default class App extends Component {
 			}
 		}
 	}
-
-	callUpload = () => {
-		if (!this.state.image) {
-			alert("Select an image for upload.")
-			return
-		}
-		this.props.uploadImage(this.state.image, this.state.image_name)
-	}
-
 
   render() {
     return (
@@ -105,14 +86,6 @@ export default class App extends Component {
             //replace with image URL from the database
           }}
         /> */}
-        <Image
-          source = {{
-            width: 200,
-            height: 200,
-            uri: "http://picsum.photos/200/300"
-            //replace with image URL from the database
-          }}
-        />
         </View>
         <View
           style={{
@@ -140,14 +113,6 @@ export default class App extends Component {
               //replace with image URL from the database
             }}
           />   */}
-          <Image
-            source = {{
-              width: 200,
-              height: 200,
-              uri: "http://picsum.photos/200/300"
-              //replace with image URL from the database
-            }}
-          />
         </View>
         <Text>
           <Text>{ this.addPadding() }</Text>
@@ -197,3 +162,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

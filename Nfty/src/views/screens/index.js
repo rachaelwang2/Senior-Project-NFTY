@@ -8,7 +8,7 @@ import WelcomeScreen from './WelcomeScreen';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import HomeScreen from './HomeScreen';
-import ProfileScreen from './ProfileScreen';
+import ProfileScreen from './PersonalProfile';
 import PhotoUpload from './PhotoUpload';
 import {connect} from 'react-redux';
 import DrawerNavigationRoutes from './DrawerNavigationRoutes';
