@@ -9,6 +9,7 @@ import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import HomeScreen from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
+import PersonalProfile from './PersonalProfile';
 import PhotoUpload from './PhotoUpload';
 import {connect} from 'react-redux';
 import DrawerNavigationRoutes from './DrawerNavigationRoutes';
@@ -71,8 +72,8 @@ class Navigator extends React.Component {
     return (
         <Stack.Navigator initialRouteName="WelcomeScreen">
           <Stack.Screen 
-            name = "ProfileScreen"
-            component = {ProfileScreen}
+            name = "PersonalProfile"
+            component = {PersonalProfile}
             options={{headerShown: false}}
           />
           <Stack.Screen 
