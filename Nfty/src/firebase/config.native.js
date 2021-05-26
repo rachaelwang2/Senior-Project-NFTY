@@ -36,3 +36,4 @@ export const firestore = rnfirestore;
 export const storage = rnstorage;
 export const firebasestore = rnfirestore;
 export const firebasestorage = rnstorage;
+export const firebasefunc = rnfunctions;

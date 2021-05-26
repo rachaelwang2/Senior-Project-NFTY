@@ -11,8 +11,8 @@ import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 import NFTSimple from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
-import { signOutUser, uploadImage, getUploadedImages } from "../../redux/actions/ActionCreators";
-import { auth } from "../../firebase/config"
+import { signOutUser, uploadImage, getUploadedImages, deployMetada } from "../../redux/actions/ActionCreators";
+import { auth, firebasefunc } from "../../firebase/config"
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -84,10 +84,22 @@ class WalletConnectScreen extends Component{
   }
 
   callUpload = () => {
-    if (!this.state.image) {
-      alert("Select an image for upload.")
-    }
-    this.props.uploadImage(this.state.image, this.state.image_name)
+    deployMetada({text: "test"});
+    // var writeMetadata = firebasefunc.httpsCallable('write_metadata');
+    // writeMetadata({text: "test"}, auth)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) =>{
+    //     console.log(error.message);
+    //     var code = error.code;
+    //     var message = error.message;
+    //     var details = error.details;
+    //   });
+    // if (!this.state.image) {
+    //   alert("Select an image for upload.")
+    // }
+    // this.props.uploadImage(this.state.image, this.state.image_name)
   }
   
   render() {

@@ -4,7 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 
 export const testFunction = () => (dispatch) => {
 	console.log("action creator called")
@@ -263,3 +264,16 @@ export const setImages = (images) => {
 	  payload: images,
 	};
 };
+
+export const deployMetada = (data) => {
+	functions()
+		.useFunctionsEmulator('http://localhost:5001')
+		.httpsCallable('write_metadata')()
+		.then(response => {
+			console.log(response);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	
+}
