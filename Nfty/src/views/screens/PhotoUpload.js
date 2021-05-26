@@ -11,7 +11,6 @@ export default function photo_upload () {
       {Platform.OS === 'web' && (
         <Inputfield />
       )}
-      
       <Button />
       <View style={uploader.TabMenu}>
         <TabButton />
@@ -25,15 +24,16 @@ export default function photo_upload () {
 
 const uploader = StyleSheet.create({
   FigmatoReact: {
+    flex: 1,
     backgroundColor: '#f9f9f9',
   },
   Title: {
-    width: 643,
-    height: 109,
-    margin: '318 60',
+    //width: 643,
+    //height: 109,
+    //margin: '318 60',
     color: '#000000',
     fontFamily: 'Inter, sans-serif',
-    fontSize: 90,
+    fontSize: 20,
     fontWeight: '500',
     lineHeight: 105.46875,
     textAlign: 'center',
@@ -110,8 +110,8 @@ function Button () {
 
 const ButtonStyles = StyleSheet.create({
   Button: {
-    width: 450,
-    height: 120,
+    width: 150,
+    height: 50,
     borderRadius: 16,
     margin: '417 321',
     backgroundColor: '#2d9cdb',
@@ -122,7 +122,7 @@ const ButtonStyles = StyleSheet.create({
     margin: '135 36',
     color: '#ffffff',
     fontFamily: 'Inter, sans-serif',
-    fontSize: 40,
+    fontSize: 20,
     lineHeight: 46.875,
     textAlign: 'center',
     textAlignVertical: 'center',

@@ -2640,6 +2640,14 @@
   dependencies:
     "@json-rpc-tools/types" "^1.6.1"
 
+"@koale/useworker@^3.2.1":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@koale/useworker/-/useworker-3.4.0.tgz#773ac623212bfaed377ff5e6cd44240ed52e40ff"
+  integrity sha512-cDGItsqyNd6SlaO+9XmDupANNNl4omjisdLcLbITdcKktlK+wpW1HwbnVjHiXBtHXQsKxxE832qVMlE/q9lmXg==
+  dependencies:
+    dequal "^1.0.0"
+    isoworker "^0.1.1"
+
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.4.tgz#d4b3549a5db5de2683e0c1071ab4f140904bbf69"
@@ -6428,6 +6436,11 @@ depd@~1.1.2:
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
 
+dequal@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dequal/-/dequal-1.0.1.tgz#dbbf9795ec626e9da8bd68782f4add1d23700d8b"
+  integrity sha512-Fx8jxibzkJX2aJgyfSdLhr9tlRoTnHKrRJuu2XHlAgKioN2j19/Bcbe0d4mFXYZ3+wpE2KVobUVTfDutcD17xQ==
+
 dequal@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
@@ -7741,6 +7754,16 @@ expo-asset@~8.3.1:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-camera@~11.0.2:
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-11.0.3.tgz#36b3e8b82f9f7944a9518042df276dfb9c769887"
+  integrity sha512-LDVW76spXtSuq4qb0y7+4zhNQUCZAHV+bxiiXgyFzNf1Tb9I1qqwdUyOZj4951xhOUxdH2AzNMhzWQMSthY/mg==
+  dependencies:
+    "@expo/config-plugins" "^1.0.18"
+    "@koale/useworker" "^3.2.1"
+    invariant "2.2.4"
+    unimodules-permissions-interface "^6.2.0"
+
 expo-constants@~10.1.3:
   version "10.1.3"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-10.1.3.tgz#dfbe30362d27d6f500318eb528621424034b72d5"
@@ -7773,6 +7796,16 @@ expo-image-loader@~2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-2.1.1.tgz#028ae58f7c7a33ca9a406716c2b31969216d016f"
   integrity sha512-EeItNIsmw4g+FIb9S9AHE7FAWQkuiIguFMua/RQ2mFHKFZYa/BU32MGagY+e4LzasBVbDKWgd3NHO+EYC6XeEA==
+
+expo-image-picker@~10.1.4:
+  version "10.1.4"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-10.1.4.tgz#5805ea365385298cd59315790481a0a8d6c6a9ef"
+  integrity sha512-4U16RteJNWP5mC198fOIK/BgI3ZXRjqwslFK/gUrKiK5QKECXdvPCHrPwbXlo1DRQNhoPvWd+Cnhod0RsDnMkQ==
+  dependencies:
+    "@expo/config-plugins" "^1.0.18"
+    expo-permissions "~12.0.1"
+    unimodules-permissions-interface "~6.1.0"
+    uuid "7.0.2"
 
 expo-keep-awake@~9.1.2:
   version "9.1.2"
@@ -9752,6 +9785,11 @@ isomorphic-fetch@^2.1.1:
   dependencies:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
+
+isoworker@^0.1.1:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/isoworker/-/isoworker-0.1.3.tgz#a54587fa1da2f57d401565f83b1c4ee8b21ae372"
+  integrity sha512-NmguMXzoa/ixeQv373vIf+zYgqvZMqEFpMSysAQWfdNAf+TvjZQH7ZiQEk9ZKHkktfPqH74GSab4IVXda71hbw==
 
 isstream@~0.1.2:
   version "0.1.2"
@@ -13522,7 +13560,7 @@ react-native-svg@12.1.1:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
 
-react-native-unimodules@~0.13.3:
+react-native-unimodules@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-native-unimodules/-/react-native-unimodules-0.13.3.tgz#544a3840683967ca6a2e8b9841d0524236eb6288"
   integrity sha512-fjbNbAcvJHF8Ywqe77oveRW1WfaAKCQGV4a3Fxgpai17oNHq1LFwwKw0crFo0k7Njm5u7kCMVNbm9ZILNBfABQ==
@@ -15813,6 +15851,11 @@ unimodules-image-loader-interface@~6.1.0:
   resolved "https://registry.yarnpkg.com/unimodules-image-loader-interface/-/unimodules-image-loader-interface-6.1.0.tgz#f48509c9900299798dff73635d1544d5829e10c1"
   integrity sha512-o8hZI6J6DGYyo2xSH6J+ipxME0blNfmaWU3P2Y2AUVxbEPdgjT2sVmufRWMKGhrt7gaNW4xF/JUbF9lq4Rui7w==
 
+unimodules-permissions-interface@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/unimodules-permissions-interface/-/unimodules-permissions-interface-6.2.0.tgz#6cf17d173762c9da67e38d60ffde5c4d3c858fa8"
+  integrity sha512-9qP/LTsE5eTlqS//wFXenq3Cj6d5fvOkBZrmky8fiPQkO0tsygOg1n1muMdw+3H4QezSyY6Zd06yWf2JQwyo/w==
+
 unimodules-permissions-interface@~6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/unimodules-permissions-interface/-/unimodules-permissions-interface-6.1.0.tgz#fd5589945e3b8fc9d2c80c52521853caea85a9ca"
@@ -16021,6 +16064,11 @@ uuid@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
+
+uuid@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
 
 uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
