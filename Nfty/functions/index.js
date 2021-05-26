@@ -58,10 +58,13 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
     */
 
 exports.write_metadata = functions.https.onCall((data, context) => {
-	var metadata = JSON.parse(sample_metadata);
-	metadata.name = data.text;
-	const uri = data.uri; 
-	const owner = context.auth.token.name || null;
+	var metadata = sample_metadata;
+	 metadata.name = data?.text || "no name set";
+	 metadata.owner = data?.owner || "not working";
+	 metadata.creator = data?.creator || "no creator set";
+	 metadata.image_uri = data?.image_uri || "no image uri"; 
+	// const uri = data.uri; 
+	// const owner = context.auth.token.name || null;
 
-	return metadata
+	return metadata;
 });

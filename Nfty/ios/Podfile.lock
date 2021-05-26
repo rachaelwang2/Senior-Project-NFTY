@@ -611,8 +611,6 @@ PODS:
   - React-jsinspector (0.64.1)
   - react-native-get-random-values (1.7.0):
     - React-Core
-  - react-native-image-picker (3.8.0):
-    - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-spinkit (1.4.1):
@@ -799,7 +797,6 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
-  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-spinkit (from `../node_modules/react-native-spinkit`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -924,8 +921,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-get-random-values:
     :path: "../node_modules/react-native-get-random-values"
-  react-native-image-picker:
-    :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-spinkit:
@@ -1058,7 +1053,6 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 124e8f99992490d0d13e0649d950d3e1aae06fe9
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
   react-native-get-random-values: 237bffb1c7e05fb142092681531810a29ba53015
-  react-native-image-picker: ec63410edbcacc543acd77dcccfc056da39320ab
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-webview: cc2a1fd8149a2654d1408793daa62baadfc0bd96

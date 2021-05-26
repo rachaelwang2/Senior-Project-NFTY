@@ -266,9 +266,9 @@ export const setImages = (images) => {
 };
 
 export const deployMetada = (data) => {
-	functions()
-		.useFunctionsEmulator('http://localhost:5001')
-		.httpsCallable('write_metadata')(data)
+	functions().useFunctionsEmulator('http://localhost:5001')
+	var writeMetadata = functions().httpsCallable('write_metadata')
+	writeMetadata(data, auth)
 		.then(response => {
 			console.log(response);
 		})

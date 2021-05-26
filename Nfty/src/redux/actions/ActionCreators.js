@@ -1,6 +1,8 @@
 import * as ActionTypes from "../types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { firestore, fireauth, auth, firebasestore, storage, functions } from "../../firebase/config"
+import { firestore, fireauth, auth, firebasestore, storage, functions, base } from "../../firebase/config"
+import { firebasefunc } from "../../firebase/config"
+require("firebase/functions")
 // import firebase from '@react-native-firebase/app';
 // import auth from '@react-native-firebase/auth';
 // import storage from '@react-native-firebase/storage';
@@ -264,9 +266,9 @@ export const setImages = (images) => {
 };
 
 export const deployMetada = (data) => {
-	functions()
-		.useEmulator("localhost", 5001)
-		.httpsCallable('write_metadata')(data)
+	firebasefunc().useEmulator('localhost', 5001);
+	var writeMetadata = firebasefunc().httpsCallable('write_metadata');
+	writeMetadata(data, auth)
 		.then(response => {
 			console.log(response);
 		})

@@ -5,7 +5,7 @@ import {globalStyle, AppStyles} from "./global-style";
 import {
 	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -109,13 +109,13 @@ class HomeScreen extends Component {
 				{!(Platform.OS === 'web') && (
 					<Button 
 					title="Choose Photo"
-					onPress= {() => 
-							launchImageLibrary({mediaType: 'mixed'}, (response) => {
-								this.handleNative(response)
-							})
+					// onPress= {() => 
+							// launchImageLibrary({mediaType: 'mixed'}, (response) => {
+							// 	this.handleNative(response)
+							// })
 
 
-					}
+					// }
 					/>
 				)}
 				<TouchableOpacity

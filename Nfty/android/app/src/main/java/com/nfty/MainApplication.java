@@ -1,8 +1,5 @@
 package com.nfty;
 
-// com.myapp should be your package name
-import com.nfty.generated.BasePackageList;
-
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
@@ -16,14 +13,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.nfty.generated.BasePackageList;
-
-//added
-import java.util.Arrays;
- 
-import org.unimodules.adapters.react.ModuleRegistryAdapter;
-import org.unimodules.adapters.react.ReactModuleRegistryProvider;
-import org.unimodules.core.interfaces.SingletonModule;
-//
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
@@ -41,12 +30,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 public class MainApplication extends Application implements ReactApplication {
-  
-  //added
-  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
-  
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
-    new BasePackageList().getPackageList()
+    new BasePackageList().getPackageList(), null
   );
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -59,13 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
-
-      // Add unimodules
-      List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
-        new ModuleRegistryAdapter(mModuleRegistryProvider)
-      );
-      packages.addAll(unimodules);
-      //     
       return packages;
     }
 

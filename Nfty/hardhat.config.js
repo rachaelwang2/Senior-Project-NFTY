@@ -1,6 +1,7 @@
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
+require("@nomiclabs/hardhat-ganache");
 require("@nomiclabs/hardhat-waffle");
 require("dotenv/config");
 

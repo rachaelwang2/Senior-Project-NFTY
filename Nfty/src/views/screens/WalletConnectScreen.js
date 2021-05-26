@@ -50,7 +50,9 @@ class WalletConnectScreen extends Component{
       image: null,
       image_name: undefined,
       uploaded_img: null,
-      message: 'Loading...', 
+      message: 'Loading...',
+      web3: new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`))
+, 
     };
     this.callUpload = this.callUpload.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -65,7 +67,6 @@ class WalletConnectScreen extends Component{
   };
 
   componentDidMount(){
-    console.log(this.props)
     // if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
     //   this.props.getUploadedImages()
     // }
@@ -76,6 +77,8 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
+    console.log(this.props);
+    console.log(this.state)
     // if (this.props.profile.img !== prevProps.profile.img) {
     //   if(this.props.profile.img ) {
     //     this.setState({uploaded_img: this.props.profile.img})
@@ -84,9 +87,28 @@ class WalletConnectScreen extends Component{
   }
 
   callUpload = () => {
-    deployMetada({text: "test"});
-    // var writeMetadata = firebasefunc.httpsCallable('write_metadata');
-    // writeMetadata({text: "test"}, auth)
+    const name =  this.props.auth.user.displayName;
+    //const [message, setMessage] = React.useState('Loading...');
+
+   (async () => {
+        const { address } = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+        const contract = await shouldDeployContract(
+          this.state.web3,
+          Hello.abi,
+          Hello.bytecode,
+          address
+        );
+        this.setState(() => ({message: contract.methods.sayHello('React Native').call()}));
+      });
+    deployMetada({
+      text: "test",
+      creator: name,
+      owner: name,
+      image_uri: "Image URI goes here!",
+
+    });
+    // var writeMetadata = firebasefunc().httpsCallable('write_metadata');
+    // writeMetadata({text: "test"})
     //   .then((result) => {
     //     console.log(result);
     //   })
@@ -96,7 +118,7 @@ class WalletConnectScreen extends Component{
     //     var message = error.message;
     //     var details = error.details;
     //   });
-    // if (!this.state.image) {
+    // // if (!this.state.image) {
     //   alert("Select an image for upload.")
     // }
     // this.props.uploadImage(this.state.image, this.state.image_name)
@@ -111,6 +133,7 @@ class WalletConnectScreen extends Component{
       justifyContent: 'center',
       alignItems: 'center',
       }}>
+        <Text testID="tid-message">{this.state.message}</Text>
          <Wallet props={this.props}/>
          <>
            {Platform.OS === 'web' && (
@@ -131,9 +154,19 @@ function uploadButton(){
   return <input type="file" onChange={handleChange} />;
 }
 
+function DeployNft(props){
+  const [message, setMessage] = React.useState('Loading...');
+
+}
+// const web3 = async () => {
+//   return new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`))
+      
+// }
+
 function Wallet(props) {
   const connector = useWalletConnect();
-  const [message, setMessage] = React.useState('Loading...');
+  props.props.profile.wallet = connector; 
+   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
     () => new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
@@ -150,6 +183,7 @@ function Wallet(props) {
       setMessage(await contract.methods.sayHello('React Native').call());
     })();
   }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
+  
   const connectWallet = React.useCallback(() => {
     return connector.connect();
   }, [connector]);
@@ -173,21 +207,16 @@ function Wallet(props) {
   }, [connector]);
 
   const createNft = React.useCallback(async () => {
-    try{
-      await connector.signTransaction({
-        data: '0x',
-        from: '0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3',
-        gas: '0x9c40',
-        gasPrice: '0x02540be400',
-        nonce: '0x0114',
-        to: '0x89D24A7b4cCB1b6fAA2625Fe562bDd9A23260359',
-        value: '0x00',
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }, [connector]);
-
+      const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+      const nftContract = await shouldDeployContract(
+        web3,
+        NFT.abi,
+        NFT.bytecode,
+        address
+      );
+      await nftContract.methods.createNFT('React Native').call();
+    })();
+   
   const signOut =  signOutUser(); 
   const upload = React.useCallback(()=> {
     try {
@@ -213,7 +242,6 @@ function Wallet(props) {
 
   return (    
     <>
-      <Text testID="tid-message">{message}</Text>
       {!connector.connected && (
         <TouchableOpacity onPress={connectWallet}>
           <Text>Connect a Wallet</Text>

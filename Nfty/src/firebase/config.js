@@ -8,12 +8,12 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage'
 import "firebase/analytics";
-import "firebase/functions";
-   import { auth as rnauth } from '@react-native-firebase/auth';
-   import { firestore as rnfirestore } from '@react-native-firebase/firestore';
-   import { storage as rnstorage }  from '@react-native-firebase/storage';
-   import { analytics as rnanalytics } from '@react-native-firebase/analytics';
-   import { functions as rnfunctions } from '@react-native-firebase/functions';
+require("firebase/functions");
+   // import { auth as rnauth } from '@react-native-firebase/auth';
+   // import { firestore as rnfirestore } from '@react-native-firebase/firestore';
+   // import { storage as rnstorage }  from '@react-native-firebase/storage';
+   // import { analytics as rnanalytics } from '@react-native-firebase/analytics';
+   // import { functions as rnfunctions } from '@react-native-firebase/functions';
 
 // firebase.analytics();
 
@@ -37,4 +37,6 @@ export const firestore = firebase.firestore();
 export const storage = firebase.storage();
 export const firebasestore = firebase.firestore;
 export const firebasestorage = firebase.storage;
+export const firebasefunc = firebase.functions;
 export const functions = firebase.functions();
+export const base = firebase;

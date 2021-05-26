@@ -3,6 +3,7 @@ import { IMAGE_UPLOAD, IMAGES_FETCHED } from '../types'
 const INITIAL_STATE = {
     img: null,
     images: [],
+    wallet: null,
   };
   
   export default (state = INITIAL_STATE, action) => {
