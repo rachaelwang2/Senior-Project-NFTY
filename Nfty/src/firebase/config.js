@@ -37,4 +37,4 @@ export const firestore = firebase.firestore();
 export const storage = firebase.storage();
 export const firebasestore = firebase.firestore;
 export const firebasestorage = firebase.storage;
-export const firebasefunc = firebase.functions();
+export const functions = firebase.functions();
