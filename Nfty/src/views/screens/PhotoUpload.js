@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, Platform } from 'react-native'
 import { Svg } from 'react-native-svg'
 
 export default function photo_upload () {
@@ -8,7 +8,10 @@ export default function photo_upload () {
       <Text style={uploader.Title}>
         Figma to React
       </Text>
-      <Inputfield />
+      {Platform.OS === 'web' && (
+        <Inputfield />
+      )}
+      
       <Button />
       <View style={uploader.TabMenu}>
         <TabButton />

@@ -13427,6 +13427,11 @@ react-native-get-random-values@1.7.0:
   dependencies:
     fast-base64-decode "^1.0.0"
 
+react-native-image-picker@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-3.8.0.tgz#d6e9e46c060feae9e248843c0d22fd5f9ed78458"
+  integrity sha512-jlL8YdKBaN8OamKZZYWjjpgUEj4+VvMdnh69euUsUdKBu2iD9HTLQrC9NHVQ78p0fQ2YL3Gf4xNwMTDDFspNpA==
+
 react-native-instagram-login@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-native-instagram-login/-/react-native-instagram-login-2.0.4.tgz#9cceafa5f16551ebd403da3004123f96af9d2664"
@@ -14759,7 +14764,7 @@ source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
-source-map-support@^0.5.13, source-map-support@^0.5.16, source-map-support@^0.5.17, source-map-support@^0.5.6:
+source-map-support@^0.5.13, source-map-support@^0.5.16, source-map-support@^0.5.17, source-map-support@^0.5.19, source-map-support@^0.5.6:
   version "0.5.19"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
