@@ -51,7 +51,7 @@ function WalletConnectScreen(props): JSX.Element {
   const connector = useWalletConnect();
   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
-    () => new Web3(new Web3.providers.HttpProvider(`http://${HOST_ADDRESS}:${HARDHAT_PORT}`)),
+    () => new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
   );
   React.useEffect(() => {
@@ -164,6 +164,9 @@ function WalletConnectScreen(props): JSX.Element {
     onPress={() => this.props.navigation.navigate('ProfileScreen')}>
     <Text>Go to Profile</Text>
   </TouchableOpacity> */}
+  <TouchableOpacity onPress={/*upload (commented out by Ivan)*/ () => props.navigation.navigate("CameraImage", {})}>
+    <Text>Take Picture</Text>
+  </TouchableOpacity>
     </View>
   );
 }
