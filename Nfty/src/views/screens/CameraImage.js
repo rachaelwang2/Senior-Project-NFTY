@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
-export default function camera_image() {
+export default function camera_image(props) {
 
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -18,6 +18,8 @@ export default function camera_image() {
 
       const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
       setHasGalleryPermission(galleryStatus.status === 'granted');
+
+      console.log(props)
 
     })();
   }, []);

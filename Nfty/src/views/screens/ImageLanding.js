@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity, Platform} from 'react-native';
+import {View, StyleSheet, Image, Text, Button, TouchableOpacity, Platform} from 'react-native';
 import { connect } from "react-redux";
 import {globalStyle, AppStyles} from "./global-style";
 import {
 	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 
 
@@ -26,11 +25,16 @@ class ImageLanding extends Component {
 		super(props);
 		this.state = {
 			image: null,
+			image_name: null,
+			hasGalleryPermission: null,
 		}
-		this.pickImage = this.pickImage.bind(this)
+		this.pickImage = this.pickImage.bind(this);
+		this.callUpload = this.callUpload.bind(this);
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
+		const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+	  	this.setState({ hasGalleryPermission: galleryStatus.status === 'granted'})
 	}
 
 	componentDidUpdate(prevProps) {
@@ -47,10 +51,18 @@ class ImageLanding extends Component {
 		console.log(result);
 	
 		if (!result.cancelled) {
-			console.log("setting image")
-			this.setState({ image: '../img/nfty_logo.png'})
+			console.log("setting")
+			this.setState(() => ({image: result.uri}))
 		}
-	  };
+	};
+
+	callUpload = () => {
+		if (!this.state.image) {
+			alert("Select an image for upload.")
+			return
+		}
+		this.props.uploadImage(this.state.image, "dummy image name")
+	}
 
 	render() {
 		return (
@@ -83,14 +95,9 @@ class ImageLanding extends Component {
 					onPress={() => console.log("camera")}>
 					<Text style={localStyle.buttonTextStyle}>Take Image with Camera</Text>
 				</TouchableOpacity>
-				{this.state.image && <Image source = {{uri: this.state.image}} 
-					style={{
-							width: '50%',          
-							height: 100,
-							resizeMode: 'contain',
-							alignSelf: 'center',
-							margin: 30,
-						}}/>}
+				{this.state.image && 
+				<Image source={{uri: this.state.image}} style={{flex: 1}}/>	
+				}
 			</View>
 		  );
 	  }
