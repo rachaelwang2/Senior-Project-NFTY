@@ -249,6 +249,12 @@ function Wallet(props) {
   <TouchableOpacity onPress={/*upload (commented out by Ivan)*/ () => props.props.navigation.navigate("CameraImage", {})}>
     <Text>Take Picture</Text>
   </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => props.props.navigation.navigate('ImageLanding')}>
+    <Text>Image Landing</Text>
+  </TouchableOpacity>
+  
   </>
   );
 }
