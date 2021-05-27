@@ -16,6 +16,7 @@ import WalletConnectScreen from './WalletConnectScreen';
 import {attemptLogin} from '../../redux/actions/ActionCreators';
 import photo_upload from './PhotoUpload';
 import camera_image from './CameraImage';
+import ImageLanding from './ImageLanding';
 
 const mapDispatchToProps = (dispatch) => ({
 	attemptLogin: () => dispatch(attemptLogin())
@@ -114,6 +115,12 @@ class Navigator extends React.Component {
           <Stack.Screen
             name="CameraImage"
             component= {camera_image}
+            // Hiding header for Welcome Screen
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ImageLanding"
+            component= {ImageLanding}
             // Hiding header for Welcome Screen
             options={{headerShown: false}}
           />
