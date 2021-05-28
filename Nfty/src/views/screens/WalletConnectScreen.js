@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
-import NFTSimple from '../../../artifacts/contracts/NFT.sol/NFT.json';
+import NFT from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
 import { signOutUser, uploadImage, getUploadedImages, deployMetada } from "../../redux/actions/ActionCreators";
 import { auth, firebasefunc } from "../../firebase/config"
@@ -45,17 +45,28 @@ const shouldDeployContract = async (web3, abi, data, from) => {
 class WalletConnectScreen extends Component{
   constructor(props){
     super(props);
+
     this.state = {
       animating: true,
       image: null,
       image_name: undefined,
       uploaded_img: null,
       message: 'Loading...',
-      web3: new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`))
-, 
+      web3: new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`)), 
+      address: null, //,
+      nftContract: null, 
     };
     this.callUpload = this.callUpload.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setState(() => ({address: this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY)}));
+    this.setState(() => ({nftContract: shouldDeployContract(
+        this.state.web3,
+        NFT.abi,
+        NFT.bytecode,
+        this.state.address
+      )}));
+    this.setState({message: this.state.nftContract.methods.sayHello('React Native').call()});
+
   }
   handleChange = e => {
     if (e.target.files[0]) {
@@ -67,6 +78,7 @@ class WalletConnectScreen extends Component{
   };
 
   componentDidMount(){
+    
     // if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
     //   this.props.getUploadedImages()
     // }
@@ -77,7 +89,7 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props);
+    //console.log(this.props);
     console.log(this.state)
     // if (this.props.profile.img !== prevProps.profile.img) {
     //   if(this.props.profile.img ) {
@@ -87,7 +99,7 @@ class WalletConnectScreen extends Component{
   }
 
   callUpload = () => {
-    const name =  this.props.auth.user.displayName;
+    //const name =  this.props.auth.user.displayName;
     //const [message, setMessage] = React.useState('Loading...');
 
    (async () => {
@@ -98,15 +110,16 @@ class WalletConnectScreen extends Component{
           Hello.bytecode,
           address
         );
-        this.setState(() => ({message: contract.methods.sayHello('React Native').call()}));
+        console.log("about to update state");
+        await this.setState(() => ({message: contract.methods.sayHello('React Native').call()}));
       });
-    deployMetada({
-      text: "test",
-      creator: name,
-      owner: name,
-      image_uri: "Image URI goes here!",
+    // deployMetada({
+    //   text: "test",
+    //   creator: name,
+    //   owner: name,
+    //   image_uri: "Image URI goes here!",
 
-    });
+    // });
     // var writeMetadata = firebasefunc().httpsCallable('write_metadata');
     // writeMetadata({text: "test"})
     //   .then((result) => {
@@ -170,7 +183,7 @@ function Wallet(props) {
   const web3 = React.useMemo(
     () => new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
-  );
+  ); 
   React.useEffect(() => {
     (async () => {
       const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
@@ -206,16 +219,16 @@ function Wallet(props) {
     return connector.killSession();
   }, [connector]);
 
-  const createNft = React.useCallback(async () => {
-      const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
-      const nftContract = await shouldDeployContract(
-        web3,
-        NFT.abi,
-        NFT.bytecode,
-        address
-      );
-      await nftContract.methods.createNFT('React Native').call();
-    })();
+  // const createNft = React.useCallback(async () => {
+  //     const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+  //     const nftContract = await shouldDeployContract(
+  //       web3,
+  //       NFT.abi,
+  //       NFT.bytecode,
+  //       address
+  //     );
+  //     await nftContract.methods.createNFT('React Native').call();
+  //   })();
    
   const signOut =  signOutUser(); 
   const upload = React.useCallback(()=> {
@@ -242,6 +255,7 @@ function Wallet(props) {
 
   return (    
     <>
+      <Text testID="tid-message">{message}</Text>
       {!connector.connected && (
         <TouchableOpacity onPress={connectWallet}>
           <Text>Connect a Wallet</Text>

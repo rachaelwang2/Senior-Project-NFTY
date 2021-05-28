@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const sample_metadata = require("./metadata/sample_metadata.json");
 
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
@@ -57,9 +58,11 @@ exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
 	}
     */
 
+nft_metadata = new Map();
+
 exports.write_metadata = functions.https.onCall((data, context) => {
 	var metadata = sample_metadata;
-	 metadata.name = data?.text || "no name set";
+	 metadata.name = data?.name || "no name set";
 	 metadata.owner = data?.owner || "not working";
 	 metadata.creator = data?.creator || "no creator set";
 	 metadata.image_uri = data?.image_uri || "no image uri"; 
@@ -67,4 +70,17 @@ exports.write_metadata = functions.https.onCall((data, context) => {
 	// const owner = context.auth.token.name || null;
 
 	return metadata;
+});
+
+
+exports.get_metadata = functions.https.onRequest((req, res) => {
+	const tokenId = Number(req.query.tokenId);
+
+	nft_metadata.set(nft_metadata.size, sample_metadata);
+	if(nft_metadata.has(tokenId)){
+		res.status(200).send(nft_metadata.get(tokenId));
+	} else{
+
+		res.status(200).send("invalid token id");
+	}
 });

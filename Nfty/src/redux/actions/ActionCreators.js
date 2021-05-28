@@ -193,6 +193,15 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 
 					dispatch(imageUploaded(data));
 					console.log("photo uploaded to storage url stored in database")
+					//NFT stuff
+					const nftData = {
+						image_url: data.imageUrl, 
+						creator: id,
+						owner: id,
+						name: fileName,
+						//other special things about the NFT
+					};
+					deployMetada(nftData);
 				  });
 			  }
 			);
@@ -271,9 +280,14 @@ export const deployMetada = (data) => {
 	writeMetadata(data, auth)
 		.then(response => {
 			console.log(response);
+			//
 		})
 		.catch((error) => {
-			console.log(error);
+			console.error(error);
 		});
-	
+}
+
+export const getMetadata = (tokenId) =>{
+	firebasefunc().useEmulator('localhost', 5001);
+	var metadata = firebasefunc().https
 }
