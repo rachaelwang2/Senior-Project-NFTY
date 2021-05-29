@@ -36,6 +36,7 @@ class HomeScreen extends Component {
 	handleChange = e => {
 		if (e.target.files[0]) {
 		  const img = e.target.files[0];
+		  console.log(img)
 		  let name = img.name
 		  const filename = name.substring(0, img.name.indexOf('.'));
 		  this.setState(() => ({ image: img, image_name: filename }));
@@ -44,8 +45,11 @@ class HomeScreen extends Component {
 
 	handleNative = e => {
 		console.log(e.errorMessage)
+		const uri = e.uri;
+		const filename = uri.substring(uri.lastIndexOf('/') + 1);
+  		const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 		if(!e.didCancel){
-			this.setState(() => ({image: e.uri, image_name: e.filename}))
+			this.setState(() => ({image: uploadUri, image_name: e.filename}))
 		}else{
 			console.log("image selection cancelled")
 		}
@@ -113,8 +117,6 @@ class HomeScreen extends Component {
 							launchImageLibrary({mediaType: 'mixed'}, (response) => {
 								this.handleNative(response)
 							})
-
-
 					}
 					/>
 				)}
