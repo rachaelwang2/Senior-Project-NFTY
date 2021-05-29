@@ -5,7 +5,7 @@ import {globalStyle, AppStyles} from "./global-style";
 import {
 	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
-import {launchCamera, launchImageLibrary, ImagePicker } from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -140,7 +140,7 @@ class HomeScreen extends Component {
 				{!(Platform.OS === 'web') && (
 					<Button 
 					title="Choose Photo"
-					onPress= {this.selectImage()}
+					onPress= {this.selectImage}
 					/>
 				)}
 				<TouchableOpacity
