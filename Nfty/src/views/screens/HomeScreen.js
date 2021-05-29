@@ -46,7 +46,7 @@ class HomeScreen extends Component {
 	handleNative = e => {
 		console.log(e.errorMessage)
 		const uri = e.uri;
-		const filename = uri.substring(uri.lastIndexOf('/') + 1);
+		// const filename = uri.substring(uri.lastIndexOf('/') + 1);
   		const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 		if(!e.didCancel){
 			this.setState(() => ({image: uploadUri, image_name: e.filename}))
