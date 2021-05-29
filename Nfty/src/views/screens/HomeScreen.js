@@ -5,7 +5,7 @@ import {globalStyle, AppStyles} from "./global-style";
 import {
 	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
-import {launchCamera, launchImageLibrary, ImagePicker } from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,7 +46,7 @@ class HomeScreen extends Component {
 	handleNative = e => {
 		console.log(e.errorMessage)
 		const uri = e.uri;
-		const filename = uri.substring(uri.lastIndexOf('/') + 1);
+		// const filename = uri.substring(uri.lastIndexOf('/') + 1);
   		const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 		if(!e.didCancel){
 			this.setState(() => ({image: uploadUri, image_name: e.filename}))
@@ -140,7 +140,7 @@ class HomeScreen extends Component {
 				{!(Platform.OS === 'web') && (
 					<Button 
 					title="Choose Photo"
-					onPress= {this.selectImage()}
+					onPress= {this.selectImage}
 					/>
 				)}
 				<TouchableOpacity
