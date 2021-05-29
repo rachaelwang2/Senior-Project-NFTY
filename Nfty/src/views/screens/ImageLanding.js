@@ -28,13 +28,10 @@ class ImageLanding extends Component {
 			image_name: null,
 			hasGalleryPermission: null,
 		}
-<<<<<<< HEAD
+
 		this.pickImage = this.pickImage.bind(this)
 		this.cameraLaunch = this.cameraLaunch.bind(this)
-=======
-		this.pickImage = this.pickImage.bind(this);
 		this.callUpload = this.callUpload.bind(this);
->>>>>>> 3bef478c09130c80da792bf3848a0eb1bf439e8c
 	}
 
 	async componentDidMount() {
