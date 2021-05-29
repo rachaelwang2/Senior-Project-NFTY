@@ -5,7 +5,7 @@ import {globalStyle, AppStyles} from "./global-style";
 import {
 	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary, ImagePicker } from 'react-native-image-picker';
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -54,6 +54,33 @@ class HomeScreen extends Component {
 			console.log("image selection cancelled")
 		}
 	}
+
+	selectImage = () => {
+		const options = {
+		  maxWidth: 2000,
+		  maxHeight: 2000,
+		  storageOptions: {
+			skipBackup: true,
+			path: 'images'
+		  }
+		};
+		ImagePicker.showImagePicker(options, response => {
+		  if (response.didCancel) {
+			console.log('User cancelled image picker');
+		  } else if (response.error) {
+			console.log('ImagePicker Error: ', response.error);
+		  } else if (response.customButton) {
+			console.log('User tapped custom button: ', response.customButton);
+		  } else {
+			// const source = { uri: response.uri };		
+			// console.log(source);
+			console.log(response);
+			const uri = response.uri;
+  			const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+			this.setState(() => ({image: uploadUri, image_name: response.filename}))
+		  }
+		});
+	  };
 
 	componentDidMount() {
 		if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
@@ -113,11 +140,7 @@ class HomeScreen extends Component {
 				{!(Platform.OS === 'web') && (
 					<Button 
 					title="Choose Photo"
-					onPress= {() => 
-							launchImageLibrary({mediaType: 'mixed'}, (response) => {
-								this.handleNative(response)
-							})
-					}
+					onPress= {this.selectImage()}
 					/>
 				)}
 				<TouchableOpacity
