@@ -34,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     new BasePackageList().getPackageList(), null
   );
 
+
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
@@ -44,6 +45,16 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+<<<<<<< HEAD
+=======
+
+      // Add unimodules
+      //List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+      //  new ModuleRegistryAdapter(mModuleRegistryProvider)
+      //);
+      //packages.addAll(unimodules);
+      //     
+>>>>>>> dapp
       return packages;
     }
 
