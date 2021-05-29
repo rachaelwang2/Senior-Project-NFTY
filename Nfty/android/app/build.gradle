@@ -182,6 +182,12 @@ android {
 
         }
     }
+
+    // (Ivan) added with reference to this: https://stackoverflow.com/questions/62132180/detected-multiple-kotlin-daemon-sessions-at-build-kotlin-sessions-react-native
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }   
 }
 
 dependencies {

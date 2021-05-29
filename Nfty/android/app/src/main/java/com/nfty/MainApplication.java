@@ -20,9 +20,9 @@ import com.nfty.generated.BasePackageList;
 //added
 import java.util.Arrays;
  
-import org.unimodules.adapters.react.ModuleRegistryAdapter;
-import org.unimodules.adapters.react.ReactModuleRegistryProvider;
-import org.unimodules.core.interfaces.SingletonModule;
+//import org.unimodules.adapters.react.ModuleRegistryAdapter;
+//import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+//import org.unimodules.core.interfaces.SingletonModule;
 //
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
@@ -45,9 +45,9 @@ public class MainApplication extends Application implements ReactApplication {
   //added
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
   
-  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
-    new BasePackageList().getPackageList()
-  );
+  //private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
+  //  new BasePackageList().getPackageList()
+  //);
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -61,10 +61,10 @@ public class MainApplication extends Application implements ReactApplication {
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
 
       // Add unimodules
-      List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
-        new ModuleRegistryAdapter(mModuleRegistryProvider)
-      );
-      packages.addAll(unimodules);
+      //List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+      //  new ModuleRegistryAdapter(mModuleRegistryProvider)
+      //);
+      //packages.addAll(unimodules);
       //     
       return packages;
     }

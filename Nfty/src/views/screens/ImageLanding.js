@@ -28,6 +28,7 @@ class ImageLanding extends Component {
 			image: null,
 		}
 		this.pickImage = this.pickImage.bind(this)
+		this.cameraLaunch = this.cameraLaunch.bind(this)
 	}
 
 	componentDidMount() {
@@ -51,6 +52,35 @@ class ImageLanding extends Component {
 			this.setState({ image: '../img/nfty_logo.png'})
 		}
 	  };
+
+	cameraLaunch = () => {
+		let options = {
+			storageOptions: {
+			  skipBackup: true,
+			  path: 'images',
+			},
+		  };
+		  launchCamera(options, (res) => {
+			console.log('Response = ', res);
+	  
+			if (res.didCancel) {
+			  console.log('User cancelled image picker');
+			} else if (res.error) {
+			  console.log('ImagePicker Error: ', res.error);
+			} else if (res.customButton) {
+			  console.log('User tapped custom button: ', res.customButton);
+			  alert(res.customButton);
+			} else {
+			  const source = { uri: res.uri };
+			  console.log('response', JSON.stringify(res));
+			  this.setState({
+				filePath: res,
+				fileData: res.data,
+				fileUri: res.uri
+			  });
+			}
+		  })
+	  }
 
 	render() {
 		return (
@@ -80,7 +110,7 @@ class ImageLanding extends Component {
 				<TouchableOpacity
 					style={globalStyle.buttonStyle}
 					activeOpacity={0.5}
-					onPress={() => console.log("camera")}>
+					onPress={() => this.cameraLaunch()}>
 					<Text style={localStyle.buttonTextStyle}>Take Image with Camera</Text>
 				</TouchableOpacity>
 				{this.state.image && <Image source = {{uri: this.state.image}} 
