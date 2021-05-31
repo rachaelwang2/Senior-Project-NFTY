@@ -17,7 +17,8 @@ import { auth, firebasefunc } from "../../firebase/config"
 
 const mapDispatchToProps = (dispatch) => ({
   uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
-  getUploadedImages: () => dispatch(getUploadedImages())
+  getUploadedImages: () => dispatch(getUploadedImages()),
+  signOutUser: () => dispatch(signOutUser()),
 });
 
 const mapStateToProps = (state) => {
@@ -243,6 +244,10 @@ function Wallet(props) {
    <TouchableOpacity
     onPress={() => props.props.navigation.navigate('HomeScreen')}>
     <Text>Web Photo Upload</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => props.props.navigation.navigate("ImagePick", {})}>
+    <Text>Pick Picture</Text>
   </TouchableOpacity>
 
   <TouchableOpacity

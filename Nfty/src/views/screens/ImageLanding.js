@@ -34,6 +34,7 @@ class ImageLanding extends Component {
 	}
 
 	async componentDidMount() {
+		console.log(this.props)
 		const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
 	  	this.setState({ hasGalleryPermission: galleryStatus.status === 'granted'})
 	}
