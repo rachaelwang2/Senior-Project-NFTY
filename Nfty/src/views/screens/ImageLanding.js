@@ -27,6 +27,7 @@ class ImageLanding extends Component {
 			image: null,
 			image_name: null,
 			hasGalleryPermission: null,
+			uploaded_img: false,
 		}
 		this.pickImage = this.pickImage.bind(this)
 		this.callUpload = this.callUpload.bind(this);
@@ -42,9 +43,15 @@ class ImageLanding extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
+		if (this.props.profile.img !== prevProps.profile.img) {
+			if(this.props.profile.img ) {
+				this.setState({uploaded_img: true})
+			}
+		}
 	}
 
 	pickImage = async () => {
+		this.setState(() => ({uploaded_img: false, image: null}))
 		let result = await ImagePicker.launchImageLibraryAsync({
 		  mediaTypes: ImagePicker.MediaTypeOptions.Images,
 		  allowsEditing: true,
@@ -65,6 +72,7 @@ class ImageLanding extends Component {
 			alert("Select an image for upload.")
 			return
 		}
+		this.setState(() => ({uploaded_img: false}))
 		const response = await fetch(this.state.image);
     	const blob = await response.blob();
 		const num = this.props.profile.images.length + 1;
@@ -81,6 +89,7 @@ class ImageLanding extends Component {
 			justifyContent: 'center',
 			alignItems: 'center',
 			}}>
+				<Text style={[globalStyle.title]}>Submit a Work</Text>
 				<Image
 				source={require('../img/nfty_logo.png')}
 				style={{
@@ -110,6 +119,19 @@ class ImageLanding extends Component {
 					</TouchableOpacity>
 				</View>
 				}
+				{this.state.uploaded_img && 
+				<View style={{
+					flex: 1,
+					}}>
+					<Text style={localStyle.successTextStyle}>Image successfully uploaded!</Text>
+					<TouchableOpacity
+					style={globalStyle.buttonStyle}
+					activeOpacity={0.5}
+					onPress={() => this.props.navigation.navigate('ProfileScreen')}>
+					<Text style={globalStyle.buttonTextStyle}>Go to Profile</Text>
+					</TouchableOpacity>
+				</View>
+				}
 			</View>
 		  );
 	  }
@@ -127,6 +149,12 @@ const localStyle = StyleSheet.create({
 		marginLeft: 35,
 		marginRight: 35,
 		fontSize: 16,
+	  },
+	  successTextStyle: {
+		color: 'black',
+		textAlign: 'center',
+		fontSize: 18,
+		padding: 30,
 	  },
   });
 
