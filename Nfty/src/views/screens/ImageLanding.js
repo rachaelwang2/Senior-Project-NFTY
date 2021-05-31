@@ -29,12 +29,14 @@ class ImageLanding extends Component {
 			hasGalleryPermission: null,
 		}
 		this.pickImage = this.pickImage.bind(this)
-		this.cameraLaunch = this.cameraLaunch.bind(this)
 		this.callUpload = this.callUpload.bind(this);
 	}
 
 	async componentDidMount() {
-		console.log(this.props)
+		console.log(this.props);
+		if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
+			this.props.getUploadedImages()
+		}
 		const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
 	  	this.setState({ hasGalleryPermission: galleryStatus.status === 'granted'})
 	}
@@ -58,42 +60,17 @@ class ImageLanding extends Component {
 		}
 	};
 
-	callUpload = () => {
+	callUpload = async () => {
 		if (!this.state.image) {
 			alert("Select an image for upload.")
 			return
 		}
-		this.props.uploadImage(this.state.image, "dummy image name")
+		const response = await fetch(this.state.image);
+    	const blob = await response.blob();
+		const num = this.props.profile.images.length + 1;
+		const filename = `image_${num}`;     
+		this.props.uploadImage(blob, filename)
 	}
-
-	cameraLaunch = () => {
-		let options = {
-			storageOptions: {
-			  skipBackup: true,
-			  path: 'images',
-			},
-		  };
-		  launchCamera(options, (res) => {
-			console.log('Response = ', res);
-	  
-			if (res.didCancel) {
-			  console.log('User cancelled image picker');
-			} else if (res.error) {
-			  console.log('ImagePicker Error: ', res.error);
-			} else if (res.customButton) {
-			  console.log('User tapped custom button: ', res.customButton);
-			  alert(res.customButton);
-			} else {
-			  const source = { uri: res.uri };
-			  console.log('response', JSON.stringify(res));
-			  this.setState({
-				filePath: res,
-				fileData: res.data,
-				fileUri: res.uri
-			  });
-			}
-		  })
-	  }
 
 	render() {
 		return (
@@ -120,14 +97,18 @@ class ImageLanding extends Component {
 					onPress={() => this.pickImage()}>
 					<Text style={localStyle.buttonTextStyle}>Pick Image from Gallery</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					style={globalStyle.buttonStyle}
-					activeOpacity={0.5}
-					onPress={() => this.cameraLaunch()}>
-					<Text style={localStyle.buttonTextStyle}>Take Image with Camera</Text>
-				</TouchableOpacity>
 				{this.state.image && 
-				<Image source={{uri: this.state.image}} style={{flex: 1}}/>	
+				<View style={{
+					flex: 1,
+					}}>
+					<Image source={{uri: this.state.image}} style={{flex: 1}}/>	
+					<TouchableOpacity
+						style={globalStyle.buttonStyle}
+						activeOpacity={0.5}
+						onPress={() => this.callUpload()}>
+						<Text style={localStyle.buttonTextStyle}>Upload Image</Text>
+					</TouchableOpacity>
+				</View>
 				}
 			</View>
 		  );
