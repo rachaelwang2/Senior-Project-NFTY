@@ -1,7 +1,4 @@
 import React from 'react';
-import {StyleSheet } from 'react-native';
-import localhost from 'react-native-localhost';
-import { expo } from '../../../app.json';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import WelcomeScreen from './WelcomeScreen';
@@ -9,14 +6,12 @@ import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import HomeScreen from './HomeScreen';
 import ProfileScreen from './PersonalProfile';
-import PhotoUpload from './PhotoUpload';
 import {connect} from 'react-redux';
 import DrawerNavigationRoutes from './DrawerNavigationRoutes';
 import WalletConnectScreen from './WalletConnectScreen';
 import {attemptLogin} from '../../redux/actions/ActionCreators';
-import photo_upload from './PhotoUpload';
 import ImageLanding from './ImageLanding';
-import ImagePick from './CameraImage';
+import ImagePick from './ImagePickScreen';
 
 const mapDispatchToProps = (dispatch) => ({
 	attemptLogin: () => dispatch(attemptLogin())
@@ -75,12 +70,13 @@ class Navigator extends React.Component {
           <Stack.Screen 
             name = "ProfileScreen"
             component = {ProfileScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen 
-            name = "PhotoUpload"
-            component = {photo_upload}
-            options={{headerShown: false}}
+            options={{
+              title: 'Profile', //Set Header Title
+              headerStyle: {
+                backgroundColor: '#000000', //Set Header color
+              },
+              headerTintColor: '#ffffff',
+            }}
           />
           <Stack.Screen
             name="WelcomeScreen"
@@ -116,13 +112,25 @@ class Navigator extends React.Component {
             name="ImagePick"
             component= {ImagePick}
             // Hiding header for Welcome Screen
-            options={{headerShown: false}}
+            options={{
+              title: 'Upload a Photo', //Set Header Title
+              headerStyle: {
+                backgroundColor: '#000000', //Set Header color
+              },
+              headerTintColor: '#ffffff',
+            }}
           />
           <Stack.Screen
             name="ImageLanding"
             component= {ImageLanding}
             // Hiding header for Welcome Screen
-            options={{headerShown: false}}
+            options={{
+              title: 'Submit a Work', //Set Header Title
+              headerStyle: {
+                backgroundColor: '#000000', //Set Header color
+              },
+              headerTintColor: '#ffffff',
+            }}
           />
           {/* Navigation Drawer as a landing page */}
           {/* <Stack.Screen

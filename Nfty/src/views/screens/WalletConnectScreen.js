@@ -77,11 +77,11 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
-    // if (this.props.profile.img !== prevProps.profile.img) {
-    //   if(this.props.profile.img ) {
-    //     this.setState({uploaded_img: this.props.profile.img})
-    //   }
-    // }
+    if (this.props.auth.logged_in !== prevProps.auth.logged_in) {
+      if(!this.props.auth.logged_in) {
+        this.props.navigation.replace('Auth')
+      }
+		}
   }
 
   callUpload = () => {
@@ -189,7 +189,6 @@ function Wallet(props) {
     }
   }, [connector]);
 
-  const signOut =  signOutUser(); 
   const upload = React.useCallback(()=> {
     try {
       console.log("uploading image");
@@ -231,7 +230,7 @@ function Wallet(props) {
         </>
       )}
 
-	<TouchableOpacity onPress={signOut}>
+	<TouchableOpacity onPress={props.props.signOutUser}>
 	  <Text>Sign Out</Text>
 	</TouchableOpacity>
   
