@@ -56,6 +56,7 @@ class ProfileScreen extends Component {
             width: 20,
             height: 20,
             resizeMode: 'contain',
+            alignSelf: 'center',
             margin: 30,
           }}
         />
