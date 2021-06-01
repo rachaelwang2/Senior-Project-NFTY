@@ -82,14 +82,6 @@ class ProfileScreen extends Component {
             }}
           />
           )}
-        {/* <Image
-          source = {{
-            width: 200,
-            height: 200,
-            uri: "http://picsum.photos/200/300"
-            //replace with image URL from the database
-          }}
-        /> */}
         </ScrollView>
         <View
           style={{
@@ -97,30 +89,12 @@ class ProfileScreen extends Component {
           borderBottomWidth: 1,
           }}
         />
-        {/* <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My Stylized Images</Text>
-
-        <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
-          {this.props.profile.images.map((image) =>
-            <img
-            src={image.imageUrl}
-            height="200"
-            width="200"
-          />
-          )}
-          
-        </View> */}
         <Text>
           <Text>{ this.addPadding() }</Text>
           <Text>
              <Text style={{fontWeight: "bold"}}></Text>{"\n"}
           </Text>      
         </Text>
-        {/* <Text
-          style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: 1,
-          }}
-        >Log out</Text> */}
       </View>
 
       
@@ -136,7 +110,7 @@ addPadding() {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    margin: 40,
+    backgroundColor: '#FFFFFF',
   },
 
   image: {
