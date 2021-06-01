@@ -294,3 +294,16 @@ export const getMetadata = (tokenId) =>{
 	firebasefunc().useEmulator('localhost', 5001);
 	var metadata = firebasefunc().https
 }
+
+export const registerWallet = (account) => {
+	auth.onAuthStateChanged(async function (user) {
+		if(user){
+			firestore
+			.collection("users")
+			.doc(user.uid)
+			.update({
+				wallet: account
+			});
+		}
+	})
+}

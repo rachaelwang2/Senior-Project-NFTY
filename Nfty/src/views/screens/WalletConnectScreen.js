@@ -11,7 +11,7 @@ import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 import NFT from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
-import { signOutUser, uploadImage, getUploadedImages, deployMetada } from "../../redux/actions/ActionCreators";
+import { signOutUser, uploadImage, getUploadedImages, deployMetada, registerWallet } from "../../redux/actions/ActionCreators";
 import { auth, firebasefunc } from "../../firebase/config"
 
 
@@ -45,27 +45,21 @@ const shouldDeployContract = async (web3, abi, data, from) => {
 class WalletConnectScreen extends Component{
   constructor(props){
     super(props);
-
+    const web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
     this.state = {
       animating: true,
       image: null,
       image_name: undefined,
       uploaded_img: null,
       message: 'Loading...',
-      web3: new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`)), 
-      address: null, //,
+      web3: web3,
+      address: null,
       nftContract: null, 
     };
     this.callUpload = this.callUpload.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.setState(() => ({address: this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY)}));
-    this.setState(() => ({nftContract: shouldDeployContract(
-        this.state.web3,
-        NFT.abi,
-        NFT.bytecode,
-        this.state.address
-      )}));
-    this.setState({message: this.state.nftContract.methods.sayHello('React Native').call()});
+    
+ 
 
   }
   handleChange = e => {
@@ -77,8 +71,34 @@ class WalletConnectScreen extends Component{
     }
   };
 
-  componentDidMount(){
-    
+  async componentDidMount(){
+   
+    //console.log(this.state.web3);
+    try{
+      const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+      this.setState({address: address});
+      const myNftContract = await shouldDeployContract(
+        this.state.web3,
+        NFT.abi,
+        NFT.bytecode,
+        this.state.address
+        );
+    this.setState({nftContract: myNftContract})
+     // this.setState({nftContract: nftContract});
+     // this.setState({address: address});
+     console.log(myNftContract);
+     console.log(this.state.nftContract);
+
+      // this.setState(async () => ({
+        // message: await this.state.nftContract.methods.sayHello('React Native').call()}));
+     this.state.nftContract.methods.sayHello('React Native').call().then(response => {
+       this.setState({
+         message: response
+       })
+     })
+   } catch(error){
+     console.log(error);
+   }
     // if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
     //   this.props.getUploadedImages()
     // }
@@ -89,8 +109,10 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
+    // console.log(this.state);
+
     //console.log(this.props);
-    console.log(this.state)
+    //console.log(this.state)
     // if (this.props.profile.img !== prevProps.profile.img) {
     //   if(this.props.profile.img ) {
     //     this.setState({uploaded_img: this.props.profile.img})
@@ -98,21 +120,20 @@ class WalletConnectScreen extends Component{
     // }
   }
 
-  callUpload = () => {
+  callUpload =() => {
     //const name =  this.props.auth.user.displayName;
     //const [message, setMessage] = React.useState('Loading...');
+    console.log(this.props.profile.wallet);
+    //console.log(this.state.nftContract.methods);
 
-   (async () => {
-        const { address } = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
-        const contract = await shouldDeployContract(
-          this.state.web3,
-          Hello.abi,
-          Hello.bytecode,
-          address
-        );
-        console.log("about to update state");
-        await this.setState(() => ({message: contract.methods.sayHello('React Native').call()}));
+    this.state.nftContract.methods.createNFT('http://localhost:5001/nfty-dc26a/us-central1/').send({from: '0x0ae1f18b4f42f986742a25b5716f6c88b60f3697'})
+      .then( response => {
+        console.log(response);
+        this.setState({
+          message: "NFT created with tokenId:" + String(response.events.Transfer.returnValues.tokenId)
+        })
       });
+ 
     // deployMetada({
     //   text: "test",
     //   creator: name,
@@ -198,7 +219,13 @@ function Wallet(props) {
   }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
   
   const connectWallet = React.useCallback(() => {
-    return connector.connect();
+    const connectedWallet = connector.connect().then(response => {
+      props.props.profile.wallet = response;
+      registerWallet(response.accounts);
+      console.log(response);
+    });
+    // return connector.connect();
+    return connectedWallet;
   }, [connector]);
   const signTransaction = React.useCallback(async () => {
     try {
