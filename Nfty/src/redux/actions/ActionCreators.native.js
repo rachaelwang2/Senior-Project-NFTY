@@ -163,8 +163,8 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 	auth().onAuthStateChanged(function (user) {
 		if (user) {
 			const id = user.uid;
-			let reference = storage.ref(`images/${fileName}`);        
-			let task = storage.ref(`images/${fileName}`).put(path);     
+			let reference = storage().ref(`images/${fileName}`);        
+			let task = storage().ref(`images/${fileName}`).put(path);     
 			task.on('state_changed', snapshot => {
 				let progress = Math.round(
 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -175,7 +175,7 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 				console.log(error);
 			  },
 			  () => {
-				storage
+				storage()
 				  .ref("images")
 				  .child(fileName)
 				  .getDownloadURL()
