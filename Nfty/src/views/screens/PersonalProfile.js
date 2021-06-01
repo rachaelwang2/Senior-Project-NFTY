@@ -60,7 +60,7 @@ class ProfileScreen extends Component {
             margin: 30,
           }}
         />
-        <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'left', marginBottom:20}}>Poppy Seda</Text>
+        <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'center', marginBottom:20}}>Poppy Seda</Text>
 
         <View
           style={{
@@ -68,7 +68,7 @@ class ProfileScreen extends Component {
           borderBottomWidth: 1,
           }}
         />
-        <Text style={{fontWeight: "bold", alignSelf:'left', marginBottom:20}}>My NFTs</Text>
+        <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My NFTs</Text>
 
         <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
         {this.props.profile.images.map((image) =>
@@ -93,7 +93,7 @@ class ProfileScreen extends Component {
           borderBottomWidth: 1,
           }}
         />
-        {/* <Text style={{fontWeight: "bold", alignSelf:'left', marginBottom:20}}>My Stylized Images</Text>
+        {/* <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My Stylized Images</Text>
 
         <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
           {this.props.profile.images.map((image) =>
