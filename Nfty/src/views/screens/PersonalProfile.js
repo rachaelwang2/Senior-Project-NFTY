@@ -72,8 +72,8 @@ class ProfileScreen extends Component {
 
         <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
         {this.props.profile.images.map((image) =>
-            <img
-            src={image.imageUrl}
+            <Image
+            source={image.imageUrl}
             height="200"
             width="200"
           />
