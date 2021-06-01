@@ -57,7 +57,6 @@ class ProfileScreen extends Component {
             height: 150,
             resizeMode: 'contain',
             alignSelf: 'center',
-            margin: 30,
           }}
         />
         <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'center', marginBottom:20}}>{this.props.auth.user.displayName}</Text>
@@ -73,12 +72,13 @@ class ProfileScreen extends Component {
         <View style={{ margin:20, justifyContent:"center"}}>
         {this.props.profile.images.map((image) =>
             <Image
-            source= {{uri: image.imageUrl}}
+            source={{uri: image.imageUrl}}
             style={{
               width: 200,
-              resizeMode: 'contain',
+              height: 200,
+              padding: 20,
+              margin: 20,
               alignSelf: 'center',
-              margin: 30,
             }}
           />
           )}
