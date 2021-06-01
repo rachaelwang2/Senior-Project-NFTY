@@ -13,6 +13,7 @@ import NFTSimple from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
 import { signOutUser, uploadImage, getUploadedImages, deployMetada } from "../../redux/actions/ActionCreators";
 import { auth, firebasefunc } from "../../firebase/config"
+import {globalStyle, AppStyles} from "./global-style";
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -213,48 +214,56 @@ function Wallet(props) {
 
   return (    
     <>
-      <Text testID="tid-message">{message}</Text>
-      {!connector.connected && (
-        <TouchableOpacity onPress={connectWallet}>
-          <Text>Connect a Wallet</Text>
+      <Text></Text>
+      <View style={globalStyle.divStyle}>
+          <TouchableOpacity onPress={props.props.signOutUser} style={globalStyle.homebuttonStyle}>
+            <Text style={globalStyle.buttonTextStyle}>Sign Out</Text>
+          </TouchableOpacity>
+       
+
+          {!connector.connected && (
+            <TouchableOpacity onPress={connectWallet} style={globalStyle.homebuttonStyle}>
+              <Text style={globalStyle.buttonTextStyle}>Connect a Wallet</Text>
+            </TouchableOpacity>
+          )}
+          {!!connector.connected && (
+            <>
+              <TouchableOpacity onPress={signTransaction} >
+                <Text>Sign a Transaction</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={killSession}>
+                <Text>Kill Session</Text>
+              </TouchableOpacity>
+            </>
+          )}
+      </View>
+      <View style={globalStyle.divStyle}>
+       
+        <TouchableOpacity style={globalStyle.homebuttonStyle}
+          onPress={() => props.props.navigation.navigate('ProfileScreen')}>
+          <Text style={globalStyle.buttonTextStyle}>Go to Profile</Text>
         </TouchableOpacity>
-      )}
-      {!!connector.connected && (
-        <>
-          <TouchableOpacity onPress={signTransaction}>
-            <Text>Sign a Transaction</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={killSession}>
-            <Text>Kill Session</Text>
-          </TouchableOpacity>
-        </>
-      )}
 
-	<TouchableOpacity onPress={props.props.signOutUser}>
-	  <Text>Sign Out</Text>
-	</TouchableOpacity>
-  
-  
-  <TouchableOpacity
-    onPress={() => props.props.navigation.navigate('ProfileScreen')}>
-    <Text>Go to Profile</Text>
-  </TouchableOpacity>
+        <TouchableOpacity style={globalStyle.homebuttonStyle}
+          onPress={() => props.props.navigation.navigate('HomeScreen')}>
+          <Text style={globalStyle.buttonTextStyle}>Web Photo Upload</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={globalStyle.divStyle}>
 
-   <TouchableOpacity
-    onPress={() => props.props.navigation.navigate('HomeScreen')}>
-    <Text>Web Photo Upload</Text>
-  </TouchableOpacity>
+        <TouchableOpacity style={globalStyle.homebuttonStyle} onPress={() => props.props.navigation.navigate("ImagePick", {})}>
+          <Text style={globalStyle.buttonTextStyle}>Pick Picture</Text>
+        </TouchableOpacity>
 
-  <TouchableOpacity onPress={() => props.props.navigation.navigate("ImagePick", {})}>
-    <Text>Pick Picture</Text>
-  </TouchableOpacity>
+        <TouchableOpacity style={globalStyle.homebuttonStyle}
+          onPress={() => props.props.navigation.navigate('ImageLanding')}>
+          <Text style={globalStyle.buttonTextStyle}>Image Landing</Text>
+        </TouchableOpacity>
+      </View>
+    
 
-  <TouchableOpacity
-    onPress={() => props.props.navigation.navigate('ImageLanding')}>
-    <Text>Image Landing</Text>
-  </TouchableOpacity>
-  
   </>
+
   );
 }
 
