@@ -74,8 +74,13 @@ class ProfileScreen extends Component {
         {this.props.profile.images.map((image) =>
             <Image
             source= {{uri: image.imageUrl}}
-            height="200"
-            width="200"
+            style={{
+              width: 200,
+              height: 200,
+              resizeMode: 'contain',
+              alignSelf: 'center',
+              margin: 30,
+            }}
           />
           )}
         {/* <Image
