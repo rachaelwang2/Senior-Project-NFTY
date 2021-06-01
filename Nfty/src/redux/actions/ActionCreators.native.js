@@ -114,6 +114,7 @@ export const signOutUser = () => (dispatch) => {
 	auth().signOut().then(()=> {
 		//sign-out successful. 
 		console.log("User signed out");
+		dispatch(logout());
 	}).catch((error)=>{
 		//an error happened.
 		console.log(error); 
@@ -235,6 +236,12 @@ export const loginError = (message) => {
 	return {
 		type: ActionTypes.LOGIN_FAILURE,
 		payload: message,
+	};
+};
+
+export const logout = () => {
+	return {
+		type: ActionTypes.LOGGED_OUT,
 	};
 };
 

@@ -17,7 +17,8 @@ import { auth, firebasefunc } from "../../firebase/config"
 
 const mapDispatchToProps = (dispatch) => ({
   uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
-  getUploadedImages: () => dispatch(getUploadedImages())
+  getUploadedImages: () => dispatch(getUploadedImages()),
+  signOutUser: () => dispatch(signOutUser()),
 });
 
 const mapStateToProps = (state) => {
@@ -76,11 +77,11 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
-    // if (this.props.profile.img !== prevProps.profile.img) {
-    //   if(this.props.profile.img ) {
-    //     this.setState({uploaded_img: this.props.profile.img})
-    //   }
-    // }
+    if (this.props.auth.logged_in !== prevProps.auth.logged_in) {
+      if(!this.props.auth.logged_in) {
+        this.props.navigation.replace('Auth')
+      }
+		}
   }
 
   callUpload = () => {
@@ -188,7 +189,6 @@ function Wallet(props) {
     }
   }, [connector]);
 
-  const signOut =  signOutUser(); 
   const upload = React.useCallback(()=> {
     try {
       console.log("uploading image");
@@ -230,7 +230,7 @@ function Wallet(props) {
         </>
       )}
 
-	<TouchableOpacity onPress={signOut}>
+	<TouchableOpacity onPress={props.props.signOutUser}>
 	  <Text>Sign Out</Text>
 	</TouchableOpacity>
   
@@ -243,6 +243,10 @@ function Wallet(props) {
    <TouchableOpacity
     onPress={() => props.props.navigation.navigate('HomeScreen')}>
     <Text>Web Photo Upload</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => props.props.navigation.navigate("ImagePick", {})}>
+    <Text>Pick Picture</Text>
   </TouchableOpacity>
 
   <TouchableOpacity
