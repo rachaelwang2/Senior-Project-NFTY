@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, SafeAreaView, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, SafeAreaView, View, ScrollView, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
 // import { connect } from "react-redux";
 // import {globalStyle, AppStyles} from "./global-style";
 import { connect } from "react-redux";
@@ -53,13 +53,13 @@ class ProfileScreen extends Component {
         <Image
           source={require('../img/nfty_logo.png')}
           style={{
-            width: 20,
-            height: 20,
+            width: 150,
+            height: 150,
             resizeMode: 'contain',
-            margin: 30,
+            alignSelf: 'center',
           }}
         />
-        <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'left', marginBottom:20}}>Poppy Seda</Text>
+        <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'center', marginBottom:20}}>{this.props.auth.user.displayName}</Text>
 
         <View
           style={{
@@ -67,24 +67,22 @@ class ProfileScreen extends Component {
           borderBottomWidth: 1,
           }}
         />
-        <Text style={{fontWeight: "bold", alignSelf:'left', marginBottom:20}}>My NFTs</Text>
-
-        <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
-        {this.props.profile.images.map((image) =>
-            <img
-            src={image.imageUrl}
-            height="200"
-            width="200"
-          />
-          )}
-        {/* <Image
-          source = {{
-            width: 200,
-            height: 200,
-            uri: "http://picsum.photos/200/300"
-            //replace with image URL from the database
-          }}
-        /> */}
+        <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My NFTs</Text>
+        <View style = {{height: 350}}>
+          <ScrollView>
+            {this.props.profile.images.map((image) =>
+            <Image
+              source={{uri: image.imageUrl}}
+              style={{
+                width: 200,
+                height: 200,
+                padding: 20,
+                margin: 20,
+                alignSelf: 'center',
+              }}
+            />
+            )}
+          </ScrollView>
         </View>
         <View
           style={{
@@ -92,30 +90,12 @@ class ProfileScreen extends Component {
           borderBottomWidth: 1,
           }}
         />
-        {/* <Text style={{fontWeight: "bold", alignSelf:'left', marginBottom:20}}>My Stylized Images</Text>
-
-        <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
-          {this.props.profile.images.map((image) =>
-            <img
-            src={image.imageUrl}
-            height="200"
-            width="200"
-          />
-          )}
-          
-        </View> */}
         <Text>
           <Text>{ this.addPadding() }</Text>
           <Text>
              <Text style={{fontWeight: "bold"}}></Text>{"\n"}
           </Text>      
         </Text>
-        {/* <Text
-          style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: 1,
-          }}
-        >Log out</Text> */}
       </View>
 
       
@@ -131,7 +111,7 @@ addPadding() {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    margin: 40,
+    backgroundColor: '#FFFFFF',
   },
 
   image: {

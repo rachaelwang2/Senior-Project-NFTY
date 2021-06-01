@@ -603,7 +603,7 @@ PODS:
   - React-jsinspector (0.64.1)
   - react-native-get-random-values (1.7.0):
     - React-Core
-  - react-native-image-picker (3.8.1):
+  - react-native-image-picker (4.0.2):
     - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
@@ -1014,7 +1014,7 @@ SPEC CHECKSUMS:
   EXStructuredHeaders: be834496a4d9fd0069cd12ec1cc57b31c6d3b256
   EXUpdates: efe0e8c514dcff06a8fd0b63be6019a6365fb9c7
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: 21ef95461908d8e22739ba5ae423e7eef9e74081
+  FBReactNativeSpec: 280799f5bae8f4c042e8a3398522b5a8b8abd0d2
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseAnalytics: cd3bd84d722a24a8923918af8af8e5236f615d77
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
@@ -1046,7 +1046,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 124e8f99992490d0d13e0649d950d3e1aae06fe9
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
   react-native-get-random-values: 237bffb1c7e05fb142092681531810a29ba53015
-  react-native-image-picker: 31971f6184e7c1dcb4fc1f122e1ba2c3fb11ef1e
+  react-native-image-picker: a7b528350b084da572bc60be36f22fbe20990148
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-webview: cc2a1fd8149a2654d1408793daa62baadfc0bd96

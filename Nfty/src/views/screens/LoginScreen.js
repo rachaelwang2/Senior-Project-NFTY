@@ -157,12 +157,12 @@ class LoginScreen extends Component {
                     style={globalStyle.buttonStyle}
                     activeOpacity={0.5}
                     onPress={() => this.onPressLogin()}>
-                    <Text style={globalStyle.buttonTextStyle}>LOGIN</Text>
+                    <Text style={globalStyle.buttonTextStyle}>Login</Text>
                   </TouchableOpacity>
                   <Text
                     style={globalStyle.registerTextStyle}
                     onPress={() => this.props.navigation.navigate('SignUpScreen')}>
-                    New Here ? Register
+                    New Here? Register Now
                   </Text>
                 </KeyboardAvoidingView>
               </View>
