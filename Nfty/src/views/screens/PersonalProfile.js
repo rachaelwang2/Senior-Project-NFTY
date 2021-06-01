@@ -69,7 +69,7 @@ class ProfileScreen extends Component {
         />
         <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My NFTs</Text>
 
-        <ScrollView style={{ margin:20, justifyContent:"center",}}>
+        <ScrollView>
         {this.props.profile.images.map((image) =>
             <Image
             source={{uri: image.imageUrl}}
