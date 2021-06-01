@@ -1,6 +1,6 @@
 import * as ActionTypes from "../types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { firestore, fireauth, auth, firebasestore, storage } from "../../firebase/config"
+import { firestore, fireauth, auth, firebasestore, storage, functions } from "../../firebase/config"
 // import firebase from '@react-native-firebase/app';
 // import auth from '@react-native-firebase/auth';
 // import storage from '@react-native-firebase/storage';
@@ -111,6 +111,7 @@ export const signOutUser = () => (dispatch) => {
 	auth.signOut().then(()=> {
 		//sign-out successful. 
 		console.log("User signed out");
+		dispatch(logout());
 	}).catch((error)=>{
 		//an error happened.
 		console.log(error); 
@@ -159,6 +160,7 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 export const uploadImage = (path, fileName) => (dispatch) => {
 	auth.onAuthStateChanged(function (user) {
 		if (user) {
+			console.log(path)
 			const id = user.uid;
 			let reference = storage.ref(`images/${fileName}`);        
 			let task = storage.ref(`images/${fileName}`).put(path);     
@@ -236,6 +238,12 @@ export const loginError = (message) => {
 	};
 };
 
+export const logout = () => {
+	return {
+		type: ActionTypes.LOGGED_OUT,
+	};
+};
+
 export const signupSuccess = () => {
 	return {
 		type: ActionTypes.SIGNUP_SUCCESS,
@@ -262,3 +270,16 @@ export const setImages = (images) => {
 	  payload: images,
 	};
 };
+
+export const deployMetada = (data) => {
+	functions()
+		.useEmulator("localhost", 5001)
+		.httpsCallable('write_metadata')(data)
+		.then(response => {
+			console.log(response);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	
+}

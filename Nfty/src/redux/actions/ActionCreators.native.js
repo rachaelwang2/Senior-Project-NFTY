@@ -4,7 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 
 export const testFunction = () => (dispatch) => {
 	console.log("action creator called")
@@ -113,6 +114,7 @@ export const signOutUser = () => (dispatch) => {
 	auth().signOut().then(()=> {
 		//sign-out successful. 
 		console.log("User signed out");
+		dispatch(logout());
 	}).catch((error)=>{
 		//an error happened.
 		console.log(error); 
@@ -237,6 +239,12 @@ export const loginError = (message) => {
 	};
 };
 
+export const logout = () => {
+	return {
+		type: ActionTypes.LOGGED_OUT,
+	};
+};
+
 export const signupSuccess = () => {
 	return {
 		type: ActionTypes.SIGNUP_SUCCESS,
@@ -263,3 +271,16 @@ export const setImages = (images) => {
 	  payload: images,
 	};
 };
+
+export const deployMetada = (data) => {
+	functions()
+		.useFunctionsEmulator('http://localhost:5001')
+		.httpsCallable('write_metadata')(data)
+		.then(response => {
+			console.log(response);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	
+}

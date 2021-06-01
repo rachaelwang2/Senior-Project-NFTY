@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, View, StyleSheet, Image, Text, Button, TouchableOpacity, Platform} from 'react-native';
 import { connect } from "react-redux";
 import {globalStyle, AppStyles} from "./global-style";
 import {
 	uploadImage, getUploadedImages
   } from "../../redux/actions/ActionCreators";
+import ImagePicker from 'react-native-image-picker';
+
 
 const mapDispatchToProps = (dispatch) => ({
 	uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
@@ -34,11 +36,51 @@ class HomeScreen extends Component {
 	handleChange = e => {
 		if (e.target.files[0]) {
 		  const img = e.target.files[0];
+		  console.log(img)
 		  let name = img.name
 		  const filename = name.substring(0, img.name.indexOf('.'));
 		  this.setState(() => ({ image: img, image_name: filename }));
 		}
 	};
+
+	handleNative = e => {
+		console.log(e.errorMessage)
+		const uri = e.uri;
+		// const filename = uri.substring(uri.lastIndexOf('/') + 1);
+  		const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+		if(!e.didCancel){
+			this.setState(() => ({image: uploadUri, image_name: e.filename}))
+		}else{
+			console.log("image selection cancelled")
+		}
+	}
+
+	selectImage = () => {
+		const options = {
+		  maxWidth: 2000,
+		  maxHeight: 2000,
+		  storageOptions: {
+			skipBackup: true,
+			path: 'images'
+		  }
+		};
+		ImagePicker.showImagePicker(options, response => {
+		  if (response.didCancel) {
+			console.log('User cancelled image picker');
+		  } else if (response.error) {
+			console.log('ImagePicker Error: ', response.error);
+		  } else if (response.customButton) {
+			console.log('User tapped custom button: ', response.customButton);
+		  } else {
+			// const source = { uri: response.uri };		
+			// console.log(source);
+			console.log(response);
+			const uri = response.uri;
+  			const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+			this.setState(() => ({image: uploadUri, image_name: response.filename}))
+		  }
+		});
+	  };
 
 	componentDidMount() {
 		if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
@@ -77,35 +119,49 @@ class HomeScreen extends Component {
 			alignItems: 'center',
 			}}>
 				<Text style={[globalStyle.title]}>Submit a Work</Text>
-			<Image
-			source={require('../img/nfty_logo.png')}
-			style={{
-				width: '50%',
-				height: 100,
-				resizeMode: 'contain',
-				alignSelf: 'center',
-				margin: 30,
-			}}
-			/>
-			{this.props.auth.logged_in  &&
-			<div>{this.props.auth.user.displayName}</div>
-               }
-			<input type="file" onChange={this.handleChange} />
-			<TouchableOpacity
-				style={globalStyle.buttonStyle}
-				activeOpacity={0.5}
-				onPress={() => this.callUpload()}>
-				<Text style={localStyle.buttonTextStyle}>Upload Image</Text>
-			</TouchableOpacity>
-			<Text style={[globalStyle.subtitle]}>Uploaded Images:</Text>
-			{this.props.profile.images.map((image) =>
-				<img
-				src={image.imageUrl}
-				alt="Uploaded Image"
-				height="100"
-				width="100"
-			/>
-			)}
+				<Image
+				source={require('../img/nfty_logo.png')}
+				style={{
+					width: '50%',
+					height: 100,
+					resizeMode: 'contain',
+					alignSelf: 'center',
+					margin: 30,
+				}}
+				/>
+				{this.props.auth.logged_in  &&
+				<Text>{this.props.auth.user.displayName}</Text>
+               	}
+               	
+				{Platform.OS === 'web' && (
+					<input type="file" onChange={this.handleChange} />
+
+				)}
+				{!(Platform.OS === 'web') && (
+					<Button 
+					title="Choose Photo"
+					onPress= {this.selectImage}
+					/>
+				)}
+				<TouchableOpacity
+					style={globalStyle.buttonStyle}
+					activeOpacity={0.5}
+					onPress={() => this.callUpload()}>
+					<Text style={localStyle.buttonTextStyle}>Upload Image</Text>
+				</TouchableOpacity>
+				<Text style={[globalStyle.subtitle]}>Uploaded Images:</Text>
+				{this.props.profile.images.map((image) =>
+					<Image 
+					source ={{uri: image.imageUrl}}
+					style={{
+						width: '50%',
+						height: 100,
+						resizeMode: 'contain',
+						alignSelf: 'center',
+						margin: 30,
+					}}
+					/>
+				)}
 			</View>
 		  );
 	  }

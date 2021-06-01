@@ -12,7 +12,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.3")
+        classpath("com.android.tools.build:gradle:3.5.4")
         classpath 'com.google.gms:google-services:4.3.5'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -35,6 +35,12 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
+
+        // * Add a new maven block after other repositories / blocks *
+        //maven {
+            // expo-camera bundles a custom com.google.android:cameraview
+        //    url "$rootDir/../node_modules/expo-camera/android/maven"
+        //}
     }
 }
 

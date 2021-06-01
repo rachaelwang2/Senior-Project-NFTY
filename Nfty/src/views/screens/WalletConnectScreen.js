@@ -5,18 +5,20 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import localhost from 'react-native-localhost';
 import Web3 from 'web3';
+import { connect } from "react-redux";
 
 import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 import NFTSimple from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
-import { signOutUser, uploadImage, getUploadedImages } from "../../redux/actions/ActionCreators";
-import { auth } from "../../firebase/config"
+import { signOutUser, uploadImage, getUploadedImages, deployMetada } from "../../redux/actions/ActionCreators";
+import { auth, firebasefunc } from "../../firebase/config"
 
 
 const mapDispatchToProps = (dispatch) => ({
   uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
-  getUploadedImages: () => dispatch(getUploadedImages())
+  getUploadedImages: () => dispatch(getUploadedImages()),
+  signOutUser: () => dispatch(signOutUser()),
 });
 
 const mapStateToProps = (state) => {
@@ -75,32 +77,66 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
-    // if (this.props.profile.img !== prevProps.profile.img) {
-    //   if(this.props.profile.img ) {
-    //     this.setState({uploaded_img: this.props.profile.img})
-    //   }
-    // }
+    if (this.props.auth.logged_in !== prevProps.auth.logged_in) {
+      if(!this.props.auth.logged_in) {
+        this.props.navigation.replace('Auth')
+      }
+		}
   }
 
   callUpload = () => {
-    if (!this.state.image) {
-      alert("Select an image for upload.")
-    }
-    this.props.uploadImage(this.state.image, this.state.image_name)
+    deployMetada({text: "test"});
+    // var writeMetadata = firebasefunc.httpsCallable('write_metadata');
+    // writeMetadata({text: "test"}, auth)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) =>{
+    //     console.log(error.message);
+    //     var code = error.code;
+    //     var message = error.message;
+    //     var details = error.details;
+    //   });
+    // if (!this.state.image) {
+    //   alert("Select an image for upload.")
+    // }
+    // this.props.uploadImage(this.state.image, this.state.image_name)
   }
   
   render() {
     return (
-       <Wallet props={this.props}/>
+       <View
+      style={{
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+      justifyContent: 'center',
+      alignItems: 'center',
+      }}>
+         <Wallet props={this.props}/>
+         <>
+           {Platform.OS === 'web' && (
+            <>
+              <input type="file" onChange={this.handleChange} />
+            </>
+            )}
+         </>
+         <TouchableOpacity onPress={this.callUpload}>
+          <Text>Create NFT</Text>
+         </TouchableOpacity>
+       </View> 
     );
   }
+}
+
+function uploadButton(){
+  return <input type="file" onChange={handleChange} />;
 }
 
 function Wallet(props) {
   const connector = useWalletConnect();
   const [message, setMessage] = React.useState('Loading...');
   const web3 = React.useMemo(
-    () => new Web3(new Web3.providers.HttpProvider(`http://${HOST_ADDRESS}:${HARDHAT_PORT}`)),
+    () => new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
   );
   React.useEffect(() => {
@@ -153,7 +189,6 @@ function Wallet(props) {
     }
   }, [connector]);
 
-  const signOut =  signOutUser(); 
   const upload = React.useCallback(()=> {
     try {
       console.log("uploading image");
@@ -177,13 +212,7 @@ function Wallet(props) {
   };
 
   return (    
-    <View
-      style={{
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-      justifyContent: 'center',
-      alignItems: 'center',
-      }}>
+    <>
       <Text testID="tid-message">{message}</Text>
       {!connector.connected && (
         <TouchableOpacity onPress={connectWallet}>
@@ -201,40 +230,43 @@ function Wallet(props) {
         </>
       )}
 
-	<TouchableOpacity onPress={signOut}>
+	<TouchableOpacity onPress={props.props.signOutUser}>
 	  <Text>Sign Out</Text>
 	</TouchableOpacity>
-  {uploadButton}
-  <TouchableOpacity onPress={upload}>
-    <Text>Create NFT</Text>
-  </TouchableOpacity>
+  
+  
   <TouchableOpacity
     onPress={() => props.props.navigation.navigate('ProfileScreen')}>
     <Text>Go to Profile</Text>
   </TouchableOpacity>
-  <TouchableOpacity
+
+   <TouchableOpacity
     onPress={() => props.props.navigation.navigate('HomeScreen')}>
     <Text>Web Photo Upload</Text>
   </TouchableOpacity>
-    </View>
+
+  <TouchableOpacity onPress={() => props.props.navigation.navigate("ImagePick", {})}>
+    <Text>Pick Picture</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => props.props.navigation.navigate('ImageLanding')}>
+    <Text>Image Landing</Text>
+  </TouchableOpacity>
+  
+  </>
   );
 }
 
 const { scheme } = expo;
 
-function uploadButton(){
-  if(Platform.OS === 'web') {
-    return <input type="file" onChange={handleChange} />;
-  } else {
-    return {};
-  }
-}
+
  
 
 
 
  
-export default withWalletConnect(WalletConnectScreen, {
+export default withWalletConnect(connect(mapStateToProps, mapDispatchToProps)(WalletConnectScreen), {
   redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
   storageOptions: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

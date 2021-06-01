@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_FAILURE, SIGNUP_SUCCESS } from '../types'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_FAILURE, SIGNUP_SUCCESS, LOGGED_OUT } from '../types'
 
 const INITIAL_STATE = {
     logged_in: false,
@@ -33,6 +33,11 @@ const INITIAL_STATE = {
             ...state,
             signup: true,
             errMess: '',
+        };  
+      case LOGGED_OUT:
+        return {
+            ...state,
+            logged_in: false
         };  
       default:
         return { ...state };
