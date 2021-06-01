@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, SafeAreaView, View, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, SafeAreaView, View, ScrollView, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
 // import { connect } from "react-redux";
 // import {globalStyle, AppStyles} from "./global-style";
 import { connect } from "react-redux";
@@ -69,7 +69,7 @@ class ProfileScreen extends Component {
         />
         <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My NFTs</Text>
 
-        <View style={{ margin:20, justifyContent:"center"}}>
+        <ScrollView style={{ margin:20, justifyContent:"center",}}>
         {this.props.profile.images.map((image) =>
             <Image
             source={{uri: image.imageUrl}}
@@ -90,7 +90,7 @@ class ProfileScreen extends Component {
             //replace with image URL from the database
           }}
         /> */}
-        </View>
+        </ScrollView>
         <View
           style={{
           borderBottomColor: 'black',
