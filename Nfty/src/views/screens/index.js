@@ -93,8 +93,15 @@ class Navigator extends React.Component {
           <Stack.Screen
             name="WalletConnectScreen"
             component={WalletConnectScreen}
-            // Hiding header for Welcome Screen
-            options={{headerShown: false}}
+            // // Hiding header for Welcome Screen removed because it is showing now
+            // options={{headerShown: false}}
+            options={{
+              title: 'Home', //Set Header Title
+              headerStyle: {
+                backgroundColor: '#000000', //Set Header color
+              },
+              headerTintColor: '#ffffff',
+            }}
           />
           <Stack.Screen
             name="HomeScreen"
