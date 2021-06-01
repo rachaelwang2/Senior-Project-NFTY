@@ -148,7 +148,7 @@ function Wallet(props) {
         Hello.bytecode,
         address
       );
-      setMessage(await contract.methods.sayHello('React Native').call());
+      setMessage(await contract.methods.sayHello('the blockchain').call());
     })();
   }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
   const connectWallet = React.useCallback(() => {
