@@ -53,14 +53,14 @@ class ProfileScreen extends Component {
         <Image
           source={require('../img/nfty_logo.png')}
           style={{
-            width: 20,
-            height: 20,
+            width: 150,
+            height: 150,
             resizeMode: 'contain',
             alignSelf: 'center',
             margin: 30,
           }}
         />
-        <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'center', marginBottom:20}}>Poppy Seda</Text>
+        <Text style={{fontSize: 20, fontWeight: "900", alignSelf:'center', marginBottom:20}}>{this.props.auth.user.displayName}</Text>
 
         <View
           style={{
@@ -70,13 +70,12 @@ class ProfileScreen extends Component {
         />
         <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My NFTs</Text>
 
-        <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
+        <View style={{ margin:20, justifyContent:"center"}}>
         {this.props.profile.images.map((image) =>
             <Image
             source= {{uri: image.imageUrl}}
             style={{
               width: 200,
-              height: 200,
               resizeMode: 'contain',
               alignSelf: 'center',
               margin: 30,
