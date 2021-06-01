@@ -17,7 +17,8 @@ import { auth, firebasefunc } from "../../firebase/config"
 
 const mapDispatchToProps = (dispatch) => ({
   uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
-  getUploadedImages: () => dispatch(getUploadedImages())
+  getUploadedImages: () => dispatch(getUploadedImages()),
+  signOutUser: () => dispatch(signOutUser()),
 });
 
 const mapStateToProps = (state) => {
@@ -109,15 +110,12 @@ class WalletConnectScreen extends Component{
   }
 
   componentDidUpdate(prevProps) {
-    // console.log(this.state);
 
-    //console.log(this.props);
-    //console.log(this.state)
-    // if (this.props.profile.img !== prevProps.profile.img) {
-    //   if(this.props.profile.img ) {
-    //     this.setState({uploaded_img: this.props.profile.img})
-    //   }
-    // }
+    if (this.props.auth.logged_in !== prevProps.auth.logged_in) {
+      if(!this.props.auth.logged_in) {
+        this.props.navigation.replace('Auth')
+      }
+		}
   }
 
   callUpload =() => {
@@ -246,18 +244,23 @@ function Wallet(props) {
     return connector.killSession();
   }, [connector]);
 
-  // const createNft = React.useCallback(async () => {
-  //     const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
-  //     const nftContract = await shouldDeployContract(
-  //       web3,
-  //       NFT.abi,
-  //       NFT.bytecode,
-  //       address
-  //     );
-  //     await nftContract.methods.createNFT('React Native').call();
-  //   })();
-   
-  const signOut =  signOutUser(); 
+
+  const createNft = React.useCallback(async () => {
+    try{
+      await connector.signTransaction({
+        data: '0x',
+        from: '0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3',
+        gas: '0x9c40',
+        gasPrice: '0x02540be400',
+        nonce: '0x0114',
+        to: '0x89D24A7b4cCB1b6fAA2625Fe562bDd9A23260359',
+        value: '0x00',
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [connector]);
+
   const upload = React.useCallback(()=> {
     try {
       console.log("uploading image");
@@ -299,7 +302,7 @@ function Wallet(props) {
         </>
       )}
 
-	<TouchableOpacity onPress={signOut}>
+	<TouchableOpacity onPress={props.props.signOutUser}>
 	  <Text>Sign Out</Text>
 	</TouchableOpacity>
   
@@ -312,6 +315,10 @@ function Wallet(props) {
    <TouchableOpacity
     onPress={() => props.props.navigation.navigate('HomeScreen')}>
     <Text>Web Photo Upload</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => props.props.navigation.navigate("ImagePick", {})}>
+    <Text>Pick Picture</Text>
   </TouchableOpacity>
 
   <TouchableOpacity

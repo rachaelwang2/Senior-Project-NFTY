@@ -113,6 +113,7 @@ export const signOutUser = () => (dispatch) => {
 	auth.signOut().then(()=> {
 		//sign-out successful. 
 		console.log("User signed out");
+		dispatch(logout());
 	}).catch((error)=>{
 		//an error happened.
 		console.log(error); 
@@ -158,13 +159,11 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 });
 }
 
-export const uploadImage = (path, fileName) => {
-	auth.onAuthStateChanged(async function (user) {
+export const uploadImage = (path, fileName) => (dispatch) => {
+	auth.onAuthStateChanged(function (user) {
 		if (user) {
 			console.log(path)
 			const id = user.uid;
-			const response = await fetch(path);
-    		const blob = await response.blob();
 			let reference = storage.ref(`images/${fileName}`);        
 			let task = storage.ref(`images/${fileName}`).put(path);     
 			task.on('state_changed', snapshot => {
@@ -247,6 +246,12 @@ export const loginError = (message) => {
 	return {
 		type: ActionTypes.LOGIN_FAILURE,
 		payload: message,
+	};
+};
+
+export const logout = () => {
+	return {
+		type: ActionTypes.LOGGED_OUT,
 	};
 };
 

@@ -93,7 +93,7 @@ class ProfileScreen extends Component {
           borderBottomWidth: 1,
           }}
         />
-        <Text style={{fontWeight: "bold", alignSelf:'left', marginBottom:20}}>My Stylized Images</Text>
+        {/* <Text style={{fontWeight: "bold", alignSelf:'left', marginBottom:20}}>My Stylized Images</Text>
 
         <View style={{flexDirection:'row', margin:20, justifyContent:"space-around"}}>
           {this.props.profile.images.map((image) =>
@@ -104,40 +104,19 @@ class ProfileScreen extends Component {
           />
           )}
           
-
-          {/* <Image
-            source = {{
-              width: 200,
-              height: 200,
-              uri: "http://picsum.photos/200/300"
-              //replace with image URL from the database
-            }}
-          />   */}
-        </View>
+        </View> */}
         <Text>
           <Text>{ this.addPadding() }</Text>
           <Text>
              <Text style={{fontWeight: "bold"}}></Text>{"\n"}
           </Text>      
         </Text>
-        <Text
+        {/* <Text
           style={{
           borderBottomColor: 'black',
           borderBottomWidth: 1,
           }}
-        >Settings</Text>
-        <Text
-          style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: 1,
-          }}
-        >About</Text>
-        <Text
-          style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: 1,
-          }}
-        >Log out</Text>
+        >Log out</Text> */}
       </View>
 
       
