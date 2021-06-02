@@ -1,4 +1,4 @@
-import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS, ROPSTEN_PRIVATE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {withWalletConnect, useWalletConnect} from '@walletconnect/react-native-dapp';
 import React, { Component } from 'react';
@@ -11,7 +11,7 @@ import { expo } from '../../../app.json';
 import Hello from '../../../artifacts/contracts/Hello.sol/Hello.json';
 import NFT from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
-import { signOutUser, uploadImage, getUploadedImages, deployMetada, registerWallet } from "../../redux/actions/ActionCreators";
+import { signOutUser, uploadImage, getUploadedImages, deployMetada, registerWallet, web3Provider } from "../../redux/actions/ActionCreators";
 import { auth, firebasefunc } from "../../firebase/config"
 import {globalStyle, AppStyles} from "./global-style";
 
@@ -47,7 +47,7 @@ const shouldDeployContract = async (web3, abi, data, from) => {
 class WalletConnectScreen extends Component{
   constructor(props){
     super(props);
-    const web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
+    const web3 = web3Provider(); //new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
     this.state = {
       animating: true,
       image: null,
@@ -75,9 +75,11 @@ class WalletConnectScreen extends Component{
 
   async componentDidMount(){
    
-    //console.log(this.state.web3);
+    console.log(this.state.web3);
     try{
-      const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+      // const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
+      const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount('0x${ROPSTEN_PRIVATE_KEY}');
+
       this.setState({address: address});
       const myNftContract = await shouldDeployContract(
         this.state.web3,
@@ -85,11 +87,12 @@ class WalletConnectScreen extends Component{
         NFT.bytecode,
         this.state.address
         );
-    this.setState({nftContract: myNftContract})
+    this.setState({nftContract: myNftContract});
+    this.props.profile.nftContract = myNftContract;
      // this.setState({nftContract: nftContract});
      // this.setState({address: address});
-     console.log(myNftContract);
-     console.log(this.state.nftContract);
+     // console.log(myNftContract);
+     // console.log(this.state.nftContract);
 
       // this.setState(async () => ({
         // message: await this.state.nftContract.methods.sayHello('React Native').call()}));
@@ -124,14 +127,22 @@ class WalletConnectScreen extends Component{
     //const [message, setMessage] = React.useState('Loading...');
     console.log(this.props.profile.wallet);
     //console.log(this.state.nftContract.methods);
-
-    this.state.nftContract.methods.createNFT('http://localhost:5001/nfty-dc26a/us-central1/').send({from: '0x0ae1f18b4f42f986742a25b5716f6c88b60f3697'})
+    const tokenURI = 'http://localhost:5001/nfty-dc26a/us-central1/get_metadata?tokenId=';
+    const ethAccount = this.state.web3.eth.accounts.create();
+    console.log(ethAccount)
+    this.state.nftContract.methods.createNFT(tokenURI).send({from: ethAccount.address})
       .then( response => {
         console.log(response);
+        const tokenId = response.events.Transfer.returnValues.tokenId;
         this.setState({
-          message: "NFT created with tokenId:" + String(response.events.Transfer.returnValues.tokenId)
+          message: "NFT created with tokenId:" + String(tokenId)
+        })
+        this.state.nftContract.methods.tokenURI(tokenId).call()
+        .then( response => {
+          console.log(response);
         })
       });
+
  
     // deployMetada({
     //   text: "test",
@@ -230,7 +241,8 @@ function Wallet(props) {
     try {
        await connector.signTransaction({
         data: '0x',
-        from: '0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3',
+        // from: '0xbc28Ea04101F03aA7a94C1379bc3AB32E65e62d3',
+        from: '0x3276abD7B68736DDa8aBE00188ECb3Dfcbd16ba4',
         gas: '0x9c40',
         gasPrice: '0x02540be400',
         nonce: '0x0114',

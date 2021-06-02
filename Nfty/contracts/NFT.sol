@@ -27,15 +27,15 @@ contract NFT is ERC721URIStorage {
   function createNFT(string memory tokenURI) public returns (uint256) {
     console.log("Creating NFT for %s.", msg.sender);
     console.log("tokenURI is %s", tokenURI);
-    //string memory fullUri = string(abi.encodePacked(baseUri, tokenURI));
-    //console.log("Full URI is %s", fullUri);
+    string memory counterString = uint2str(tokenCounter);
+    string memory fullUri = string(abi.encodePacked(tokenURI, counterString));
+    console.log("Full URI is %s", fullUri);
     _safeMint(msg.sender, tokenCounter);
 
-    _setTokenURI(tokenCounter, tokenURI);
+    _setTokenURI(tokenCounter, fullUri);
     uint256 currToken = tokenCounter;
     tokenCounter = tokenCounter + 1;
-    console.log(tokenCounter);
-    return tokenCounter;
+    return currToken;
   }
 
   function sayHello(string memory name) public view returns(string memory) {
@@ -43,6 +43,28 @@ contract NFT is ERC721URIStorage {
     return string(abi.encodePacked("Welcome to ", name, "!"));
   }
 
+
+  function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len;
+        while (_i != 0) {
+            k = k-1;
+            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
   // function setBaseURI(string memory newBaseUri) public view {
   //   baseUri = newBaseUri;
   // }

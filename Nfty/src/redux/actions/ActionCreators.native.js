@@ -6,6 +6,8 @@ import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
+import Web3 from 'web3';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 
 export const testFunction = () => (dispatch) => {
 	console.log("action creator called")
@@ -272,15 +274,39 @@ export const setImages = (images) => {
 	};
 };
 
+export const web3Provider = () => {
+	return new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
+	// const url = "https://eth-ropsten.alchemyapi.io/v2/124IV9lnccOe5WGemFFqps7iLpzbCuT8";
+	// return new Web3(url);
+}
+
 export const deployMetada = (data) => {
-	functions().useFunctionsEmulator('http://localhost:5001')
-	var writeMetadata = functions().httpsCallable('write_metadata')
+	firebasefunc().useEmulator('localhost', 5001);
+	var writeMetadata = firebasefunc().httpsCallable('write_metadata');
 	writeMetadata(data, auth)
 		.then(response => {
 			console.log(response);
+			//
 		})
 		.catch((error) => {
-			console.log(error);
+			console.error(error);
 		});
-	
+}
+
+export const getMetadata = (tokenId) =>{
+	firebasefunc().useEmulator('localhost', 5001);
+	var metadata = firebasefunc().https()
+}
+
+export const registerWallet = (account) => {
+	auth.onAuthStateChanged(async function (user) {
+		if(user){
+			firestore
+			.collection("users")
+			.doc(user.uid)
+			.update({
+				wallet: account
+			});
+		}
+	})
 }

@@ -29,7 +29,7 @@ class ImageLanding extends Component {
 			hasGalleryPermission: null,
 			uploaded_img: false,
 		}
-
+		console.log(props);
 		this.pickImage = this.pickImage.bind(this)
 		this.callUpload = this.callUpload.bind(this);
 	}

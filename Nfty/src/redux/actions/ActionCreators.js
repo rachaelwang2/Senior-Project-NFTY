@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { firestore, fireauth, auth, firebasestore, storage, functions, base } from "../../firebase/config"
 import { firebasefunc } from "../../firebase/config"
 require("firebase/functions")
+import Web3 from 'web3';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 // import firebase from '@react-native-firebase/app';
 // import auth from '@react-native-firebase/auth';
 // import storage from '@react-native-firebase/storage';
@@ -204,6 +206,7 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 						//other special things about the NFT
 					};
 					deployMetada(nftData);
+
 				  });
 			  }
 			);
@@ -282,6 +285,12 @@ export const setImages = (images) => {
 	};
 };
 
+export const web3Provider = () => {
+	return new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
+	// const url = "https://eth-ropsten.alchemyapi.io/v2/124IV9lnccOe5WGemFFqps7iLpzbCuT8";
+	// return new Web3(url);
+}
+
 export const deployMetada = (data) => {
 	firebasefunc().useEmulator('localhost', 5001);
 	var writeMetadata = firebasefunc().httpsCallable('write_metadata');
@@ -297,7 +306,7 @@ export const deployMetada = (data) => {
 
 export const getMetadata = (tokenId) =>{
 	firebasefunc().useEmulator('localhost', 5001);
-	var metadata = firebasefunc().https
+	var metadata = firebasefunc().https()
 }
 
 export const registerWallet = (account) => {
