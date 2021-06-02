@@ -240,7 +240,7 @@ function Wallet(props) {
 
         <TouchableOpacity style={globalStyle.homebuttonStyle}
           onPress={() => props.props.navigation.navigate('ImageLanding')}>
-          <Text style={globalStyle.buttonTextStyle}>Image Landing</Text>
+          <Text style={globalStyle.buttonTextStyle}>Upload Photos</Text>
         </TouchableOpacity>
       </View>
       <View style={globalStyle.divStyle}>

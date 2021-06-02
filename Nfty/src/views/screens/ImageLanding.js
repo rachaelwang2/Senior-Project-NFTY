@@ -89,7 +89,7 @@ class ImageLanding extends Component {
 			justifyContent: 'center',
 			alignItems: 'center',
 			}}>
-				<Text style={[globalStyle.title]}>Submit a Work</Text>
+				<Text style={[globalStyle.title]}>Upload a Photo to Create an NFT</Text>
 				<Image
 				source={require('../img/nfty_logo.png')}
 				style={{

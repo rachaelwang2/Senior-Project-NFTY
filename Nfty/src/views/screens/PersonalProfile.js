@@ -50,6 +50,7 @@ class ProfileScreen extends Component {
   render() {
     return (
       <View style={styles.main}>
+        <Text>{ this.addSmallPadding() }</Text>
         <Image
           source={require('../img/nfty_logo.png')}
           style={{
@@ -123,6 +124,11 @@ class ProfileScreen extends Component {
 addPadding() {
     const padding = Array.apply(null, Array(16)).map(() => '').join('');
     return Array.apply(null, Array(8)).map(() => padding + '\n');
+  }
+
+addSmallPadding() {
+  const padding = Array.apply(null, Array(8)).map(() => '').join('');
+  return Array.apply(null, Array(4)).map(() => padding + '\n');
   }
 }
 
