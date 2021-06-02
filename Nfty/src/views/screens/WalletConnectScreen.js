@@ -1,4 +1,4 @@
-import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS, ROPSTEN_PRIVATE_KEY, NFT_CONTRACT_ADDRESS} from '@env';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {withWalletConnect, useWalletConnect} from '@walletconnect/react-native-dapp';
 import React, { Component } from 'react';
@@ -15,6 +15,8 @@ import { signOutUser, uploadImage, getUploadedImages, deployMetada, registerWall
 import { auth, firebasefunc } from "../../firebase/config"
 import {globalStyle, AppStyles} from "./global-style";
 
+const NFT_CONTRACT_ADDRESS = '0xb63e7fFA48CDC7d08DD4C71AD9b7eC10E9ED1342';
+const ROPSTEN_PRIVATE_KEY = 'bffa6ced3da1080e210f2a11c8c4c4b10e60fe3a0db3bf5f60260aea162a4d97';
 
 const mapDispatchToProps = (dispatch) => ({
   uploadImage: (path, filename) => dispatch(uploadImage(path, filename)),
