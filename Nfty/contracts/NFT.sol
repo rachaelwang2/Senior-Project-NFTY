@@ -3,23 +3,72 @@ pragma solidity 0.8.0;
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
-contract NFT is ERC721 {
-  uint public nextTokenId;
-  address public admin;
 
-  constructor() ERC721('My NFT', 'NFT') {
+contract NFT is ERC721URIStorage {
+  uint256 public tokenCounter;
+  address public admin; 
+  mapping(bytes32 => address) public requestIdToSender;
+  mapping(bytes32 => string) public requestIdToTokenUri;
+  // string private baseUri;
+
+  //baseUri is the url to the server url for https requests
+  //Firebase development environment after running firebase emulators:start --only functions
+  //http://localhost:5001/nfty-dc26a/
+  constructor() public ERC721('My NFT', 'NFT') {
     admin = msg.sender;
+    tokenCounter = 0;
+    // baseUri = myBaseURI;
   }
 
-  function mint(address to) external {
-    require(msg.sender == admin, 'only admin');
-    _safeMint(to, nextTokenId);
-    nextTokenId++;
+  function createNFT(address recipient, string memory tokenURI) public returns (uint256) {
+    console.log("Creating NFT for %s.", recipient);
+    console.log("tokenURI is %s", tokenURI);
+    string memory counterString = uint2str(tokenCounter);
+    string memory fullUri = string(abi.encodePacked(tokenURI, counterString));
+    console.log("Full URI is %s", fullUri);
+    _safeMint(recipient, tokenCounter);
+
+    _setTokenURI(tokenCounter, fullUri);
+    uint256 currToken = tokenCounter;
+    tokenCounter = tokenCounter + 1;
+    return currToken;
   }
 
-  function _baseURI() internal view override returns (string memory) {
-    return '';
+  function sayHello(string memory name) public view returns(string memory) {
+    console.log("Saying hello to %s!", msg.sender);
+    return string(abi.encodePacked("Welcome to ", name, "!"));
   }
+
+
+  function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len;
+        while (_i != 0) {
+            k = k-1;
+            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
+  // function setBaseURI(string memory newBaseUri) public view {
+  //   baseUri = newBaseUri;
+  // }
+
+
+  
 
 }

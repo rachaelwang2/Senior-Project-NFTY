@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 // Add this line
 apply plugin: 'com.google.gms.google-services'
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 import com.android.build.OutputFile
 
 /**
@@ -182,6 +183,12 @@ android {
 
         }
     }
+
+    // (Ivan) added with reference to this: https://stackoverflow.com/questions/62132180/detected-multiple-kotlin-daemon-sessions-at-build-kotlin-sessions-react-native
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }   
 }
 
 dependencies {

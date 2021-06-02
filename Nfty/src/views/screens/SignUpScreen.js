@@ -151,6 +151,7 @@ class SignUpScreen extends Component {
 						blurOnSubmit={false}
 						/>
 					</View>
+					 <View style={globalStyle.divStyle}>
 					{this.state.errortext != '' ? (
 						<Text style={globalStyle.errorTextStyle}>
 						{this.state.errortext}
@@ -160,13 +161,14 @@ class SignUpScreen extends Component {
 						style={globalStyle.buttonStyle}
 						activeOpacity={0.5}
 						onPress={this.handleSubmit}>
-						<Text style={globalStyle.buttonTextStyle}>SIGN UP</Text>
+						<Text style={globalStyle.buttonTextStyle}>Sign Up</Text>
 					</TouchableOpacity>
 					<Text
                     style={globalStyle.registerTextStyle}
                     onPress={() => this.props.navigation.navigate('LoginScreen')}>
-                    Have an account ? Login
+                    Have an account? Login
                   </Text>
+                  </View>
 					</KeyboardAvoidingView>
 				</ScrollView>
 				</View>

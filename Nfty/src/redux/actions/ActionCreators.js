@@ -1,16 +1,10 @@
 import * as ActionTypes from "../types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { firestore, fireauth, auth, firebasestore, storage } from "../../firebase/config"
-// import firebase from '@react-native-firebase/app';
-// import auth from '@react-native-firebase/auth';
-// import storage from '@react-native-firebase/storage';
-// import firestore from '@react-native-firebase/firestore'
-
-export const testFunction = () => (dispatch) => {
-	console.log("action creator called")
-}
-
-// test user objects are consistent
+import { firestore, fireauth, auth, firebasestore, storage, functions, base } from "../../firebase/config"
+import { firebasefunc } from "../../firebase/config"
+require("firebase/functions")
+import Web3 from 'web3';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 
 export const attemptLogin = () => (dispatch) => {
 	auth.onAuthStateChanged(function (user) {
@@ -23,48 +17,15 @@ export const attemptLogin = () => (dispatch) => {
 		.get()
 		.then(function(user) {
 		if (user.exists) {
-			dispatch(receiveLogin(user.data()));
+			var user_data = user.data();
+			user_data["id"] = id;
+			dispatch(receiveLogin(user_data));
 		}
 		})
 		.catch(function(error) {
 		console.log(error)
 		});
-		  //dispatch(receiveLogin(user));
 		} 
-		// else {
-		// 	const email = await AsyncStorage.getItem("@loggedInUserID:key");
-		// 	const password = await AsyncStorage.getItem("@loggedInUserID:password");
-		// 	const id = await AsyncStorage.getItem("@loggedInUserID:id");
-		// 	if (
-		// 	  id != null &&
-		// 	  id.length > 0 &&
-		// 	  password != null &&
-		// 	  password.length > 0 &&
-		// 	  email != null &&
-		// 	  email.length > 0
-		// 	) {
-		// 	  auth
-		// 		.signInWithEmailAndPassword(email, password)
-		// 		.then(user => {
-		// 		  firestore
-		// 			.collection("users")
-		// 			.doc(id)
-		// 			.get()
-		// 			.then(function(user) {
-		// 			  if (user.exists) {
-		// 				dispatch(receiveLogin(user.data()));
-		// 			  }
-		// 			})
-		// 			.catch(function(error) {
-		// 			  console.log(error)
-		// 			});
-		// 		})
-		// 		.catch(error => {
-		// 		  console.log(error)
-		// 		});
-		// 	  return;
-		// 	}
-		// }
 	  });
 }
 
@@ -90,7 +51,9 @@ export const loginUser = (email, password) => (dispatch) => {
               AsyncStorage.setItem("@loggedInUserID:key", email);
               AsyncStorage.setItem("@loggedInUserID:password", password);
 			  console.log("User successfully logged in")
-              dispatch(receiveLogin(user.data()));
+			  var user_data = user.data();
+				user_data["id"] = user_uid;
+				dispatch(receiveLogin(user_data));
             } else {
               alert("User does not exist. Please try again.");
 			  dispatch(loginError("User does not exist. Please try again."));
@@ -111,6 +74,7 @@ export const signOutUser = () => (dispatch) => {
 	auth.signOut().then(()=> {
 		//sign-out successful. 
 		console.log("User signed out");
+		dispatch(logout());
 	}).catch((error)=>{
 		//an error happened.
 		console.log(error); 
@@ -156,9 +120,10 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 });
 }
 
-export const uploadImage = (path, fileName) => (dispatch) => {
+export const uploadImage = (path, fileName, tokenId, loc) => (dispatch) => {
 	auth.onAuthStateChanged(function (user) {
 		if (user) {
+			console.log(path)
 			const id = user.uid;
 			let reference = storage.ref(`images/${fileName}`);        
 			let task = storage.ref(`images/${fileName}`).put(path);     
@@ -180,6 +145,7 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 					// store in firestore database
 					const data = {
 						imageUrl: url,
+						blockchainHash: loc
 						// could add date field 
 					};
 					firestore
@@ -191,13 +157,21 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 
 					dispatch(imageUploaded(data));
 					console.log("photo uploaded to storage url stored in database")
+					//NFT stuff
+					const nftData = {
+						image_uri: url, 
+						creator: id,
+						owner: id,
+						name: fileName,
+						tokenId: tokenId, 
+						//other special things about the NFT
+					};
+					deployMetada(nftData);
+
 				  });
 			  }
 			);
 		
-			// task.then(() => {                                 
-			//     console.log('Image uploaded to Firebase storage');
-			// }).catch((e) => console.log('uploading image error => ', e));
 		}
 	});
 }
@@ -236,6 +210,12 @@ export const loginError = (message) => {
 	};
 };
 
+export const logout = () => {
+	return {
+		type: ActionTypes.LOGGED_OUT,
+	};
+};
+
 export const signupSuccess = () => {
 	return {
 		type: ActionTypes.SIGNUP_SUCCESS,
@@ -262,3 +242,50 @@ export const setImages = (images) => {
 	  payload: images,
 	};
 };
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+
+
+export const web3Provider = () => {
+	// return new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
+	const url = "wss://eth-ropsten.ws.alchemyapi.io/v2/124IV9lnccOe5WGemFFqps7iLpzbCuT8";
+	return new createAlchemyWeb3(url);
+}
+
+export const deployMetada = (data) => {
+	// firebasefunc().useEmulator('localhost', 5001);
+	console.log('Calling Firebase function');
+	var writeMetadata = firebasefunc().httpsCallable('write_metadata');
+	writeMetadata(data, auth)
+		.then(response => {
+			console.log('Got response from firebase');
+			console.log(response);
+			//
+		})
+		.catch((error) => {
+			console.error(error);
+		});
+}
+
+export const getMetadata = async (tokenId) =>{
+	// firebasefunc().useEmulator('localhost', 5001);
+	// const baseURI = 'https://us-central1-nfty-dc26a.cloudfunctions.net/get_metadata?tokenId=';
+	const baseURI = 'http://localhost:5001/nfty-dc26a/us-central1/get_metadata?tokenId=';
+	const response = await fetch(baseURI + tokenId);
+
+	console.log('response from get getMetadata');
+	console.log(response);
+	
+}
+
+export const registerWallet = (account) => {
+	auth.onAuthStateChanged(async function (user) {
+		if(user){
+			firestore
+			.collection("users")
+			.doc(user.uid)
+			.update({
+				wallet: account
+			});
+		}
+	})
+}

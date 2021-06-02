@@ -18,7 +18,7 @@ export const AppStyles = {
 	color: {
 	  main: "#5ea23a",
 	  text: "#696969",
-	  title: "#464646",
+	  title: "black",
 	  subtitle: "#545454",
 	  categoryTitle: "#161616",
 	  tint: "#ff5a66",
@@ -36,6 +36,7 @@ export const AppStyles = {
 	},
 	fontSize: {
 	  title: 30,
+    subtitle: 20,
 	  content: 20,
 	  normal: 16
 	},
@@ -112,7 +113,14 @@ loginContainer: {
   title: {
     fontSize: AppStyles.fontSize.title,
     fontWeight: "bold",
-    color: AppStyles.color.tint,
+    color: AppStyles.color.title,
+    marginTop: 20,
+    marginBottom: 20
+  },
+  subtitle: {
+    fontSize: AppStyles.fontSize.subtitle,
+    fontWeight: "bold",
+    color: AppStyles.color.title,
     marginTop: 20,
     marginBottom: 20
   },
@@ -140,8 +148,8 @@ loginContainer: {
     flexDirection: 'row',
     height: 40,
     marginTop: 20,
-    marginLeft: 35,
-    marginRight: 35,
+    marginLeft: 10,
+    marginRight: 10,
     margin: 10,
 	// backgroundColor: 'grey',
 	// width: '80%',
@@ -155,7 +163,7 @@ loginContainer: {
     paddingLeft: 15,
     paddingRight: 15,
     borderWidth: 2,
-    borderRadius: 30,
+    borderRadius: 10,
     borderColor: '#dadae8',
   },
   buttonStyle: {
@@ -164,17 +172,34 @@ loginContainer: {
     color: '#000000',
     borderColor: '#7DE24E',
     height: 40,
+    width: 100,
     alignItems: 'center',
-    borderRadius: 30,
-    marginLeft: 35,
-    marginRight: 35,
+    borderRadius: 8,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  homebuttonStyle: {
+    backgroundColor: '#000000',
+    borderWidth: 0,
+    color: '#000000',
+    borderColor: '#7DE24E',
+    height: 50,
+    width: 150,
+    alignItems: 'center',
+    borderRadius: 8,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 20,
     marginBottom: 10,
   },
   buttonTextStyle: {
     color: '#FFFFFF',
-    paddingVertical: 10,
+
+    paddingVertical: "10%",
     fontSize: 16,
+    textAlign: 'center',
   },
   registerTextStyle: {
     color: '#000000',
@@ -188,5 +213,11 @@ loginContainer: {
     color: 'red',
     textAlign: 'center',
     fontSize: 14,
+  },
+  divStyle: {
+    alignItems: 'center',
+  },
+  homeItems: {
+    width: "50%",
   },
 };

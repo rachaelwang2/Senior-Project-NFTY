@@ -4,3 +4,4 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const IMAGE_UPLOAD = 'IMAGE_UPLOAD';
 export const IMAGES_FETCHED = 'IMAGES_FETCHED';
+export const LOGGED_OUT = 'LOGGED_OUT';
