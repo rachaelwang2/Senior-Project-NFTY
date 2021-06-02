@@ -279,28 +279,6 @@ function Wallet(props) {
     }
   }, [connector]);
 
-  const upload = React.useCallback(()=> {
-    try {
-      console.log("uploading image");
-      console.log(state.filename);
-      uploadImage(state.image, state.filename);
-
-    } catch (e) {
-      console.error(e);
-    }
-    
-  });
-  const handleChange = e => {
-    if (e.target.files[0]) {
-      const img = e.target.files[0];
-      let name = img.name
-      const filename = name.substring(0, img.name.indexOf('.'));
-      state.image = img;
-      state.filename = filename;
-      // state(() => ({ image: img, image_name: filename }));
-    }
-  };
-
   return (    
     <>
        <View>

@@ -1,6 +1,5 @@
 import * as ActionTypes from "../types";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import { firestore, fireauth, auth, firebasestore, storage } from "../../firebase/config"
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
@@ -9,11 +8,6 @@ import functions from '@react-native-firebase/functions';
 import Web3 from 'web3';
 import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS} from '@env';
 
-export const testFunction = () => (dispatch) => {
-	console.log("action creator called")
-}
-
-// test user objects are consistent
 
 const fireauth = auth;
 const firebasefunc = functions;
@@ -37,42 +31,7 @@ export const attemptLogin = () => (dispatch) => {
 		.catch(function(error) {
 		console.log(error)
 		});
-		  //dispatch(receiveLogin(user));
 		} 
-		// else {
-		// 	const email = await AsyncStorage.getItem("@loggedInUserID:key");
-		// 	const password = await AsyncStorage.getItem("@loggedInUserID:password");
-		// 	const id = await AsyncStorage.getItem("@loggedInUserID:id");
-		// 	if (
-		// 	  id != null &&
-		// 	  id.length > 0 &&
-		// 	  password != null &&
-		// 	  password.length > 0 &&
-		// 	  email != null &&
-		// 	  email.length > 0
-		// 	) {
-		// 	  auth
-		// 		.signInWithEmailAndPassword(email, password)
-		// 		.then(user => {
-		// 		  firestore
-		// 			.collection("users")
-		// 			.doc(id)
-		// 			.get()
-		// 			.then(function(user) {
-		// 			  if (user.exists) {
-		// 				dispatch(receiveLogin(user.data()));
-		// 			  }
-		// 			})
-		// 			.catch(function(error) {
-		// 			  console.log(error)
-		// 			});
-		// 		})
-		// 		.catch(error => {
-		// 		  console.log(error)
-		// 		});
-		// 	  return;
-		// 	}
-		// }
 	  });
 }
 
@@ -215,10 +174,6 @@ export const uploadImage = (path, fileName, tokenId, loc) => (dispatch) => {
 				  });
 			  }
 			);
-		
-			// task.then(() => {                                 
-			//     console.log('Image uploaded to Firebase storage');
-			// }).catch((e) => console.log('uploading image error => ', e));
 		}
 	});
 }
