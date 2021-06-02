@@ -6,7 +6,7 @@ import {
 	uploadImage, getUploadedImages, web3Provider
   } from "../../redux/actions/ActionCreators";
 import * as ImagePicker from 'expo-image-picker';
-import {ALCHEMY_API_URL, HARDHAT_PRIVATE_KEY} from '@env';
+import {HARDHAT_PRIVATE_KEY} from '@env';
 
 const ALCHEMY_API_URL = 'wss://eth-ropsten.ws.alchemyapi.io/v2/124IV9lnccOe5WGemFFqps7iLpzbCuT8';
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
