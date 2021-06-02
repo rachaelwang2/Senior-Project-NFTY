@@ -161,7 +161,7 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 });
 }
 
-export const uploadImage = (path, fileName) => (dispatch) => {
+export const uploadImage = (path, fileName, tokenId) => (dispatch) => {
 	auth.onAuthStateChanged(function (user) {
 		if (user) {
 			console.log(path)
@@ -199,10 +199,11 @@ export const uploadImage = (path, fileName) => (dispatch) => {
 					console.log("photo uploaded to storage url stored in database")
 					//NFT stuff
 					const nftData = {
-						image_url: data.imageUrl, 
+						image_uri: url, 
 						creator: id,
 						owner: id,
 						name: fileName,
+						tokenId: tokenId, 
 						//other special things about the NFT
 					};
 					deployMetada(nftData);
@@ -284,18 +285,22 @@ export const setImages = (images) => {
 	  payload: images,
 	};
 };
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+
 
 export const web3Provider = () => {
-	return new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
-	// const url = "https://eth-ropsten.alchemyapi.io/v2/124IV9lnccOe5WGemFFqps7iLpzbCuT8";
-	// return new Web3(url);
+	// return new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
+	const url = "wss://eth-ropsten.ws.alchemyapi.io/v2/124IV9lnccOe5WGemFFqps7iLpzbCuT8";
+	return new createAlchemyWeb3(url);
 }
 
 export const deployMetada = (data) => {
 	firebasefunc().useEmulator('localhost', 5001);
+	console.log('Calling Firebase function');
 	var writeMetadata = firebasefunc().httpsCallable('write_metadata');
 	writeMetadata(data, auth)
 		.then(response => {
+			console.log('Got response from firebase');
 			console.log(response);
 			//
 		})
@@ -304,9 +309,15 @@ export const deployMetada = (data) => {
 		});
 }
 
-export const getMetadata = (tokenId) =>{
+export const getMetadata = async (tokenId) =>{
 	firebasefunc().useEmulator('localhost', 5001);
-	var metadata = firebasefunc().https()
+	// const baseURI = 'https://us-central1-nfty-dc26a.cloudfunctions.net/get_metadata?tokenId=';
+	const baseURI = 'http://localhost:5001/nfty-dc26a/us-central1/get_metadata?tokenId=';
+	const response = await fetch(baseURI + tokenId);
+
+	console.log('response from get getMetadata');
+	console.log(response);
+	
 }
 
 export const registerWallet = (account) => {

@@ -44,7 +44,7 @@ async function main() {
   const nftContract = await ethers.getContractFactory("NFT");
   const myContract = await nftContract.deploy();
 
-  console.log("Token address:", myContract.address);
+  console.log("Contract address:", myContract.address);
 }
 
 main()

@@ -9,8 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 contract NFT is ERC721URIStorage {
   uint256 public tokenCounter;
-  address public admin;
-  string[] public nfts; 
+  address public admin; 
   mapping(bytes32 => address) public requestIdToSender;
   mapping(bytes32 => string) public requestIdToTokenUri;
   // string private baseUri;
@@ -24,13 +23,13 @@ contract NFT is ERC721URIStorage {
     // baseUri = myBaseURI;
   }
 
-  function createNFT(string memory tokenURI) public returns (uint256) {
-    console.log("Creating NFT for %s.", msg.sender);
+  function createNFT(address recipient, string memory tokenURI) public returns (uint256) {
+    console.log("Creating NFT for %s.", recipient);
     console.log("tokenURI is %s", tokenURI);
     string memory counterString = uint2str(tokenCounter);
     string memory fullUri = string(abi.encodePacked(tokenURI, counterString));
     console.log("Full URI is %s", fullUri);
-    _safeMint(msg.sender, tokenCounter);
+    _safeMint(recipient, tokenCounter);
 
     _setTokenURI(tokenCounter, fullUri);
     uint256 currToken = tokenCounter;

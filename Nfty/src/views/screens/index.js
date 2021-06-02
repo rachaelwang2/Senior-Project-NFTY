@@ -66,8 +66,7 @@ class Navigator extends React.Component {
 
   render() {
     return (
-        // <Stack.Navigator initialRouteName="WelcomeScreen">
-        <Stack.Navigator initialRouteName="WalletConnectScreen">
+        <Stack.Navigator initialRouteName="WelcomeScreen">
           <Stack.Screen 
             name = "ProfileScreen"
             component = {ProfileScreen}

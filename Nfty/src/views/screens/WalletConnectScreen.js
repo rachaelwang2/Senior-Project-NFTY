@@ -1,4 +1,4 @@
-import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS, ROPSTEN_PRIVATE_KEY} from '@env';
+import {HARDHAT_PORT, HARDHAT_PRIVATE_KEY, HOST_ADDRESS, ROPSTEN_PRIVATE_KEY, NFT_CONTRACT_ADDRESS} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {withWalletConnect, useWalletConnect} from '@walletconnect/react-native-dapp';
 import React, { Component } from 'react';
@@ -78,15 +78,16 @@ class WalletConnectScreen extends Component{
     console.log(this.state.web3);
     try{
       // const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
-      const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount('0x${ROPSTEN_PRIVATE_KEY}');
+      const { address }  = await this.state.web3.eth.accounts.privateKeyToAccount(`0x${ROPSTEN_PRIVATE_KEY}`);
 
       this.setState({address: address});
-      const myNftContract = await shouldDeployContract(
-        this.state.web3,
-        NFT.abi,
-        NFT.bytecode,
-        this.state.address
-        );
+      const myNftContract = new this.state.web3.eth.Contract(NFT.abi, NFT_CONTRACT_ADDRESS);
+      // const myNftContract = await shouldDeployContract(
+      //   this.state.web3,
+      //   NFT.abi,
+      //   NFT.bytecode,
+      //   this.state.address
+      //   );
     this.setState({nftContract: myNftContract});
     this.props.profile.nftContract = myNftContract;
      // this.setState({nftContract: nftContract});
@@ -96,13 +97,14 @@ class WalletConnectScreen extends Component{
 
       // this.setState(async () => ({
         // message: await this.state.nftContract.methods.sayHello('React Native').call()}));
+     // console.log("Trying to Talk with contract");
      this.state.nftContract.methods.sayHello('React Native').call().then(response => {
        this.setState({
          message: response
        })
      })
    } catch(error){
-     console.log(error);
+     console.error(error);
    }
     // if (this.props.profile.images === undefined || this.props.profile.images.length == 0) {
     //   this.props.getUploadedImages()
@@ -128,9 +130,10 @@ class WalletConnectScreen extends Component{
     console.log(this.props.profile.wallet);
     //console.log(this.state.nftContract.methods);
     const tokenURI = 'http://localhost:5001/nfty-dc26a/us-central1/get_metadata?tokenId=';
+    
     const ethAccount = this.state.web3.eth.accounts.create();
     console.log(ethAccount)
-    this.state.nftContract.methods.createNFT(tokenURI).send({from: ethAccount.address})
+    this.state.nftContract.methods.createNFT(tokenURI).send({from: ''})
       .then( response => {
         console.log(response);
         const tokenId = response.events.Transfer.returnValues.tokenId;
