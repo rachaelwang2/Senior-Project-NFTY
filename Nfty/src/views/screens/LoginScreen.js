@@ -72,22 +72,6 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            // <KeyboardAvoidingView style={globalStyle.containerView} behavior="padding">
-            //   <View style={globalStyle.container}>
-            //     <View style={globalStyle.InputContainer}>
-            //     <Text style={[globalStyle.title, globalStyle.leftTitle]}>Login</Text>
-            //       <TextInput placeholder="Username" placeholderColor="#c4c3cb" style={globalStyle.body} />
-            //       <TextInput placeholder="Password" placeholderColor="#c4c3cb" style={globalStyle.body} secureTextEntry={true}/>
-            //       <Button
-            //         containerStyle={globalStyle.loginContainer}
-            //         style={globalStyle.loginText}
-            //         onPress={() => this.onLoginPress()}
-            //         title="Login"
-            //       />
-            //     </View>
-            //   </View>
-            // </KeyboardAvoidingView>
-
             <View style={globalStyle.mainBody}>
             {this.state.loading  &&
               <ActivityIndicator

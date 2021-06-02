@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ActivityIndicator, SafeAreaView, View, ScrollView, StyleSheet, Image, Text, Button, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, SafeAreaView, View, ScrollView, StyleSheet, Image, Text, Button, TouchableOpacity, Platform} from 'react-native';
 // import { connect } from "react-redux";
 // import {globalStyle, AppStyles} from "./global-style";
 import { connect } from "react-redux";
@@ -68,7 +68,24 @@ class ProfileScreen extends Component {
           }}
         />
         <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>My NFTs</Text>
-        <View style = {{height: 350}}>
+        {Platform.OS === 'web' && (
+					<ScrollView>
+          {this.props.profile.images.map((image) =>
+          <Image
+            source={{uri: image.imageUrl}}
+            style={{
+              width: 200,
+              height: 200,
+              padding: 20,
+              margin: 20,
+              alignSelf: 'center',
+            }}
+          />
+          )}
+        </ScrollView>
+				)}
+				{!(Platform.OS === 'web') && (
+					<View style = {{height: 350}}>
           <ScrollView>
             {this.props.profile.images.map((image) =>
             <Image
@@ -84,6 +101,7 @@ class ProfileScreen extends Component {
             )}
           </ScrollView>
         </View>
+				)}
         <View
           style={{
           borderBottomColor: 'black',
