@@ -17,6 +17,7 @@
     "@walletconnect/react-native-dapp": "1.4.1",
     "base-64": "1.0.0",
     "buffer": "6.0.3",
+    "ethers": "^5.0.0",
     "expo": "~41.0.1",
     "expo-image-picker": "~10.1.4",
     "expo-splash-screen": "~0.10.2",

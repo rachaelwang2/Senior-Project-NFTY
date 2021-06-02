@@ -4,6 +4,8 @@
 require("@nomiclabs/hardhat-ganache");
 require("@nomiclabs/hardhat-waffle");
 require("dotenv/config");
+require("@nomiclabs/hardhat-ethers");
+
 
 const { HARDHAT_PORT, ROPSTEN_PRIVATE_KEY, ALCHEMY_API_KEY } = process.env;
 
