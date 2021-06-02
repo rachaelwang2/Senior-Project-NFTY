@@ -46,7 +46,7 @@ const shouldDeployContract = async (web3, abi, data, from) => {
   return new web3.eth.Contract(abi, contractAddress);
 };
 
-class WalletConnectScreen extends Component{
+class HomeScreen extends Component{
   constructor(props){
     super(props);
     const web3 = web3Provider(); //new Web3(new Web3.providers.HttpProvider(`http://localhost:${HARDHAT_PORT}`));
@@ -301,7 +301,7 @@ function Wallet(props) {
 
 
         <TouchableOpacity style={globalStyle.homebuttonStyle}
-          onPress={() => props.props.navigation.navigate('ImageLanding')}>
+          onPress={() => props.props.navigation.navigate('ImageUploadScreen')}>
           <Text style={globalStyle.buttonTextStyle}>Upload Photos</Text>
         </TouchableOpacity>
 
@@ -329,7 +329,7 @@ const { scheme } = expo;
 
 
  
-export default withWalletConnect(connect(mapStateToProps, mapDispatchToProps)(WalletConnectScreen), {
+export default withWalletConnect(connect(mapStateToProps, mapDispatchToProps)(HomeScreen), {
   redirectUrl: Platform.OS === 'web' ? window.location.origin : `${scheme}://`,
   storageOptions: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

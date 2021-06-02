@@ -32,7 +32,7 @@ class WelcomeScreen extends Component {
 			//If not then send for Authentication
 			//else send to Home Screen
 			this.props.navigation.replace(
-			this.props.auth.logged_in === false ? 'Auth' : 'WalletConnectScreen'
+			this.props.auth.logged_in === false ? 'Auth' : 'HomeScreen'
 			)
 		  }, 800);
 	}

@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 	};
 };
 
-class ImageLanding extends Component {
+class ImageUploadScreen extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -257,4 +257,4 @@ const localStyle = StyleSheet.create({
 	  },
   });
 
-  export default connect(mapStateToProps, mapDispatchToProps)(ImageLanding);
+  export default connect(mapStateToProps, mapDispatchToProps)(ImageUploadScreen);

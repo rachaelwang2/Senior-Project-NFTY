@@ -4,12 +4,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import WelcomeScreen from './WelcomeScreen';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
-import ProfileScreen from './PersonalProfile';
+import ProfileScreen from './ProfileScreen';
 import {connect} from 'react-redux';
-import DrawerNavigationRoutes from './DrawerNavigationRoutes';
-import WalletConnectScreen from './WalletConnectScreen';
+import HomeScreen from './HomeScreen';
 import {attemptLogin} from '../../redux/actions/ActionCreators';
-import ImageLanding from './ImageLanding';
+import ImageUploadScreen from './ImageUploadScreen';
 
 const mapDispatchToProps = (dispatch) => ({
 	attemptLogin: () => dispatch(attemptLogin())
@@ -89,8 +88,8 @@ class Navigator extends React.Component {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="WalletConnectScreen"
-            component={WalletConnectScreen}
+            name="HomeScreen"
+            component={HomeScreen}
             options={{
               title: 'Home', //Set Header Title
               headerStyle: {
@@ -100,8 +99,8 @@ class Navigator extends React.Component {
             }}
           />
           <Stack.Screen
-            name="ImageLanding"
-            component= {ImageLanding}
+            name="ImageUploadScreen"
+            component= {ImageUploadScreen}
             options={{
               title: 'Submit a Work', //Set Header Title
               headerStyle: {
