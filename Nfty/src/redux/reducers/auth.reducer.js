@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case LOGIN_SUCCESS:
+        console.log(action.payload)
         return {
             ...state,
             logged_in: true,
@@ -37,7 +38,9 @@ const INITIAL_STATE = {
       case LOGGED_OUT:
         return {
             ...state,
-            logged_in: false
+            logged_in: false,
+            user: undefined,
+            signup: false,
         };  
       default:
         return { ...state };

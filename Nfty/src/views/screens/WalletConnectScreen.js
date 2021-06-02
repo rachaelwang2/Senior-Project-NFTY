@@ -182,7 +182,7 @@ class WalletConnectScreen extends Component{
       justifyContent: 'center',
       alignItems: 'center',
       }}>
-        <Text testID="tid-message">{this.state.message}</Text>
+        <Text testID="tid-message" style={{fontWeight: 'bold'}}>{this.state.message}</Text>
          <Wallet props={this.props}/>
          <>
            {/* {Platform.OS === 'web' && (
@@ -314,12 +314,9 @@ function Wallet(props) {
           )}
           {!!connector.connected && (
             <>
-    
-              <TouchableOpacity onPress={signTransaction} style={globalStyle.homebuttonStyle} >
-                <Text style={globalStyle.buttonTextStyle}>Sign a Transaction</Text>
-              </TouchableOpacity>
+
               <TouchableOpacity onPress={killSession} style={globalStyle.homebuttonStyle}> 
-                <Text style={globalStyle.buttonTextStyle}>Kill Session</Text>
+                <Text style={globalStyle.buttonTextStyle}>Disconnect Wallet</Text>
               </TouchableOpacity>
             </>
           )}

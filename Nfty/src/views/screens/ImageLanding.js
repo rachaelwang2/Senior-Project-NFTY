@@ -85,7 +85,7 @@ class ImageLanding extends Component {
 		const response = await fetch(this.state.image);
     	const blob = await response.blob();
 		const num = this.props.profile.images.length + 1;
-		const filename = `image_${num}`; 
+		const filename = `image_${this.props.auth.user.id}_${num}`; 
 		// const nftURI = 'https://us-central1-nfty-dc26a.cloudfunctions.net/get_metadata?tokenId=';
 		const nftURI = 'http://localhost:5001/nfty-dc26a/us-central1/get_metadata?tokenId=';
 		const nonce = await this.state.web3.eth.getTransactionCount('0x3276abD7B68736DDa8aBE00188ECb3Dfcbd16ba4', 'latest');

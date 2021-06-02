@@ -27,7 +27,9 @@ export const attemptLogin = () => (dispatch) => {
 		.get()
 		.then(function(user) {
 		if (user.exists) {
-			dispatch(receiveLogin(user.data()));
+			var user_data = user.data();
+			user_data["id"] = id;
+			dispatch(receiveLogin(user_data));
 		}
 		})
 		.catch(function(error) {
@@ -94,7 +96,9 @@ export const loginUser = (email, password) => (dispatch) => {
               AsyncStorage.setItem("@loggedInUserID:key", email);
               AsyncStorage.setItem("@loggedInUserID:password", password);
 			  console.log("User successfully logged in")
-              dispatch(receiveLogin(user.data()));
+			  var user_data = user.data();
+				user_data["id"] = user_uid;
+				dispatch(receiveLogin(user_data));
             } else {
               alert("User does not exist. Please try again.");
 			  dispatch(loginError("User does not exist. Please try again."));
@@ -296,7 +300,7 @@ export const web3Provider = () => {
 }
 
 export const deployMetada = (data) => {
-	firebasefunc().useEmulator('localhost', 5001);
+	// firebasefunc().useEmulator('localhost', 5001);
 	console.log('Calling Firebase function');
 	var writeMetadata = firebasefunc().httpsCallable('write_metadata');
 	writeMetadata(data, auth)
@@ -311,7 +315,7 @@ export const deployMetada = (data) => {
 }
 
 export const getMetadata = async (tokenId) =>{
-	firebasefunc().useEmulator('localhost', 5001);
+	// firebasefunc().useEmulator('localhost', 5001);
 	// const baseURI = 'https://us-central1-nfty-dc26a.cloudfunctions.net/get_metadata?tokenId=';
 	const baseURI = 'http://localhost:5001/nfty-dc26a/us-central1/get_metadata?tokenId=';
 	const response = await fetch(baseURI + tokenId);
