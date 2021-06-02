@@ -83,7 +83,7 @@ class ProfileScreen extends Component {
               alignSelf: 'center',
             }}
           />
-          <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>{image.blockchainHash}</Text>
+          <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>Transaction Hash: {image.blockchainHash}</Text>
           </View>
           )}
         </ScrollView>
@@ -103,7 +103,7 @@ class ProfileScreen extends Component {
                 alignSelf: 'center',
               }}
             />
-            <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>{image.blockchainHash}</Text>
+            <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>Transaction Hash: {image.blockchainHash}</Text>
             </View>
             )}
           </ScrollView>

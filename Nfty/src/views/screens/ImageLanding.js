@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Image, Text, Button, TouchableOpacity, Platform} from 'react-native';
+import {View, StyleSheet, Image, Text, Button, TouchableOpacity, Platform, ActivityIndicator} from 'react-native';
 import { connect } from "react-redux";
 import {globalStyle, AppStyles} from "./global-style";
 import {
@@ -34,6 +34,7 @@ class ImageLanding extends Component {
 			hasGalleryPermission: null,
 			uploaded_img: false,
 			web3: web3Provider(),
+			loading: false,
 		}
 		console.log(props);
 		this.pickImage = this.pickImage.bind(this)
@@ -52,7 +53,7 @@ class ImageLanding extends Component {
 	componentDidUpdate(prevProps) {
 		if (this.props.profile.img !== prevProps.profile.img) {
 			if(this.props.profile.img ) {
-				this.setState({uploaded_img: true})
+				this.setState({uploaded_img: true, loading: false})
 			}
 		}
 	}
@@ -80,7 +81,7 @@ class ImageLanding extends Component {
 			return
 		}
 
-		this.setState(() => ({uploaded_img: false}))
+		this.setState(() => ({uploaded_img: false, loading:true}))
 		const response = await fetch(this.state.image);
     	const blob = await response.blob();
 		const num = this.props.profile.images.length + 1;
@@ -119,10 +120,12 @@ class ImageLanding extends Component {
 			// });
 		}).catch((err) => {
 			console.log("Promise Failed:", err);
+			this.setState(() => ({loading:false}))
 		});
 		this.props.profile.nftContract.events.Transfer({}, (error, event) => {
 			if(error){
 				console.error(error);
+				this.setState(() => ({loading:false}))
 			} else {
 				console.log("Got back event:", JSON.stringify(event, null, 2));
 				const tokenId = event.returnValues.tokenId;
@@ -178,6 +181,16 @@ class ImageLanding extends Component {
 						onPress={() => this.callUpload()}>
 						<Text style={localStyle.buttonTextStyle}>Upload Image</Text>
 					</TouchableOpacity>
+					{this.state.loading && 
+						<View style={localStyle.activityContainer}>
+						<ActivityIndicator
+						animating={this.state.loading}
+						color="#FFFFFF"
+						size="large"
+						style={localStyle.activityIndicator}
+						/>
+					</View>
+						}
 				</View>
 				}
 				{this.state.uploaded_img && 
@@ -203,6 +216,17 @@ const localStyle = StyleSheet.create({
 	  flex: 1,
 	  alignItems: 'center',
 	  justifyContent: 'center',
+	},
+	activityContainer: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#000000',
+		marginBottom: 80,
+	},
+	activityIndicator: {
+		alignItems: 'center',
+		height: 100,
 	},
 	buttonStyle: {
 		backgroundColor: '#000000',

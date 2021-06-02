@@ -100,7 +100,7 @@ class WalletConnectScreen extends Component{
       // this.setState(async () => ({
         // message: await this.state.nftContract.methods.sayHello('React Native').call()}));
      // console.log("Trying to Talk with contract");
-     this.state.nftContract.methods.sayHello('React Native').call().then(response => {
+     this.state.nftContract.methods.sayHello('the Blockchain').call().then(response => {
        this.setState({
          message: response
        })
