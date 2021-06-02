@@ -303,8 +303,6 @@ function Wallet(props) {
 
   return (    
     <>
-
-       <Text testID="tid-message" style={{fontWeight: 'bold'}}>{message}</Text>
        <View>
           {!connector.connected && (
             <View>

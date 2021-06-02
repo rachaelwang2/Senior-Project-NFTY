@@ -72,6 +72,7 @@ class ProfileScreen extends Component {
         {Platform.OS === 'web' && (
 					<ScrollView>
           {this.props.profile.images.map((image) =>
+          <View>
           <Image
             source={{uri: image.imageUrl}}
             style={{
@@ -82,6 +83,8 @@ class ProfileScreen extends Component {
               alignSelf: 'center',
             }}
           />
+          <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>{image.blockchainHash}</Text>
+          </View>
           )}
         </ScrollView>
 				)}
@@ -89,6 +92,7 @@ class ProfileScreen extends Component {
 					<View style = {{height: 350}}>
           <ScrollView>
             {this.props.profile.images.map((image) =>
+            <View>
             <Image
               source={{uri: image.imageUrl}}
               style={{
@@ -99,6 +103,8 @@ class ProfileScreen extends Component {
                 alignSelf: 'center',
               }}
             />
+            <Text style={{fontWeight: "bold", alignSelf:'center', marginBottom:20}}>{image.blockchainHash}</Text>
+            </View>
             )}
           </ScrollView>
         </View>

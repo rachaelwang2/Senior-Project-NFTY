@@ -14,7 +14,7 @@ const web3 = createAlchemyWeb3(ALCHEMY_API_URL);
 
 
 const mapDispatchToProps = (dispatch) => ({
-	uploadImage: (path, filename, tokenId) => dispatch(uploadImage(path, filename, tokenId)),
+	uploadImage: (path, filename, tokenId, loc) => dispatch(uploadImage(path, filename, tokenId, loc)),
 	getUploadedImages: () => dispatch(getUploadedImages())
   });
 
@@ -126,9 +126,9 @@ class ImageLanding extends Component {
 			} else {
 				console.log("Got back event:", JSON.stringify(event, null, 2));
 				const tokenId = event.returnValues.tokenId;
-				this.props.uploadImage(blob, filename, tokenId);
-			}	
-			
+				const loc = event.transactionHash
+				this.props.uploadImage(blob, filename, tokenId, loc);
+			}		
 		});
 		// this.props.uploadImage(blob, filename)
 

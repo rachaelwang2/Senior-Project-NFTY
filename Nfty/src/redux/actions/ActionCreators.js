@@ -161,7 +161,7 @@ export const signupUser = (email, password, fullname) => (dispatch) => {
 });
 }
 
-export const uploadImage = (path, fileName, tokenId) => (dispatch) => {
+export const uploadImage = (path, fileName, tokenId, loc) => (dispatch) => {
 	auth.onAuthStateChanged(function (user) {
 		if (user) {
 			console.log(path)
@@ -186,6 +186,7 @@ export const uploadImage = (path, fileName, tokenId) => (dispatch) => {
 					// store in firestore database
 					const data = {
 						imageUrl: url,
+						blockchainHash: loc
 						// could add date field 
 					};
 					firestore
