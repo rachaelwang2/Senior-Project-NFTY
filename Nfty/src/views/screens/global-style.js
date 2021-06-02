@@ -195,8 +195,9 @@ loginContainer: {
   },
   buttonTextStyle: {
     color: '#FFFFFF',
-    paddingVertical: 10,
-    fontSize: 14,
+
+    paddingVertical: "10%",
+    fontSize: 16,
     textAlign: 'center',
   },
   registerTextStyle: {
