@@ -215,7 +215,7 @@ function Wallet(props) {
   return (    
     <>
       <Text></Text>
-      <View style={globalStyle.divStyle}>
+      
           <TouchableOpacity onPress={props.props.signOutUser} style={globalStyle.homebuttonStyle}>
             <Text style={globalStyle.buttonTextStyle}>Sign Out</Text>
           </TouchableOpacity>
@@ -236,8 +236,8 @@ function Wallet(props) {
               </TouchableOpacity>
             </>
           )}
-      </View>
-      <View style={globalStyle.divStyle}>
+    
+     
        
         <TouchableOpacity style={globalStyle.homebuttonStyle}
           onPress={() => props.props.navigation.navigate('ProfileScreen')}>
@@ -248,8 +248,7 @@ function Wallet(props) {
           onPress={() => props.props.navigation.navigate('HomeScreen')}>
           <Text style={globalStyle.buttonTextStyle}>Web Photo Upload</Text>
         </TouchableOpacity>
-      </View>
-      <View style={globalStyle.divStyle}>
+    
 
         <TouchableOpacity style={globalStyle.homebuttonStyle} onPress={() => props.props.navigation.navigate("ImagePick", {})}>
           <Text style={globalStyle.buttonTextStyle}>Pick Picture</Text>
@@ -259,7 +258,7 @@ function Wallet(props) {
           onPress={() => props.props.navigation.navigate('ImageLanding')}>
           <Text style={globalStyle.buttonTextStyle}>Image Landing</Text>
         </TouchableOpacity>
-      </View>
+   
     
 
   </>
