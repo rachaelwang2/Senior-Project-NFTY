@@ -72,22 +72,6 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            // <KeyboardAvoidingView style={globalStyle.containerView} behavior="padding">
-            //   <View style={globalStyle.container}>
-            //     <View style={globalStyle.InputContainer}>
-            //     <Text style={[globalStyle.title, globalStyle.leftTitle]}>Login</Text>
-            //       <TextInput placeholder="Username" placeholderColor="#c4c3cb" style={globalStyle.body} />
-            //       <TextInput placeholder="Password" placeholderColor="#c4c3cb" style={globalStyle.body} secureTextEntry={true}/>
-            //       <Button
-            //         containerStyle={globalStyle.loginContainer}
-            //         style={globalStyle.loginText}
-            //         onPress={() => this.onLoginPress()}
-            //         title="Login"
-            //       />
-            //     </View>
-            //   </View>
-            // </KeyboardAvoidingView>
-
             <View style={globalStyle.mainBody}>
             {this.state.loading  &&
               <ActivityIndicator
@@ -157,12 +141,12 @@ class LoginScreen extends Component {
                     style={globalStyle.buttonStyle}
                     activeOpacity={0.5}
                     onPress={() => this.onPressLogin()}>
-                    <Text style={globalStyle.buttonTextStyle}>LOGIN</Text>
+                    <Text style={globalStyle.buttonTextStyle}>Login</Text>
                   </TouchableOpacity>
                   <Text
                     style={globalStyle.registerTextStyle}
                     onPress={() => this.props.navigation.navigate('SignUpScreen')}>
-                    New Here ? Register
+                    New Here? Register Now
                   </Text>
                 </KeyboardAvoidingView>
               </View>

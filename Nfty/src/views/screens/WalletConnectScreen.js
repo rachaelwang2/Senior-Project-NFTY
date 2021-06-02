@@ -13,6 +13,7 @@ import NFTSimple from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
 import { signOutUser, uploadImage, getUploadedImages, deployMetada } from "../../redux/actions/ActionCreators";
 import { auth, firebasefunc } from "../../firebase/config"
+import {globalStyle, AppStyles} from "./global-style";
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -114,15 +115,15 @@ class WalletConnectScreen extends Component{
       }}>
          <Wallet props={this.props}/>
          <>
-           {Platform.OS === 'web' && (
+           {/* {Platform.OS === 'web' && (
             <>
               <input type="file" onChange={this.handleChange} />
             </>
-            )}
+            )} */}
          </>
-         <TouchableOpacity onPress={this.callUpload}>
+         {/* <TouchableOpacity onPress={this.callUpload}>
           <Text>Create NFT</Text>
-         </TouchableOpacity>
+         </TouchableOpacity> */}
        </View> 
     );
   }
@@ -213,48 +214,49 @@ function Wallet(props) {
 
   return (    
     <>
-      <Text testID="tid-message">{message}</Text>
-      {!connector.connected && (
-        <TouchableOpacity onPress={connectWallet}>
-          <Text>Connect a Wallet</Text>
+       <Text testID="tid-message" style={{fontWeight: 'bold'}}>{message}</Text>
+      <View style={globalStyle.divStyle}>
+          {!connector.connected && (
+            <View>
+            <TouchableOpacity onPress={connectWallet} style={globalStyle.homebuttonStyle}>
+              <Text style={globalStyle.buttonTextStyle}>Connect a Wallet</Text>
+            </TouchableOpacity>
+            {/* <Text>You must connect a wallet to be able to create NFTs!</Text> */}
+            </View>
+          )}
+          {!!connector.connected && (
+            <>
+            <View>
+              <TouchableOpacity onPress={signTransaction} style={globalStyle.homebuttonStyle} >
+                <Text style={globalStyle.buttonTextStyle}>Sign a Transaction</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={killSession} style={globalStyle.homebuttonStyle}> 
+                <Text style={globalStyle.buttonTextStyle}>Kill Session</Text>
+              </TouchableOpacity>
+              </View>
+            </>
+          )}
+
+        <TouchableOpacity style={globalStyle.homebuttonStyle}
+          onPress={() => props.props.navigation.navigate('ImageLanding')}>
+          <Text style={globalStyle.buttonTextStyle}>Upload Photos</Text>
         </TouchableOpacity>
-      )}
-      {!!connector.connected && (
-        <>
-          <TouchableOpacity onPress={signTransaction}>
-            <Text>Sign a Transaction</Text>
+      </View>
+      <View style={globalStyle.divStyle}>
+       
+        <TouchableOpacity style={globalStyle.homebuttonStyle}
+          onPress={() => props.props.navigation.navigate('ProfileScreen')}>
+          <Text style={globalStyle.buttonTextStyle}>Go to Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={props.props.signOutUser} style={globalStyle.homebuttonStyle}>
+            <Text style={globalStyle.buttonTextStyle}>Sign Out</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={killSession}>
-            <Text>Kill Session</Text>
-          </TouchableOpacity>
-        </>
-      )}
+      </View>
+    
 
-	<TouchableOpacity onPress={props.props.signOutUser}>
-	  <Text>Sign Out</Text>
-	</TouchableOpacity>
-  
-  
-  <TouchableOpacity
-    onPress={() => props.props.navigation.navigate('ProfileScreen')}>
-    <Text>Go to Profile</Text>
-  </TouchableOpacity>
-
-   <TouchableOpacity
-    onPress={() => props.props.navigation.navigate('HomeScreen')}>
-    <Text>Web Photo Upload</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity onPress={() => props.props.navigation.navigate("ImagePick", {})}>
-    <Text>Pick Picture</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity
-    onPress={() => props.props.navigation.navigate('ImageLanding')}>
-    <Text>Image Landing</Text>
-  </TouchableOpacity>
-  
   </>
+
   );
 }
 

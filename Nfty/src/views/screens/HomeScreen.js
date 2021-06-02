@@ -152,7 +152,7 @@ class HomeScreen extends Component {
 				<Text style={[globalStyle.subtitle]}>Uploaded Images:</Text>
 				{this.props.profile.images.map((image) =>
 					<Image 
-					source ={{uri: image.imageUrl}}
+					source={{uri: image.imageUrl}}
 					style={{
 						width: '50%',
 						height: 100,
