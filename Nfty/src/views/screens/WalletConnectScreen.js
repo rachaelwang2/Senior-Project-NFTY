@@ -214,9 +214,8 @@ function Wallet(props) {
 
   return (    
     <>
-      <Text></Text>
+       <Text testID="tid-message" style={{fontWeight: 'bold'}}>{message}</Text>
       <View style={globalStyle.divStyle}>
-  
           {!connector.connected && (
             <View>
             <TouchableOpacity onPress={connectWallet} style={globalStyle.homebuttonStyle}>
