@@ -132,6 +132,7 @@ class LoginScreen extends Component {
                       returnKeyType="next"
                     />
                   </View>
+                  <View style={globalStyle.divStyle}>
                   {this.state.errortext != '' ? (
                     <Text style={globalStyle.errorTextStyle}>
                       {this.state.errortext}
@@ -148,6 +149,7 @@ class LoginScreen extends Component {
                     onPress={() => this.props.navigation.navigate('SignUpScreen')}>
                     New Here? Register Now
                   </Text>
+                  </View>
                 </KeyboardAvoidingView>
               </View>
             </ScrollView>

@@ -305,7 +305,7 @@ function Wallet(props) {
     <>
 
        <Text testID="tid-message" style={{fontWeight: 'bold'}}>{message}</Text>
-      <View style={globalStyle.divStyle}>
+       <View>
           {!connector.connected && (
             <View>
             <TouchableOpacity onPress={connectWallet} style={globalStyle.homebuttonStyle}>
@@ -316,14 +316,13 @@ function Wallet(props) {
           )}
           {!!connector.connected && (
             <>
-            <View>
+    
               <TouchableOpacity onPress={signTransaction} style={globalStyle.homebuttonStyle} >
                 <Text style={globalStyle.buttonTextStyle}>Sign a Transaction</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={killSession} style={globalStyle.homebuttonStyle}> 
                 <Text style={globalStyle.buttonTextStyle}>Kill Session</Text>
               </TouchableOpacity>
-              </View>
             </>
           )}
 
@@ -332,8 +331,7 @@ function Wallet(props) {
           onPress={() => props.props.navigation.navigate('ImageLanding')}>
           <Text style={globalStyle.buttonTextStyle}>Upload Photos</Text>
         </TouchableOpacity>
-      </View>
-      <View style={globalStyle.divStyle}>
+
        
         <TouchableOpacity style={globalStyle.homebuttonStyle}
           onPress={() => props.props.navigation.navigate('ProfileScreen')}>
@@ -344,7 +342,6 @@ function Wallet(props) {
             <Text style={globalStyle.buttonTextStyle}>Sign Out</Text>
           </TouchableOpacity>
       </View>
-    
 
   </>
 

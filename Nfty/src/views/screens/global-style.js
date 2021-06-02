@@ -172,6 +172,7 @@ loginContainer: {
     color: '#000000',
     borderColor: '#7DE24E',
     height: 40,
+    width: 100,
     alignItems: 'center',
     borderRadius: 8,
     marginLeft: 10,
@@ -179,19 +180,19 @@ loginContainer: {
     marginTop: 20,
     marginBottom: 10,
   },
-   homebuttonStyle: {
+  homebuttonStyle: {
     backgroundColor: '#000000',
     borderWidth: 0,
     color: '#000000',
     borderColor: '#7DE24E',
-    height: 40,
-    width: '100%',
+    height: 50,
+    width: 150,
     alignItems: 'center',
     borderRadius: 8,
-    marginTop: 10,
-    marginBottom: 10,
     marginLeft: 10,
     marginRight: 10,
+    marginTop: 20,
+    marginBottom: 10,
   },
   buttonTextStyle: {
     color: '#FFFFFF',
@@ -214,7 +215,6 @@ loginContainer: {
     fontSize: 14,
   },
   divStyle: {
-    flexDirection: "row",
     alignItems: 'center',
   },
   homeItems: {
