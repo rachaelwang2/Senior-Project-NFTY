@@ -101,7 +101,7 @@ class ImageLanding extends Component {
 				}}
 				/>
 				<TouchableOpacity
-					style={globalStyle.buttonStyle}
+					style={localStyle.buttonStyle}
 					activeOpacity={0.5}
 					onPress={() => this.pickImage()}>
 					<Text style={localStyle.buttonTextStyle}>Pick Image from Gallery</Text>
@@ -110,9 +110,16 @@ class ImageLanding extends Component {
 				<View style={{
 					flex: 1,
 					}}>
-					<Image source={{uri: this.state.image}} style={{flex: 1}}/>	
+					<Image source={{uri: this.state.image}} 
+					style={{
+					width: 200,
+					height: 200,
+					padding: 20,
+					margin: 20,
+					alignSelf: 'center',
+					}}/>
 					<TouchableOpacity
-						style={globalStyle.buttonStyle}
+						style={localStyle.buttonStyle}
 						activeOpacity={0.5}
 						onPress={() => this.callUpload()}>
 						<Text style={localStyle.buttonTextStyle}>Upload Image</Text>
@@ -125,10 +132,10 @@ class ImageLanding extends Component {
 					}}>
 					<Text style={localStyle.successTextStyle}>Image successfully uploaded!</Text>
 					<TouchableOpacity
-					style={globalStyle.buttonStyle}
+					style={localStyle.buttonStyle}
 					activeOpacity={0.5}
 					onPress={() => this.props.navigation.navigate('ProfileScreen')}>
-					<Text style={globalStyle.buttonTextStyle}>Go to Profile</Text>
+					<Text style={localStyle.buttonTextStyle}>View Your NFT in Your Profile</Text>
 					</TouchableOpacity>
 				</View>
 				}
@@ -143,6 +150,19 @@ const localStyle = StyleSheet.create({
 	  alignItems: 'center',
 	  justifyContent: 'center',
 	},
+	buttonStyle: {
+		backgroundColor: '#000000',
+		borderWidth: 0,
+		color: '#000000',
+		borderColor: '#7DE24E',
+		height: 40,
+		alignItems: 'center',
+		borderRadius: 30,
+		marginLeft: 35,
+		marginRight: 35,
+		marginTop: 20,
+		marginBottom: 10,
+	  },
 	buttonTextStyle: {
 		color: '#FFFFFF',
 		paddingVertical: 8,
@@ -152,6 +172,7 @@ const localStyle = StyleSheet.create({
 	  },
 	  successTextStyle: {
 		color: 'black',
+		fontWeight: 'bold',
 		textAlign: 'center',
 		fontSize: 18,
 		padding: 30,
